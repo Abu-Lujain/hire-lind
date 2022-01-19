@@ -1,0 +1,38 @@
+.topbar {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  background-color: var(--main-first-child-bg-color);
+  z-index: 999;
+}
+.topbar li a {
+  color: #008eff;
+}
+
+.topbar {
+  background-color: #f8f9fa;
+}
+.logo {
+  font-family: math;
+  text-shadow: 2px 1px 31px #000000;
+  letter-spacing: 5px;
+  font-weight: 600;
+  justify-content: center;
+  /* font-size: 33px; */
+  align-items: center;
+  display: flex;
+}
+.view-profile-icon {
+  display: flex;
+  justify-content: end;
+}
+.view-profile-icon img {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  position: absolute;
+  right: 9px;
+  top: 0;
+}
+.view-profile-icon {
+}

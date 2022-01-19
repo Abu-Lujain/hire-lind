@@ -1,0 +1,37 @@
+.sidebar-items {
+  background: #f8f9fa;
+  border-radius: 15px;
+  padding: 10px;
+  list-style: none;
+  font-family: monospace;
+}
+.sidebar-items div {
+  align-items: start;
+  margin: 5px;
+  background-color: rgb(237 242 232);
+  border-radius: 10px;
+  padding: 10px;
+}
+.sidebar-items div li a {
+  border: 1px #009688 solid;
+  width: 150px;
+  border-radius: 5px;
+  margin: 5px 0;
+  text-align: center;
+  padding: 5px 0;
+}
+.sidebar-items div li a:hover {
+  border: 1px #009688 solid;
+  color: white;
+  background-color: #009688;
+  transition: all 0.5s;
+}
+.view-profile {
+  background-color: #009688;
+  color: #fff;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.view-profile:hover {
+  background-color: #008174;
+}

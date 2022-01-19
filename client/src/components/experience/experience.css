@@ -1,0 +1,119 @@
+.experience-parent,
+.education-parent {
+  background: var(--main-first-child-bg-color);
+  margin: 20px 0 0 0;
+  border-radius: 10px;
+  padding: 20px;
+}
+.experience {
+  background: var(--main-bg-color);
+  padding: 10px;
+  border-radius: 10px;
+  margin: 0 0 20px 0;
+  position: relative;
+  /* box-shadow: 0px 0px 24px -13px #0027ff; */
+  transition: all 1s;
+}
+.experience:hover {
+  transform: scale(1);
+}
+.exp-header {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 2px #00bcd4 dashed;
+  align-items: center;
+}
+.experience-title {
+  color: #9fa9a4;
+  text-transform: uppercase;
+}
+
+.experience .co-name,
+.projects-title {
+  color: #023dff;
+}
+.experience .projects-parent {
+  background: var(--main-parent-bg-color);
+  padding: 10px;
+  border-radius: 10px;
+  list-style-type: square;
+}
+.experience-statement {
+  background-color: #03a9f4;
+  padding: 5px;
+  border-radius: 5px;
+  text-align: center;
+  margin: 17px 0 0 0;
+  color: white;
+  font-weight: 600;
+  font-family: emoji;
+  cursor: pointer;
+}
+.preffix {
+  color: #9b3356;
+  font-weight: 600;
+  margin: 10px;
+}
+.experience-parent .projects-parent li {
+  color: gray;
+}
+.exp-form div input {
+  outline: none;
+  border: 1px #bec0bc solid;
+  border-radius: 5px;
+  margin: 0 0 0 20px;
+  flex-grow: 1;
+  padding: 5px;
+}
+.add-exp-parent {
+  border-radius: 5px;
+  background: #e1e3df;
+  padding: 5px;
+  font-family: serif;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.no-experience-reaction {
+  color: rgb(160, 160, 105);
+  background-color: yellow;
+  font-size: 5rem;
+  border-radius: 50%;
+}
+.no-experience-message {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.options {
+  right: 5px;
+}
+.options .icon {
+  cursor: pointer;
+  transition: all 0.5s;
+  color: #4c4c4c;
+  border-radius: 5px;
+}
+.options .icon:hover {
+  background-color: #d1d2d0;
+}
+.options-menu {
+  height: auto;
+  background-color: #ffffff;
+  list-style: none;
+  padding: 5px;
+  border-radius: 5px;
+  position: absolute;
+  right: 18px;
+  top: 30px;
+  box-shadow: var(--main-box-shadow);
+  transition: all 0.7s;
+}
+.options-menu li {
+  margin: 5px;
+  background-color: #edf2e8;
+  text-align: center;
+  padding: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
