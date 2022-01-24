@@ -2,32 +2,40 @@ import { types } from "../types";
 export default function authReducer(state, action) {
   const { type, payload } = action;
   switch (type) {
+    // @ case start
     case types.CREATE_PROFILE_START:
     case types.ADDING_PROFILE_START:
     case types.LOAD_PROFILE_START:
     case types.UPDATE_PROFILE_START:
     case types.ADD_EXPERIENCE_START:
       return {
+        ...state,
         profile: null,
         isFetching: true,
         profileErrors: false,
       };
+    // @ case success
     case types.CREATE_PROFILE_SUCCESS:
     case types.UPDATE_PROFILE_SUCCESS:
     case types.ADDING_PROFILE_SUCCESS:
     case types.ADD_EXPERIENCE_SUCCESS:
+    case types.DELETE_EXPERIENCE_SUCCESS:
     case types.LOAD_PROFILE_SUCCESS:
       return {
+        ...state,
         profile: payload,
         isFetching: false,
         profileErrors: false,
       };
 
+    // @ case failure
+    // [note: this fails when some fields are not provides (the form is in Experience.jsx)]
+    // when this fires(types.ADD_EXPERIENCE_FAILURE), it return the initial
+    // state, althought, there's a profile[linee-24], before firing the function that adds experience
     case types.ADD_EXPERIENCE_FAILURE:
-      console.log(state);
       return {
-        ...state,
-        profile: state.profile,
+        ...state, //here I am copying the state, that
+        // should have the profile, but it returns an empty s
         isFetching: false,
         profileErrors: payload,
       };

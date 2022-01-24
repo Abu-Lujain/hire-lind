@@ -90,7 +90,7 @@ router.put(
     authMiddleware,
     [
       check("from", "your from is required").not().isEmpty(),
-      // check("loc", " please provide a location").not().isEmpty(),
+      check("loc", " please provide a location").not().isEmpty(),
       check("company", "what is the company worked on?").not().isEmpty(),
     ],
   ],

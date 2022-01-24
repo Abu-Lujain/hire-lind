@@ -43,7 +43,7 @@ function Experience({}) {
   );
 
   return (
-    <div className="experience-parent m-auto col-11 col-md-4 row">
+    <div className="experience-parent m-auto mt-5 col-11 col-md-4 row">
       <div className="exp-header">
         <h3 className="experience-title">My Experiences</h3>
         {profile?.experience?.length > 0 ? adding : ""}
@@ -52,29 +52,29 @@ function Experience({}) {
       {addExp && ( //   @styled with in educatin.css
         <form className="education-form col-11 row" onSubmit={handleSubmit}>
           <div className="col-12">
-            <label className="col-3 col-sm-12">company</label>
+            <label className="col-3 ">company</label>
             <input
               onChange={(e) => setCompany(e.target.value)}
-              className="col-8 col-sm-12"
+              className="col-8 "
               type="text"
               name="company"
             />
           </div>
           <div className="col-12">
-            <label className="col-3 col-sm-12">location</label>
+            <label className="col-3 ">location</label>
             <input
               onChange={(e) => setLoc(e.target.value)}
-              className="col-8 col-sm-12"
+              className="col-8 "
               type="text"
               name="loc"
               placeholder="where was the compnay based?"
             />
           </div>
           <div className="col-12">
-            <label className="col-3 col-sm-12">Title</label>
+            <label className="col-3 ">Title</label>
             <input
               onChange={(e) => setTitle(e.target.value)}
-              className="col-8 col-sm-12"
+              className="col-8 "
               type="text"
               name="title"
               placeholder="what role you had?"
@@ -82,19 +82,19 @@ function Experience({}) {
           </div>
 
           <div className="col-12">
-            <label className="col-3 col-sm-12">From</label>
+            <label className="col-3 ">From</label>
             <input
               onChange={(e) => setFrom(e.target.value)}
-              className="col-8 col-sm-12"
+              className="col-8 "
               type="date"
               name="form"
             />
           </div>
           <div className="col-12">
-            <label className="col-3 col-sm-12">To</label>
+            <label className="col-3 ">To</label>
             <input
               onChange={(e) => setTo(e.target.value)}
-              className="col-8 col-sm-12"
+              className="col-8 "
               type="date"
               name="to"
             />
@@ -104,10 +104,10 @@ function Experience({}) {
           </div>
 
           <div className="col-12">
-            <label className="col-3 col-sm-12">Description</label>
+            <label className="col-3 ">Description</label>
             <input
               onChange={(e) => setDescription(e.target.value)}
-              className="col-8 col-sm-12"
+              className="col-8 "
               type="text"
               name="description"
             />

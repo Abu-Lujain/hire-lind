@@ -41,6 +41,7 @@ const DevProfile = () => {
                 <label>what is your title?</label>
                 <input
                   className="w-100"
+                  value={profile.title}
                   onChange={(e) => setTitle(e.target.value)}
                   type="text"
                   name="title"
@@ -54,6 +55,7 @@ const DevProfile = () => {
             <div className="col-12">
               <label>write some about yourself </label>
               <textarea
+                value={profile?.boi && profile.boi}
                 onChange={(e) => setBio(e.target.value)}
                 type="text"
                 name="bio"

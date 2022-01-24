@@ -35,7 +35,7 @@ function Education() {
     </span>
   );
   return (
-    <div className="education-parent  m-auto bg-light  col-11 col-md-4">
+    <div className="education-parent  m-auto mt-5  col-11 col-md-4">
       <div className="edu-header">
         <h3 className="experience-title">My Education</h3>
         {profile?.education?.length > 0 && adding}

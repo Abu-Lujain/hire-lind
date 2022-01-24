@@ -2,7 +2,7 @@ import { createContext, useReducer } from "react";
 import profileReducer from "./profileReducer";
 const initialState = {
   profile: null,
-  isFetching: true,
+  isFetching: false,
   profileErrors: null,
 };
 // auth context

@@ -2,17 +2,17 @@ import React, { useState } from "react";
 import { MoreVertRounded, CloseSharp } from "@material-ui/icons";
 import { useContext } from "react";
 import { profileContext } from "../../context/profile_context/profileContext";
+import axios from "axios";
 import { deleteExperience } from "../../api_Calls/profileCalls";
 // import MoreVertRounded className="icon" from '@mui/icons-material/MoreVert';
 function SingleExp({ adding, setAddExp }) {
   const { profile, dispatch } = useContext(profileContext);
   const [openOption, setOpenOption] = useState(null);
-  const handleDelete = (id) => {
+  // delete experience
+  const handleDelete = async (id) => {
     deleteExperience(id, dispatch);
-    setAddExp(false);
   };
 
-  console.log(profile);
   return (
     <>
       {profile?.experience?.length <= 0 ? (

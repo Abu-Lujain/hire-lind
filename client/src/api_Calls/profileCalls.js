@@ -85,7 +85,6 @@ export const addExperince = async (body, dispatch) => {
     response.data &&
       dispatch({ type: types.ADD_EXPERIENCE_SUCCESS, payload: response.data });
   } catch (error) {
-    console.log(error.response.data.errors);
     dispatch({
       type: types.ADD_EXPERIENCE_FAILURE,
       payload: error.response.data.errors,
@@ -104,6 +103,7 @@ export const deleteExperience = async (id, dispatch) => {
         payload: response.data,
       });
   } catch (error) {
+    console.log(error.response.data.errors);
     dispatch({
       type: types.DELETE_EXPERIENCE_FAILURE,
       payload: error.response.data.errors,
