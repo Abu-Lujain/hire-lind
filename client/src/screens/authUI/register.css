@@ -1,10 +1,16 @@
-.register,
-.login {
-  display: grid;
-  place-items: center;
-  background: linear-gradient(0deg, #009d8d, #bf00cc);
-  height: 94vh;
+.login,
+.register {
+  background-color: var(--main-bg-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 45px;
+  height: 100vh;
+  transition: all 1s;
+  margin: 0;
+  padding: 0;
 }
+
 .register h1,
 .login h1 {
   position: absolute;
@@ -15,6 +21,11 @@
   color: #00fff2;
   padding: 12px;
   text-align: center;
+}
+form {
+  padding: 20px;
+  border-radius: 10px;
+  background: #f5f8f3;
 }
 .register-form label,
 .login-form label {
@@ -107,4 +118,38 @@
   border: none;
   color: white;
   background: #ea00ff;
+}
+.profile-type {
+  display: flex;
+  position: relative;
+  /* padding: 30px 0 0 0; */
+  justify-content: space-around;
+}
+.profile-type input {
+  width: 20px;
+  height: 20px;
+  color: red;
+}
+
+.profile-type label {
+  background: #ffffff;
+  padding: 5px;
+  /* border-radius: 40px; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  box-shadow: var(--main-box-shadow);
+  width: 140px;
+  margin: 10px;
+  letter-spacing: 2px;
+  font-family: math;
+  color: #504e4e;
+  border-bottom-right-radius: 40px;
+  border-bottom-left-radius: 40px;
+}
+.auth-actions-ui {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 12px;
 }

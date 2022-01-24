@@ -1,0 +1,27 @@
+.profiles-options {
+  background: #edf2e8;
+  height: calc(100vh - 50px);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.new-user-msg {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  flex-direction: column;
+  grid-gap: 20px;
+  gap: 20px;
+  background: var(--main-bg-color);
+  padding: 10px;
+  border-radius: 20px;
+  box-shadow: var(--main-box-shadow);
+}
+.user-choices {
+  margin: 5px;
+}
+.user-choices button {
+  margin: 10px;
+  font-weight: 600;
+}

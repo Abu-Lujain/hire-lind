@@ -34,6 +34,7 @@
 }
 
 .slider {
+  /* height: 55vh; */
   overflow: hidden;
   border-radius: 40px;
   border-bottom: 4px #000312 solid;

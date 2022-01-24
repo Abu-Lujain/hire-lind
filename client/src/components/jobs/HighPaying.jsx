@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import ArrowForwardIosOutlined from "@material-ui/icons/ArrowForwardIosOutlined";
 import ArrowBackIosOutlined from "@material-ui/icons/ArrowBackIosOutlined";
-import { profiles } from "../../helpers/profiles";
+import { profiles } from "../../api_Calls/profiles";
 const TopProfiles = ({ profile }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [slideWithHand, setSlideWithHand] = useState(false);

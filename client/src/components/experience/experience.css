@@ -12,6 +12,8 @@
   margin: 0 0 20px 0;
   position: relative;
   /* box-shadow: 0px 0px 24px -13px #0027ff; */
+  /* box-shadow: var(--main-box-shadow); */
+
   transition: all 1s;
 }
 .experience:hover {
@@ -20,8 +22,9 @@
 .exp-header {
   display: flex;
   justify-content: space-between;
-  border-bottom: 2px #00bcd4 dashed;
+  border-bottom: 2px #fd6297 dashed;
   align-items: center;
+  margin-bottom: 10px;
 }
 .experience-title {
   color: #9fa9a4;
@@ -38,17 +41,7 @@
   border-radius: 10px;
   list-style-type: square;
 }
-.experience-statement {
-  background-color: #03a9f4;
-  padding: 5px;
-  border-radius: 5px;
-  text-align: center;
-  margin: 17px 0 0 0;
-  color: white;
-  font-weight: 600;
-  font-family: emoji;
-  cursor: pointer;
-}
+
 .preffix {
   color: #9b3356;
   font-weight: 600;
@@ -57,14 +50,14 @@
 .experience-parent .projects-parent li {
   color: gray;
 }
-.exp-form div input {
+/* .exp-form input {
   outline: none;
-  border: 1px #bec0bc solid;
+  border: 1px var(--main-input-border);
   border-radius: 5px;
   margin: 0 0 0 20px;
   flex-grow: 1;
   padding: 5px;
-}
+} */
 .add-exp-parent {
   border-radius: 5px;
   background: #e1e3df;
@@ -97,23 +90,60 @@
 .options .icon:hover {
   background-color: #d1d2d0;
 }
+.back {
+  background-color: red;
+}
 .options-menu {
   height: auto;
-  background-color: #ffffff;
   list-style: none;
-  padding: 5px;
   border-radius: 5px;
-  position: absolute;
-  right: 18px;
-  top: 30px;
   box-shadow: var(--main-box-shadow);
-  transition: all 0.7s;
+  position: absolute;
+  flex-direction: column;
+  z-index: 999;
+  width: fit-content;
+  top: 28px;
+  right: 20px;
+  background: #ffffff;
 }
 .options-menu li {
+  border: 2px #ffffff solid;
+  box-shadow: var(--main-box-shadow);
+  transition: all 0.7s;
   margin: 5px;
-  background-color: #edf2e8;
+  /* background-color: #f5f8f3; */
   text-align: center;
   padding: 5px;
   border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+.options-menu li:hover {
+  background-color: var(--main-bg-color);
+  border: 2px #20a11c solid;
+  letter-spacing: 1px;
+}
+
+.show {
+  /* transform: scale(1); */
+}
+.experience-statement {
+  padding: 5px;
+  border-radius: 5px;
+  text-align: center;
+  margin: 17px 0 0 0;
+  font-family: emoji;
+  cursor: pointer;
+}
+.close-option-menu {
+  background: white;
+  border-radius: 20px;
+  /* box-shadow: var(--main-box-shadow); */
+  font-size: 30px;
+  color: red;
+  border: 1px red;
+  position: absolute;
+  top: -18px;
+  right: -19px;
   cursor: pointer;
 }

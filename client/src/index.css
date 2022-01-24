@@ -20,6 +20,14 @@ body {
   --success-color: #05da05;
   --main-parent-bg-color: #f5f8f3;
   --main-first-child-bg-color: #f5f8f3;
+  --main-input-border: 1px #198754 solid;
+}
+.align-items {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin: 10px;
+  align-items: center;
 }
 
 /* {
@@ -38,27 +46,11 @@ body {
   border-radius: 50%;
 }
 
-/* .profile {
-  background-color: #ffffff;
-  box-shadow: 3px 3px 20px -11px #0027ff;
-  border-radius: 10px;
-  box-shadow: var(--main-box-shadow);
-} */
-.main-border-radius {
+.main-b-r {
   border-radius: 10px;
 }
-.main-b-shadow {
+.main-b-sh {
   box-shadow: 3px 3px 20px -11px #0027ff;
-}
-.logo-img {
-  width: 40px;
-  height: 40px;
-}
-
-.card .btn {
-  color: white;
-  font-size: 16px;
-  padding: 1px;
 }
 
 /* profiles */
@@ -69,21 +61,15 @@ body {
   height: 200px;
   border-radius: 50px;
 }
-.card .profile-img {
-  max-height: 300px;
-  /* width: 50%; */
-}
-.card {
-  /* width: 300px; */
-}
 
 .nav-btn span {
   position: absolute;
+  border-radius: 10px;
 }
 .nav-btn .line-one {
   top: 4px;
   width: 40px;
-  height: 5px;
+  height: 3px;
   background: blue;
   transition: all ease-in-out 0.5s;
 }
@@ -92,36 +78,31 @@ body {
   transition: all ease-in-out 0.5s;
 
   width: 40px;
-  height: 5px;
+  height: 3px;
   background: blue;
 }
 .nav-btn .line-three {
   bottom: 4px;
   transition: all ease-in-out 0.5s;
-
   width: 40px;
-  height: 5px;
+  height: 3px;
   background: blue;
-}
-
-.nav-btn > div {
-  width: 35px;
-  height: 40px;
-  cursor: pointer;
-  transition: all ease-in-out 0.6s;
 }
 .move-nav-icon {
   transform: translateX(-180px);
 }
 /* /////////////// */
 
-.line-one-open {
+.line-one-open,
+.line-three-open {
   transition: all ease-in-out 1s;
-
-  top: 0;
-  width: 40px;
-  height: 5px;
+  height: 4px;
   background: rgb(255, 0, 128);
+  width: 35px;
+}
+.line-one-open {
+  top: 0;
+  border-radius: 5px;
   transform: rotate(40deg);
   top: 16px;
 }
@@ -132,12 +113,7 @@ body {
 }
 
 .line-three-open {
-  transition: all ease-in-out 0.5s;
-
   bottom: 5px;
-  background: rgb(255, 0, 128);
-  width: 40px;
-  height: 5px;
   transform: rotate(-40deg);
   top: 16px;
 }
@@ -239,6 +215,10 @@ body {
   width: 100%;
 }
 .job-img {
+  height: 100px;
+  width: 100px;
+}
+.profile-icon {
   height: 100px;
   width: 100px;
 }

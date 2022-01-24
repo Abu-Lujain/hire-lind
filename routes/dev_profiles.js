@@ -15,7 +15,7 @@ const { findOneAndUpdate, findByIdAndUpdate } = require("../model/User");
 router.get("/me", authMiddleware, async (req, res) => {
   try {
     const profile = await Profile.findOne({ user: req.user.id });
-
+    console.log(profile);
     if (!profile)
       return res.status(404).send("there's no profile with this user");
     res.json(profile);
@@ -32,27 +32,28 @@ router.get("/me", authMiddleware, async (req, res) => {
 */
 router.post(
   "/",
-  [authMiddleware, check("status", "status is required")],
+  [authMiddleware, check("title", "title is required")],
   async (req, res) => {
+    console.log("from profile");
     const errors = validationResult(req);
     if (!errors.isEmpty()) res.json({ error: errors.array() });
     const {
       title,
-      location,
+      loc,
       website,
       role,
       gitHubUserName,
-      boi,
+      bio,
 
       skills,
     } = req.body;
     const profileData = {};
     profileData.user = req.user.id;
     if (title) profileData.title = title;
-    if (location) profileData.location = location;
+    if (loc) profileData.loc = loc;
     if (role) profileData.role = role;
     if (website) profileData.website = website;
-    if (boi) profileData.boi = boi;
+    if (bio) profileData.bio = bio;
     if (gitHubUserName) profileData.gitHubUserName = gitHubUserName;
     // build skills objects
     if (skills)
@@ -66,9 +67,12 @@ router.post(
           { $set: profileData },
           { new: true }
         );
+        console.log("profile Updated");
         res.json(profile);
+        console.log(profile.bio);
       }
       if (!profile) {
+        console.log("profile created");
         profile = new Profile(profileData);
         await profile.save();
         res.status(201).json(profile);
@@ -82,25 +86,24 @@ router.post(
 // adding experience
 router.put(
   "/experience",
-  [authMiddleware, [check("from", "your from is required").not().isEmpty()]],
+  [
+    authMiddleware,
+    [
+      check("from", "your from is required").not().isEmpty(),
+      // check("loc", " please provide a location").not().isEmpty(),
+      check("company", "what is the company worked on?").not().isEmpty(),
+    ],
+  ],
   async (req, res) => {
-    console.log(req.user);
+    console.log(req.body.loc);
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       console.log(errors);
       return res.status(400).json({ errors: errors.array() });
     }
-    const { stillWorking, title, company, from, to, location, description } =
-      req.body;
-    const exp = {
-      stillWorking,
-      company,
-      title,
-      from,
-      to,
-      location,
-      description,
-    };
+
+    const exp = req.body;
+
     try {
       const profile = await Profile.findOne({ user: req.user.id });
       profile.experience.unshift(exp);
@@ -145,21 +148,23 @@ router.put(
   [
     authMiddleware,
     [
-      check("from", " from date is required").not().isEmpty(),
       check("school", " school is required").not().isEmpty(),
       check("degree", " degree is required").not().isEmpty(),
+      check("from", " from date is required").not().isEmpty(),
     ],
   ],
   async (req, res) => {
     const errors = validationResult(req);
+    console.log(errors);
     if (!errors.isEmpty())
       return res.status(400).json({ errors: errors.array() });
 
-    const { school, name, degree, description, from, to } = req.body;
+    const { school, name, degree, loc, description, from, to } = req.body;
     const eduObj = {
       school,
       name,
       degree,
+      loc,
       description,
       from,
       to,
@@ -191,4 +196,5 @@ router.delete("/education/:edu_id", authMiddleware, async (req, res) => {
     res.status(500).send("Server Error");
   }
 });
+
 module.exports = router;

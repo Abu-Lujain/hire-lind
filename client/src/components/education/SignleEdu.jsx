@@ -1,45 +1,49 @@
 import React, { useState } from "react";
+import AddBox from "@material-ui/icons/AddBox";
+
 import { MoreVertRounded, CloseSharp } from "@material-ui/icons";
 import { useContext } from "react";
 import { profileContext } from "../../context/profile_context/profileContext";
-import { deleteExperience } from "../../api_Calls/profileCalls";
 // import MoreVertRounded className="icon" from '@mui/icons-material/MoreVert';
-function SingleExp({ adding, setAddExp }) {
-  const { profile, dispatch } = useContext(profileContext);
+function SingleEdu({ adding }) {
+  const { profile } = useContext(profileContext);
   const [openOption, setOpenOption] = useState(null);
-  const handleDelete = (id) => {
-    deleteExperience(id, dispatch);
-    setAddExp(false);
-  };
+  // const handleDelete = async (id) => {
 
-  console.log(profile);
+  // };
+  function openOptionHandler(exp) {
+    setOpenOption(exp?._id && exp._id);
+  }
   return (
     <>
-      {profile?.experience?.length <= 0 ? (
+      {profile?.education?.length <= 0 ? (
         <div className="no-experience-message">
-          <h3 className="text-danger mt-3"> you don't have experience</h3>
-          <p className="text-muted m-3">
-            the experiences you add will appear here
-          </p>
+          <h3 className="text-danger mt-3"> you haven't added any eduaction</h3>
+          <small className="text-muted">
+            please add some education, if you have
+          </small>
           {adding}
+          <p className="text-success m-3">
+            Your Education helps attract employers and get a better job
+          </p>
         </div>
       ) : (
-        profile?.experience &&
-        profile?.experience?.map((exp) => {
+        profile?.education &&
+        profile?.education?.map((exp) => {
           return (
             <div className="experience" key={exp._id}>
-              <div className="options position-absolute ">
-                <MoreVertRounded
-                  className="icon"
-                  onClick={() => setOpenOption(exp._id)}
-                />{" "}
+              <div
+                className="options position-absolute "
+                onClick={(e) => {
+                  openOptionHandler(exp);
+                }}
+              >
+                <MoreVertRounded className="icon" />{" "}
               </div>
               {openOption === exp._id && (
                 <div className="options-menu ">
                   <li className="edit ">Edit</li>
-                  <li className="del" onClick={() => handleDelete(exp._id)}>
-                    Delete
-                  </li>
+                  <li className="del">Delete</li>
                   <li className="send-to-chat">Send to chat</li>
                   <CloseSharp
                     onClick={() => setOpenOption(null)}
@@ -77,4 +81,4 @@ function SingleExp({ adding, setAddExp }) {
   );
 }
 
-export default SingleExp;
+export default SingleEdu;

@@ -8,7 +8,7 @@ const profileSchema = mongoose.Schema({
   company: {
     type: String,
   },
-  location: {
+  loc: {
     type: String,
   },
   website: {
@@ -17,14 +17,16 @@ const profileSchema = mongoose.Schema({
   gitHubUserName: {
     type: String,
   },
-  role: {
+  title: {
     type: String,
     // required: true,
   },
-  skills: [String],
   bio: {
     type: String,
+    default: " Write something about yourself",
   },
+  skills: [String],
+
   experience: [
     {
       stillWorking: {
@@ -36,20 +38,25 @@ const profileSchema = mongoose.Schema({
       },
       title: {
         type: String,
-        // required: true,
+        required: true,
+      },
+      loc: {
+        type: String,
+        required: true,
       },
       company: {
         type: String,
-        // required: true,
-      },
-      location: {
-        type: String,
+        required: true,
       },
       from: {
         type: String,
+        required: true,
       },
       to: {
         type: Date,
+      },
+      project: {
+        type: Array,
       },
     },
   ],
@@ -87,9 +94,13 @@ const profileSchema = mongoose.Schema({
         type: String,
         required: true,
       },
+      loc: {
+        type: String,
+        required: true,
+      },
       description: {
         type: String,
-        required: false,
+        // max: 20,
       },
       from: {
         type: Date,
@@ -97,7 +108,6 @@ const profileSchema = mongoose.Schema({
       },
       to: {
         type: Date,
-        required: true,
       },
     },
   ],

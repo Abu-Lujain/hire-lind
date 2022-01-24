@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 const SideBarItems = () => {
   return (
     <div className="sidebar-items">
@@ -14,35 +15,14 @@ const SideBarItems = () => {
             entry level
           </a>{" "}
         </li>
-        <li className="    ">
-          <a href="3" className=" -action btn">
-            Eduction
-          </a>{" "}
-        </li>
-        <li className="    ">
-          <a href="3" className=" -action btn">
-            jobs
-          </a>
-        </li>
-        <li className="    ">
-          <a href="3" className=" -action btn">
-            jobs
-          </a>
-        </li>
-        <li className="    ">
-          <a href="3" className=" -action btn">
-            jobs
-          </a>
-        </li>
-        <li className="    ">
-          <a href="3" className=" -action btn">
-            jobs
-          </a>
-        </li>
+
+        <Link to="register">sign up</Link>
       </div>
-      <h5 className=" view-profile list-group   p-3  rounded mt-4 text-center">
-        view profile
-      </h5>
+      <Link to="me">
+        <h5 className=" view-profile list-group   p-3  rounded mt-4 text-center">
+          view profile
+        </h5>
+      </Link>
     </div>
   );
 };

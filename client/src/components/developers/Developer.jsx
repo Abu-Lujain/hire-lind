@@ -7,7 +7,7 @@ const Developer = () => {
     e.preventDefault();
   };
   return (
-    <div className="developers-container col-md-4 col-12  col-sm-6 mt-5 ">
+    <div className=" ">
       <h4 className=" mt-5  developer-list-title">Latest jobs</h4>
       {/* ################# */}
       {/* ################# */}

@@ -1,16 +1,17 @@
-// import { NavLink } from "react-router-dom";
-import logo from "../../assets/logo.jpg";
-import Menu from "../menu/Menu";
-import { Link } from "react-router-dom";
+import Join from "../join/Join";
+import React from "react";
 import "./topbar.css";
-const Topbar = ({ openNav, setOpenNav }) => {
+import { Link } from "react-router-dom";
+import Menu from "../menu/Menu";
+function Topbar({ openNav, setOpenNav }) {
   return (
     <div className="row m-0 topbar">
-      <div className="col col-md-3 col-sm-10 col-8  d-flex ">
+      <div className="col col-md-3 col-10   d-flex top-right">
         {/* <img src={logo} alt="logo" className="logo-img rounded-circle " /> */}
         <Link to="/" className=" link">
-          <h2 className="logo text-second-danger mx-1 link">hire Land</h2>
+          <h2 className="logo mx-1 link">4Carrier</h2>
         </Link>
+        <Join openNav={openNav} />
       </div>
       <div className="col col-md-7 d-none d-md-flex d-flex align-items-center ">
         <li className="list-unstyled col-3  mx-1">
@@ -24,14 +25,13 @@ const Topbar = ({ openNav, setOpenNav }) => {
           </Link>
         </li>
         <li className="list-unstyled col-3  mx-1">
-          <Link className="link" to="/register">
-            {" "}
-            register
+          <Link className="link" to="/contacts">
+            Contacts
           </Link>
         </li>
+        <li className="list-unstyled col-3  mx-1"></li>
         <li className="list-unstyled col-3  mx-1">
           <Link className="link" to="/setting">
-            {" "}
             Setting
           </Link>
         </li>
@@ -39,16 +39,17 @@ const Topbar = ({ openNav, setOpenNav }) => {
       {/* profile icon */}
       <div className="view-profile-icon col col-md-2 d-none d-sm-block">
         <Link to="/me" className=" link">
-          <img src={logo} alt="profile" />
+          {/* <img src="" alt="profile" /> */}
         </Link>
       </div>
       <Menu openNav={openNav} />
-      <div className="col d-flex col-md-2 col-sm-2 col-4  ">
-        {/* <div className="col col-md-10  d-xm-0 d-flex justify-content-start "></div> */}
+      <div className="col d-flex  col-sm-2 col-2  ">
         <div className=" nav-btn col col-md-12 d-md-none  position-relative d-flex justify-content-end mt-1">
           <div
             onClick={() => setOpenNav(!openNav)}
-            className={openNav ? "move-nav-icon position-relative" : ""}
+            className={
+              openNav ? "move-nav-icon position-relative opener" : "opener"
+            }
           >
             <span
               className={!openNav ? "line-one" : "line-one-open col-md-12"}
@@ -64,6 +65,6 @@ const Topbar = ({ openNav, setOpenNav }) => {
       </div>
     </div>
   );
-};
+}
 
 export default Topbar;

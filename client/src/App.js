@@ -3,25 +3,25 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 // styles
 import "./index.css";
 import Profile from "./screens/profile/Profile";
-import Login from "./components/authUI/Login";
-import HomeScreen from "./screens/HomeScreen";
-import Register from "./components/authUI/Register";
-import Topbar from "./components/topbar/Topbar";
+import Login from "./screens/authUI/Login";
+import Register from "./screens/authUI/Register";
+import TopBar from "./components/topbar/TopBar";
 // context
-import setAuthToken from "./helpers/setAuthToken";
-import { authContext } from "./context/authContext";
-import { loadUserCall } from "./helpers/apiCalls";
-
+import setAuthToken from "./api_Calls/setAuthToken";
+import { authContext } from "./context/auth_context/authContext";
+import { loadUserCall } from "./api_Calls/authCalls";
+import HomeScreen from "./screens/home/HomeScreen";
 /////////////////////////////////////////////////////////////////
 // setting auth token
 if (localStorage.token) setAuthToken(localStorage.token);
 function App() {
+  const { dispatch, user } = useContext(authContext);
   const [openNav, setOpenNav] = useState(false);
   // loading user
-  const { dispatch, user, errors } = useContext(authContext);
   useEffect(() => {
     loadUserCall(dispatch);
-  }, []);
+  }, [dispatch]);
+
   return (
     <div
       className="App"
@@ -32,7 +32,7 @@ function App() {
       }}
     >
       <BrowserRouter>
-        <Topbar openNav={openNav} setOpenNav={setOpenNav} />
+        <TopBar openNav={openNav} setOpenNav={setOpenNav} />
         <Switch>
           {" "}
           <Route path="/login">
@@ -40,14 +40,12 @@ function App() {
           </Route>
           <Route exact path="/">
             {" "}
-            <HomeScreen />
+            <HomeScreen user={user} />
           </Route>
           <Route path="/register">
             <Register />
           </Route>
-          <Route path="/me">
-            <Profile user={user} />
-          </Route>
+          <Route path="/me">{user && <Profile user={user} />}</Route>
         </Switch>
       </BrowserRouter>
     </div>

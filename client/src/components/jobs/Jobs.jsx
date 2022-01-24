@@ -1,13 +1,13 @@
 import "./jobs.css";
 import profile from "../../assets/profile.jpg";
-import { useState } from "react";
-import upload from "../../assets/upload.jpeg";
+// import { useState } from "react";
+// import upload from "../../assets/upload.jpeg";
 
 // import { ArrowBackIosIcon } from "@material-ui/icons";
 import HighPaying from "./HighPaying";
 const Jobs = () => {
   return (
-    <div className="jobs-parent  col-md-5 col-sm-12 col-12  pt-2 ">
+    <div className="jobs-parent  col-md-8 col-sm-12 col-12  mt-2 ">
       <h4 className="text-center high-paying-jobs-title">Most High-Paying</h4>
       <div className="slider d-flex position-relative pt-5">
         <HighPaying profile={profile} />
