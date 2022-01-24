@@ -22,6 +22,11 @@
   text-align: center;
   font-family: serif;
   color: #795548;
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .profile-info {
   display: flex;
@@ -92,7 +97,7 @@
   /* background-color: rgb(0, 195, 255); */
   /* border-radius: 50%; */
 }
-.profile-init {
+.profile-init-form {
   position: relative;
   background: var(--main-bg-color);
   padding: 10px;
@@ -102,43 +107,41 @@
   justify-content: space-around;
   align-items: center;
 }
-.profile-init div {
-  margin: 5px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+.profile-init-form div {
 }
-.profile-init .about-me-title {
+
+.profile-init-form .about-me-title {
   font-family: sans-serif;
   border-bottom: 2px #458347 solid;
   width: max-content;
   text-align: center;
   padding: 5px 15px;
 }
-label {
+/* label {
   font-size: 23px;
   margin: 5px;
   color: rgb(247, 85, 27);
-}
-.profile-init input,
-textarea {
-  border: var(--main-input-border);
-  padding: 5px;
-  border-radius: 5px;
-  background: #ffffff;
-}
-.profile-init input,
-textarea {
-  color: rgb(105, 120, 209);
-  font-size: 20px;
-  font-family: monospace;
-  font-weight: 600;
-}
-.profile-init textarea {
-  height: 100px;
+} */
+.profile-init-form textarea {
+  height: 142px;
   width: 100%;
   resize: none;
+  outline: none;
+  color: #0433df;
+  font-family: serif;
+  border-radius: 10px;
+  margin: 5px;
+  padding: 5px;
+}
+
+.profile-init-form input {
+  width: 100%;
+  color: #0433df;
+  font-family: serif;
+  border-radius: 5px;
+  margin: 5px;
+  border: var(--main-input-border);
+  padding: 5px;
   outline: none;
 }
 .edit-btn {
@@ -150,4 +153,10 @@ textarea {
   box-shadow: 0px 0px 0px 4px;
   background-color: honeydew;
   color: #4caf50;
+}
+.edit-profile-actions-parent {
+  display: flex;
+  justify-content: space-between;
+
+  flex-direction: row;
 }

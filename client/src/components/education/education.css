@@ -23,10 +23,10 @@
   color: blue;
 }
 .education-form {
-  background: #ffffff;
+  background: var(--main-bg-color);
   padding: 10px;
   border-radius: 10px;
-  box-shadow: var(--main-box-shadow);
+  /* box-shadow: var(--main-box-shadow); */
   margin: 11px 0 31px 0;
 }
 .education-form div {
@@ -43,23 +43,24 @@
   background: #ffffff;
   padding: 5px;
   border-radius: 5px;
+  width: fit-content;
 }
 .education-form div input,
 .exp-form div input {
   outline: none;
-  border: 1px #02b361 solid;
+  border: var(--main-input-border);
   border-radius: 5px;
   margin: 0 0 0 5px;
   flex-grow: 1;
   /* border: 1px var(--main-input-border); */
   padding: 5px;
 }
-/*   outline: none;
-  border: 1px var(--main-input-border);
-  border-radius: 5px;
-  margin: 0 0 0 20px;
-  flex-grow: 1;
-  padding: 5px; */
+.education-form textarea {
+  border: var(--main-input-border);
+  height: 100px;
+  resize: none;
+  border-radius: 15px;
+}
 .adding-btn {
   flex-grow: 0 !important;
   margin: 5px;

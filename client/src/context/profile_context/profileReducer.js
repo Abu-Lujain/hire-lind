@@ -19,6 +19,8 @@ export default function authReducer(state, action) {
     case types.UPDATE_PROFILE_SUCCESS:
     case types.ADDING_PROFILE_SUCCESS:
     case types.ADD_EXPERIENCE_SUCCESS:
+    case types.ADD_EDUCATION_SUCCESS:
+    case types.DELETE_EDUCATION_SUCCESS:
     case types.DELETE_EXPERIENCE_SUCCESS:
     case types.LOAD_PROFILE_SUCCESS:
       return {

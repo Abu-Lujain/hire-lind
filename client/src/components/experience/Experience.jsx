@@ -103,11 +103,11 @@ function Experience({}) {
             </span> */}
           </div>
 
-          <div className="col-12">
-            <label className="col-3 ">Description</label>
-            <input
+          <div className="col-12 row">
+            <label className="col-12 ">Description</label>
+            <textarea
               onChange={(e) => setDescription(e.target.value)}
-              className="col-8 "
+              className="col-12 "
               type="text"
               name="description"
             />

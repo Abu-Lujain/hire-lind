@@ -15,7 +15,7 @@ const DevProfile = () => {
   const { dispatch, profile } = useContext(profileContext);
   // update profile
   const body = { bio, title };
-  const handleUpdate = async (e) => {
+  const handleUpdate = () => {
     updateProfile(body, dispatch);
     console.log("updated: ", profile);
   };
@@ -25,7 +25,10 @@ const DevProfile = () => {
         <div className="img-container">
           <img className="img-fluid profile-img" alt="" />
         </div>
-        <form className="profile-init col-11 mb-3 row" onSubmit={handleUpdate}>
+        <form
+          className="profile-init-form col-11 mb-3 row"
+          onSubmit={handleUpdate}
+        >
           <div className="user-name col-12">
             <h6>{user?.userName && user.userName}</h6>
             {!editProfile && (
@@ -40,25 +43,26 @@ const DevProfile = () => {
               <div className="col-12">
                 <label>what is your title?</label>
                 <input
+                  autoFocus
                   className="w-100"
-                  value={profile.title}
+                  defaultValue={profile?.title}
                   onChange={(e) => setTitle(e.target.value)}
                   type="text"
                   name="title"
                 />
               </div>
             ) : (
-              <h4>{profile?.title && profile.title}</h4>
+              <h4>{profile?.title && profile?.title}</h4>
             )}
           </div>
           {editProfile ? (
             <div className="col-12">
               <label>write some about yourself </label>
               <textarea
-                value={profile?.boi && profile.boi}
-                onChange={(e) => setBio(e.target.value)}
                 type="text"
                 name="bio"
+                defaultValue={profile?.bio && profile?.bio}
+                onChange={(e) => setBio(e.target.value)}
               />
             </div>
           ) : (
@@ -69,8 +73,13 @@ const DevProfile = () => {
           )}
           {/* <Skills /> */}
           {editProfile && (
-            <div className="align-items">
-              <button className="btn btn-primary btn-sm">Add</button>
+            <div className="edit-profile-actions-parent">
+              {profile?.bio && profile?.title ? (
+                <button className="btn btn-primary btn-sm">update</button>
+              ) : (
+                <button className="btn btn-primary btn-sm">Add</button>
+              )}
+
               <span
                 className="btn btn-danger btn-sm"
                 onClick={() => setEditProfile(!editProfile)}

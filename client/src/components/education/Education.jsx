@@ -26,8 +26,13 @@ function Education() {
   };
   const handleAddEducation = (e) => {
     e.preventDefault();
-
     addEducation(body, dispatch);
+    setAddEdu(!addEdu);
+    setSchool("");
+    setDegree("");
+    setFrom("");
+    setTo("");
+    setDescription("");
   };
   let adding = (
     <span onClick={() => setAddEdu(!addEdu)} className="add-exp-parent mb-1">

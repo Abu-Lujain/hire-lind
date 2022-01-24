@@ -2,16 +2,17 @@ import React, { useState } from "react";
 import { MoreVertRounded, CloseSharp } from "@material-ui/icons";
 import { useContext } from "react";
 import { profileContext } from "../../context/profile_context/profileContext";
-import axios from "axios";
 import { deleteExperience } from "../../api_Calls/profileCalls";
 // import MoreVertRounded className="icon" from '@mui/icons-material/MoreVert';
 function SingleExp({ adding, setAddExp }) {
   const { profile, dispatch } = useContext(profileContext);
   const [openOption, setOpenOption] = useState(null);
+  const [expPdf, setExpPdf] = useState(false);
   // delete experience
   const handleDelete = async (id) => {
     deleteExperience(id, dispatch);
   };
+  setTimeout(() => setExpPdf(false), 1000);
 
   return (
     <>
@@ -66,9 +67,24 @@ function SingleExp({ adding, setAddExp }) {
                 <span> description: </span>
                 {exp.description}
               </div>
-              <div className="experience-statement">
-                Show experience Statement{" "}
+              <div className="col-12 experience-statement">
+                <btuuon
+                  className=" btn-sm btn btn-info"
+                  onClick={() => setExpPdf(true)}
+                >
+                  View pdf
+                </btuuon>
+                <button className="btn-sm btn btn-success">
+                  {" "}
+                  Download pdf
+                </button>
               </div>
+              {expPdf && (
+                <h6 className="text-primary no_statement-msg m-2">
+                  {" "}
+                  coming soon, we are sorry!
+                </h6>
+              )}
             </div>
           );
         })

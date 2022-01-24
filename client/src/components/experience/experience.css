@@ -6,6 +6,7 @@
   padding: 20px;
 }
 .experience {
+  transition: all 2s;
   background: var(--main-bg-color);
   padding: 10px;
   border-radius: 10px;
@@ -128,13 +129,12 @@
   /* transform: scale(1); */
 }
 .experience-statement {
-  padding: 5px;
-  border-radius: 5px;
-  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin: 17px 0 0 0;
-  font-family: emoji;
-  cursor: pointer;
 }
+
 .close-option-menu {
   background: white;
   border-radius: 20px;

@@ -20,7 +20,7 @@ body {
   --success-color: #05da05;
   --main-parent-bg-color: #f5f8f3;
   --main-first-child-bg-color: #f5f8f3;
-  --main-input-border: 1px #198754 solid;
+  --main-input-border: 1px #009688 solid;
 }
 .align-items {
   display: flex;

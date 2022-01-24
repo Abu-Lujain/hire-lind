@@ -4,15 +4,20 @@ import AddBox from "@material-ui/icons/AddBox";
 import { MoreVertRounded, CloseSharp } from "@material-ui/icons";
 import { useContext } from "react";
 import { profileContext } from "../../context/profile_context/profileContext";
+import { deleteEducation } from "../../api_Calls/profileCalls";
 // import MoreVertRounded className="icon" from '@mui/icons-material/MoreVert';
 function SingleEdu({ adding }) {
-  const { profile, profileErrors } = useContext(profileContext);
+  const { profile, profileErrors, dispatch } = useContext(profileContext);
   const [openOption, setOpenOption] = useState(null);
-  const handleDelete = async (id) => {};
+  const [expPdf, setExpPdf] = useState(false);
+  const handleDelete = async (id) => {
+    deleteEducation(id);
+  };
   function openOptionHandler(exp) {
     setOpenOption(exp?._id && exp._id);
   }
   console.log(profile, profileErrors);
+  setTimeout(() => setExpPdf(false), 1000);
   return (
     <>
       {profile?.education?.length <= 0 ? (
@@ -30,51 +35,27 @@ function SingleEdu({ adding }) {
               Your Education helps attract employers and get a better job
             </p>
           </div>
-          <div className="experience">
-            <div className="options position-absolute ">
-              <MoreVertRounded className="icon" />{" "}
-            </div>
-
-            <h5 className="co-name">
-              <span className="preffix">Co:</span>
-            </h5>
-            <div className="role">
-              <span className="preffix">Role:</span>
-            </div>
-            <div className="role">
-              <span className="preffix">location:</span>
-            </div>
-            <div className="from">
-              <span className="preffix">From:</span>
-            </div>
-            <div className="to">
-              <span className="preffix">To: </span>
-            </div>
-            <div>
-              <span> description: </span>
-            </div>
-            <div className="experience-statement">
-              Show experience Statement{" "}
-            </div>
-          </div>
         </>
       ) : (
         profile?.education &&
-        profile?.education?.map((exp) => {
+        profile?.education?.map((edu) => {
           return (
-            <div className="experience" key={exp._id}>
+            <div className="experience" key={edu._id}>
               <div
                 className="options position-absolute "
                 onClick={(e) => {
-                  openOptionHandler(exp);
+                  openOptionHandler(edu);
                 }}
               >
                 <MoreVertRounded className="icon" />{" "}
               </div>
-              {openOption === exp._id && (
+              {openOption === edu._id && (
                 <div className="options-menu ">
                   <li className="edit ">Edit</li>
-                  <li className="del" onClick={() => handleDelete(exp._id)}>
+                  <li
+                    className="del"
+                    onClick={() => deleteEducation(edu._id, dispatch)}
+                  >
                     Delete
                   </li>
                   <li className="send-to-chat">Send to chat</li>
@@ -84,28 +65,43 @@ function SingleEdu({ adding }) {
                   />
                 </div>
               )}
-              <h5 className="co-name">
-                <span className="preffix">Co:</span> {exp.company}
-              </h5>
-              <div className="role">
-                <span className="preffix">Role:</span> {exp.title}
+              <div className="co-name">
+                <span className="preffix">School or college:</span> {edu.school}
               </div>
               <div className="role">
-                <span className="preffix">location:</span> {exp.loc}
+                <span className="preffix">Degree:</span> {edu.degree}
+              </div>
+              <div className="role">
+                <span className="preffix">location:</span> {edu.loc}
               </div>
               <div className="from">
-                <span className="preffix">From:</span> {exp.from}
+                <span className="preffix">From:</span> {edu.from}
               </div>
               <div className="to">
-                <span className="preffix">To: </span> {exp.to}
+                <span className="preffix">To: </span> {edu.to}
               </div>
               <div>
                 <span> description: </span>
-                {exp.description}
+                {edu.description}
               </div>
-              <div className="experience-statement">
-                Show experience Statement{" "}
+              <div className="col-12 experience-statement">
+                <btuuon
+                  className=" btn-sm btn btn-info"
+                  onClick={() => setExpPdf(true)}
+                >
+                  View pdf
+                </btuuon>
+                <button className="btn-sm btn btn-success">
+                  {" "}
+                  Download pdf
+                </button>
               </div>
+              {expPdf && (
+                <h6 className="text-primary no_statement-msg m-2">
+                  {" "}
+                  coming soon, we are sorry!
+                </h6>
+              )}
             </div>
           );
         })
