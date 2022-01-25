@@ -9,6 +9,7 @@ function SingleExp({ adding, setAddExp }) {
   const [openOption, setOpenOption] = useState(null);
   const [expPdf, setExpPdf] = useState(false);
   // delete experience
+  console.log(profile);
   const handleDelete = async (id) => {
     deleteExperience(id, dispatch);
   };
@@ -68,12 +69,12 @@ function SingleExp({ adding, setAddExp }) {
                 {exp.description}
               </div>
               <div className="col-12 experience-statement">
-                <btuuon
+                <button
                   className=" btn-sm btn btn-info"
                   onClick={() => setExpPdf(true)}
                 >
                   View pdf
-                </btuuon>
+                </button>
                 <button className="btn-sm btn btn-success">
                   {" "}
                   Download pdf

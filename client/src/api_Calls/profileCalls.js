@@ -126,3 +126,35 @@ export const deleteEducation = async (id, dispatch) => {
     });
   }
 };
+// upload profile photo
+export const uploadProfilePhoto = async (e, profile, dispatch) => {
+  dispatch({ type: types.UPLOAD_PHOTO_START });
+  const file = e.target.files[0];
+  const formData = new FormData();
+  formData.append("photo", file);
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    };
+    const response = await axios.post("/uploads", formData, config);
+    if (response.data) {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      profile.photo = response.data;
+      await axios.post("/dev_profiles", profile, config);
+      dispatch({ type: types.UPLOAD_PHOTO_SUCCESS, payload: profile });
+      console.log(profile.photo);
+    }
+  } catch (error) {
+    dispatch({
+      type: types.UPLOAD_PHOTO_FAILURE,
+      payload: error.response.data,
+    });
+    console.log(error);
+  }
+};

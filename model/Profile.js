@@ -25,6 +25,10 @@ const profileSchema = mongoose.Schema({
     type: String,
     default: " Write something about yourself",
   },
+  photo: {
+    type: String,
+    default: "uploadsphoto-4Carrer-1643102875295.jpeg",
+  },
   skills: [String],
 
   experience: [

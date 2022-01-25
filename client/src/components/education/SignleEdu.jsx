@@ -16,7 +16,6 @@ function SingleEdu({ adding }) {
   function openOptionHandler(exp) {
     setOpenOption(exp?._id && exp._id);
   }
-  console.log(profile, profileErrors);
   setTimeout(() => setExpPdf(false), 1000);
   return (
     <>
@@ -85,12 +84,12 @@ function SingleEdu({ adding }) {
                 {edu.description}
               </div>
               <div className="col-12 experience-statement">
-                <btuuon
+                <button
                   className=" btn-sm btn btn-info"
                   onClick={() => setExpPdf(true)}
                 >
                   View pdf
-                </btuuon>
+                </button>
                 <button className="btn-sm btn btn-success">
                   {" "}
                   Download pdf

@@ -1,34 +1,73 @@
 import React, { useState, useContext } from "react";
 import Education from "../../components/education/Education";
 import Experience from "../../components/experience/Experience";
-import { EditSharp } from "@material-ui/icons";
-import { updateProfile } from "../../api_Calls/profileCalls";
+import { EditSharp, InsertPhotoRounded } from "@material-ui/icons";
+import {
+  updateProfile,
+  uploadProfilePhoto,
+} from "../../api_Calls/profileCalls";
 import { profileContext } from "../../context/profile_context/profileContext";
 import { authContext } from "../../context/auth_context/authContext";
-
+import { Spinner } from "react-bootstrap";
+import axios from "axios";
 const DevProfile = () => {
   const [editProfile, setEditProfile] = useState(false);
   const [bio, setBio] = useState("");
   const [title, setTitle] = useState("");
-
+  const [photo, setPhoto] = useState(null);
+  const [uploading, setUploading] = useState(false);
   const { user } = useContext(authContext);
-  const { dispatch, profile } = useContext(profileContext);
+  const { dispatch, profile, isFetching } = useContext(profileContext);
   // update profile
   const body = { bio, title };
   const handleUpdate = () => {
     updateProfile(body, dispatch);
-    console.log("updated: ", profile);
   };
+  // upload profile photo
+  const handleUpload = (e) => {
+    setUploading(true);
+    uploadProfilePhoto(e, profile, dispatch);
+    setTimeout(() => setUploading(false), 5000);
+  };
+  const PF = "http://localhost:8000";
   return (
     <div className="dev-profile  row">
       <div className="profile-info col-md-3">
         <div className="img-container">
-          <img className="img-fluid profile-img" alt="" />
+          {profile?.photo && (
+            <img
+              className="img-fluid profile-img"
+              src={profile?.photo && `${PF}${profile.photo}`}
+              alt=""
+            />
+          )}
+          {uploading ? (
+            <Spinner
+              className="change-profile-photo-spinner"
+              animation="border"
+              role="status"
+            >
+              <span className="visually-hidden">Loading...</span>
+            </Spinner>
+          ) : (
+            <label htmlFor="file-input">
+              {" "}
+              <InsertPhotoRounded className="change-profile-photo" />
+            </label>
+          )}
+
+          <input
+            type="file"
+            id="file-input"
+            className="upload_profile-photo-input"
+            onChange={handleUpload}
+          />
         </div>
         <form
           className="profile-init-form col-11 mb-3 row"
           onSubmit={handleUpdate}
         >
+          {<div>{photo && photo}</div>}
           <div className="user-name col-12">
             <h6>{user?.userName && user.userName}</h6>
             {!editProfile && (

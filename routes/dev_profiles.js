@@ -42,6 +42,7 @@ router.post(
       loc,
       website,
       role,
+      photo,
       gitHubUserName,
       bio,
 
@@ -54,33 +55,34 @@ router.post(
     if (role) profileData.role = role;
     if (website) profileData.website = website;
     if (bio) profileData.bio = bio;
+    if (photo) profileData.photo = photo;
     if (gitHubUserName) profileData.gitHubUserName = gitHubUserName;
     // build skills objects
     if (skills)
-      profileData.skills = skills.split(",").map((skill) => skill.trim());
+      // profileData.skills = skills.split(",").map((skill) => skill.trim());
 
-    try {
-      let profile = await Profile.findOne({ user: req.user.id });
-      if (profile) {
-        profile = await Profile.findOneAndUpdate(
-          { user: req.user.id },
-          { $set: profileData },
-          { new: true }
-        );
-        console.log("profile Updated");
-        res.json(profile);
-        console.log(profile.bio);
+      try {
+        let profile = await Profile.findOne({ user: req.user.id });
+        if (profile) {
+          profile = await Profile.findOneAndUpdate(
+            { user: req.user.id },
+            { $set: profileData },
+            { new: true }
+          );
+          console.log("profile Updated");
+          res.json(profile);
+          console.log(profile.bio);
+        }
+        if (!profile) {
+          console.log("profile created");
+          profile = new Profile(profileData);
+          await profile.save();
+          res.status(201).json(profile);
+        }
+      } catch (error) {
+        console.error(error.message);
+        res.status(500).json({ error: "Server Error" });
       }
-      if (!profile) {
-        console.log("profile created");
-        profile = new Profile(profileData);
-        await profile.save();
-        res.status(201).json(profile);
-      }
-    } catch (error) {
-      console.error(error.message);
-      res.status(500).json({ error: "Server Error" });
-    }
   }
 );
 // adding experience

@@ -7,7 +7,7 @@ import profile from "../../assets/profile.jpg";
 import HighPaying from "./HighPaying";
 const Jobs = () => {
   return (
-    <div className="jobs-parent  col-md-8 col-sm-12 col-12  mt-2 ">
+    <div className="jobs-parent  col-md-6 col-sm-12 col-12  mt-2 ">
       <h4 className="text-center high-paying-jobs-title">Most High-Paying</h4>
       <div className="slider d-flex position-relative pt-5">
         <HighPaying profile={profile} />

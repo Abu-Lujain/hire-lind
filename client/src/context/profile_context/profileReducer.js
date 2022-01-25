@@ -8,6 +8,7 @@ export default function authReducer(state, action) {
     case types.LOAD_PROFILE_START:
     case types.UPDATE_PROFILE_START:
     case types.ADD_EXPERIENCE_START:
+    case types.UPLOAD_PHOTO_START:
       return {
         ...state,
         profile: null,
@@ -22,6 +23,7 @@ export default function authReducer(state, action) {
     case types.ADD_EDUCATION_SUCCESS:
     case types.DELETE_EDUCATION_SUCCESS:
     case types.DELETE_EXPERIENCE_SUCCESS:
+    case types.UPLOAD_PHOTO_SUCCESS:
     case types.LOAD_PROFILE_SUCCESS:
       return {
         ...state,
