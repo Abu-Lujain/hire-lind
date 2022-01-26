@@ -3,10 +3,11 @@ import "./experience.css";
 import AddBox from "@material-ui/icons/AddBox";
 import SingleExp from "./SingleExp";
 import { addExperince } from "../../api_Calls/profileCalls";
+import { Spinner } from "react-bootstrap";
 import { useContext } from "react";
 import { profileContext } from "../../context/profile_context/profileContext";
 function Experience({}) {
-  const { dispatch, profile } = useContext(profileContext);
+  const { dispatch, profile, isFetching } = useContext(profileContext);
   const [addExp, setAddExp] = useState(false);
   const [authError, setAuthError] = useState([]);
   const [company, setCompany] = useState("");
@@ -44,10 +45,20 @@ function Experience({}) {
 
   return (
     <div className="experience-parent m-auto mt-5 col-11 col-md-4 row">
-      <div className="exp-header">
-        <h3 className="experience-title">My Experiences</h3>
-        {profile?.experience?.length > 0 ? adding : ""}
-      </div>
+      <>
+        {isFetching ? (
+          <Spinner
+            className="exp-header-spinner"
+            animation="grow"
+            role="status"
+          ></Spinner>
+        ) : (
+          <div className="exp-header">
+            <h3 className="experience-title">My Experiences</h3>
+            {profile?.experience?.length > 0 ? adding : ""}
+          </div>
+        )}
+      </>
 
       {addExp && ( //   @styled with in educatin.css
         <form className="education-form col-11 row" onSubmit={handleSubmit}>

@@ -23,7 +23,6 @@ const profileSchema = mongoose.Schema({
   },
   bio: {
     type: String,
-    default: " Write something about yourself",
   },
   photo: {
     type: String,

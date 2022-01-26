@@ -16,15 +16,30 @@ const storage = multer.diskStorage({
     );
   },
 });
+// const filterFileType = (file, cb) => {
+//   const arr = [".jpg", ".jpeg", ".pgn"];
+//   for (let i = 0; i < arr.length; i++) {
+//     const isValid = arr[i];
+//     const extname = path.extname(file.originalname);
+//     if (isValid === extname) {
+//       console.log(isValid === extname);
+//       return cb(null, true);
+//     } else {
+//       cb("Photos only!");
+//     }
+//   }
+// };
 const upload = multer({
   storage,
+  // fileFilter: (req, file, cb) => {
+  //   filterFileType(file, cb);
+  // },
 });
 router.post("/", upload.single("photo"), (req, res) => {
-  console.log(req.file.path);
   try {
     res.status(200).json(`/${req.file.path}`);
   } catch (error) {
-    console.log(error);
+    res.status(5000).send("Server Error");
   }
 }),
   (module.exports = router);

@@ -2,20 +2,40 @@ const mongoose = require("mongoose");
 const comapySchema = mongoose.Schema({
   name: {
     type: String,
-    required: true,
-    length: 30,
   },
-  location: {
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "user",
+  },
+  loc: {
     type: String,
-    required: true,
-    length: 20,
+  },
+  email: {
+    type: String,
   },
   area: {
     type: String,
-    required: true,
   },
-  icon: {
+  products: {
+    type: Array,
+  },
+  services: {
+    type: Array,
+  },
+  foundedYear: {
+    type: Date,
+  },
+  logo: {
     type: String,
-    required: true,
+  },
+  jobs: {
+    type: Array,
+  },
+  about: {
+    type: String,
+  },
+  website: {
+    type: String,
   },
 });
+module.exports = mongoose.model("Company", comapySchema);

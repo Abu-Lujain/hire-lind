@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const postSchema = mongoose.Schema({
+const jobSchema = mongoose.Schema({
   userName: {
     type: String,
   },
@@ -11,7 +11,7 @@ const postSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  postBody: {
+  jobBody: {
     type: String,
     required: true,
   },
@@ -47,4 +47,4 @@ const postSchema = mongoose.Schema({
     default: Date.now,
   },
 });
-module.exports = Post = mongoose.model("Post", postSchema);
+module.exports = mongoose.model("Job", jobSchema);

@@ -1,11 +1,10 @@
 const express = require("express");
 const { check, validationResult } = require("express-validator");
 const router = express.Router();
-const Post = require("../model/Post");
+const Job = require("../model/Job");
 const User = require("../model/User");
 const Profile = require("../model/Profile");
 const authMiddleware = require("../middlewares/authMiddleware");
-const { findByIdAndRemove } = require("../model/Post");
 // #route: /api/jobs
 // #operation: creating a new post
 // #accessibility:   protected

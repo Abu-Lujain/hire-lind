@@ -1,8 +1,15 @@
+import "./devProfile.css";
 import React, { useState, useContext } from "react";
 import Education from "../../components/education/Education";
 import Experience from "../../components/experience/Experience";
-import { EditSharp, InsertPhotoRounded } from "@material-ui/icons";
 import {
+  EditSharp,
+  InsertPhotoRounded,
+  SettingsEthernetRounded,
+} from "@material-ui/icons";
+import {
+  createProfile,
+  fetchProfile,
   updateProfile,
   uploadProfilePhoto,
 } from "../../api_Calls/profileCalls";
@@ -10,6 +17,7 @@ import { profileContext } from "../../context/profile_context/profileContext";
 import { authContext } from "../../context/auth_context/authContext";
 import { Spinner } from "react-bootstrap";
 import axios from "axios";
+import { useEffect, useRef } from "react";
 const DevProfile = () => {
   const [editProfile, setEditProfile] = useState(false);
   const [bio, setBio] = useState("");
@@ -18,12 +26,26 @@ const DevProfile = () => {
   const [uploading, setUploading] = useState(false);
   const { user } = useContext(authContext);
   const { dispatch, profile, isFetching } = useContext(profileContext);
+  const isMounted = useRef(false);
   // update profile
   const body = { bio, title };
-  const handleUpdate = () => {
+  const handleUpdate = (e) => {
+    e.preventDefault();
     updateProfile(body, dispatch);
+    setEditProfile(false);
   };
+  // create new profile
   // upload profile photo
+
+  useEffect(() => {
+    isMounted.current = true;
+
+    createProfile(dispatch);
+    fetchProfile(dispatch);
+    return () => {
+      isMounted.current = false;
+    };
+  }, [isMounted]);
   const handleUpload = (e) => {
     setUploading(true);
     uploadProfilePhoto(e, profile, dispatch);
@@ -31,112 +53,145 @@ const DevProfile = () => {
   };
   const PF = "http://localhost:8000";
   return (
-    <div className="dev-profile  row">
-      <div className="profile-info col-md-3">
-        <div className="img-container">
-          {profile?.photo && (
-            <img
-              className="img-fluid profile-img"
-              src={profile?.photo && `${PF}${profile.photo}`}
-              alt=""
-            />
-          )}
-          {uploading ? (
-            <Spinner
-              className="change-profile-photo-spinner"
-              animation="border"
-              role="status"
-            >
-              <span className="visually-hidden">Loading...</span>
-            </Spinner>
-          ) : (
-            <label htmlFor="file-input">
-              {" "}
-              <InsertPhotoRounded className="change-profile-photo" />
-            </label>
-          )}
-
-          <input
-            type="file"
-            id="file-input"
-            className="upload_profile-photo-input"
-            onChange={handleUpload}
-          />
+    <>
+      {!isMounted.current ? (
+        <div className="spinner-parent">
+          <Spinner
+            className="load-profile-spinner m-3"
+            variant="primary"
+            animation="border"
+            role="status"
+          >
+            <span className="visually-hidden">Loading...</span>
+          </Spinner>
+          {/* create JS animatino */}
+          <h4>please wait ...</h4>
         </div>
-        <form
-          className="profile-init-form col-11 mb-3 row"
-          onSubmit={handleUpdate}
-        >
-          {<div>{photo && photo}</div>}
-          <div className="user-name col-12">
-            <h6>{user?.userName && user.userName}</h6>
-            {!editProfile && (
-              <span
-                className=" edit-btn"
-                onClick={() => setEditProfile(!editProfile)}
-              >
-                <EditSharp />
-              </span>
-            )}
-            {editProfile ? (
-              <div className="col-12">
-                <label>what is your title?</label>
-                <input
-                  autoFocus
-                  className="w-100"
-                  defaultValue={profile?.title}
-                  onChange={(e) => setTitle(e.target.value)}
-                  type="text"
-                  name="title"
+      ) : (
+        <div className="dev-profile  row">
+          <div className="profile-info col-md-3">
+            <div className="img-container">
+              {profile?.photo && (
+                <img
+                  className="img-fluid profile-img"
+                  src={profile?.photo && `${PF}${profile.photo}`}
+                  alt=""
                 />
-              </div>
-            ) : (
-              <h4>{profile?.title && profile?.title}</h4>
-            )}
-          </div>
-          {editProfile ? (
-            <div className="col-12">
-              <label>write some about yourself </label>
-              <textarea
-                type="text"
-                name="bio"
-                defaultValue={profile?.bio && profile?.bio}
-                onChange={(e) => setBio(e.target.value)}
-              />
-            </div>
-          ) : (
-            <div className="about-me-parent ">
-              <h5 className="about-me-title">about me</h5>
-              <p className="about-me">{profile?.bio && profile?.bio}</p>
-            </div>
-          )}
-          {/* <Skills /> */}
-          {editProfile && (
-            <div className="edit-profile-actions-parent">
-              {profile?.bio && profile?.title ? (
-                <button className="btn btn-primary btn-sm">update</button>
+              )}
+              {uploading ? (
+                <Spinner
+                  className="change-profile-photo-spinner"
+                  animation="border"
+                  role="status"
+                ></Spinner>
               ) : (
-                <button className="btn btn-primary btn-sm">Add</button>
+                <label htmlFor="file-input">
+                  {" "}
+                  <InsertPhotoRounded className="change-profile-photo" />
+                </label>
               )}
 
-              <span
-                className="btn btn-danger btn-sm"
-                onClick={() => setEditProfile(!editProfile)}
-              >
-                concel
-              </span>
+              <input //upload profile photo
+                type="file"
+                id="file-input"
+                className="upload_profile-photo-input"
+                onChange={handleUpload}
+              />
             </div>
-          )}
-        </form>
-      </div>
+            <form
+              className="profile-init-form col-11 mb-3 row"
+              onSubmit={handleUpdate}
+            >
+              <>
+                {isFetching && !editProfile ? (
+                  <Spinner
+                    animation="grow"
+                    className="update-boi-spinner"
+                    variant="primary"
+                  >
+                    {" "}
+                  </Spinner>
+                ) : (
+                  <>
+                    {<div>{photo && photo}</div>}
+                    <div className="user-name col-12">
+                      <h6>{user?.userName && user.userName}</h6>
+                      {!editProfile && (
+                        <span
+                          className=" edit-btn"
+                          onClick={() => setEditProfile(true)}
+                        >
+                          <EditSharp />
+                        </span>
+                      )}
+                      {editProfile ? (
+                        <div className="col-12">
+                          <label>what is your title?</label>
+                          <input
+                            autoFocus
+                            className="w-100"
+                            defaultValue={profile?.title}
+                            onChange={(e) => setTitle(e.target.value)}
+                            type="text"
+                            name="title"
+                          />
+                        </div>
+                      ) : (
+                        <h4>{profile?.title && profile?.title}</h4>
+                      )}
+                    </div>
+                    {editProfile ? (
+                      <div className="col-12">
+                        <label>write something about yourself </label>
+                        <textarea
+                          type="text"
+                          name="bio"
+                          defaultValue={profile?.bio && profile?.bio}
+                          onChange={(e) => setBio(e.target.value)}
+                        />
+                      </div>
+                    ) : (
+                      <div className="about-me-parent ">
+                        <h5 className="about-me-title">about me</h5>
+                        <p className="about-me">
+                          {profile?.bio && profile?.bio}
+                        </p>
+                      </div>
+                    )}
+                    {/* <Skills /> */}
+                    {editProfile && (
+                      <div className="edit-profile-actions-parent">
+                        {profile?.bio && profile?.title ? (
+                          <button className="btn btn-primary btn-sm">
+                            update
+                          </button>
+                        ) : (
+                          <button className="btn btn-primary btn-sm">
+                            Update
+                          </button>
+                        )}
 
-      <Experience profile={profile} />
+                        <span
+                          className="btn btn-danger btn-sm"
+                          onClick={() => setEditProfile(false)}
+                        >
+                          concel
+                        </span>
+                      </div>
+                    )}
+                  </>
+                )}
+              </>
+            </form>
+          </div>
 
-      <Education profile={profile} />
+          <Experience profile={profile} />
 
-      {/* {res.data.education.length === 0 && <Education profile={profile} />} */}
+          <Education profile={profile} />
 
-      {/* <div className="social-media-parent  list-unstyled">
+          {/* {res.data.education.length === 0 && <Education profile={profile} />} */}
+
+          {/* <div className="social-media-parent  list-unstyled">
           <h5>check me on:</h5>
           <li>
           <Facebook className="social-media-icon f" /> <span>Abu-Lujain</span>{" "}
@@ -155,7 +210,9 @@ const DevProfile = () => {
         <span>Abu-Lujain</span> <span>134k</span>
         </li>
       </div> */}
-    </div>
+        </div>
+      )}
+    </>
   );
 };
 

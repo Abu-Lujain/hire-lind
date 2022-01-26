@@ -37,7 +37,7 @@ export const loginCall = async (credentials, dispatch) => {
     response.data && window.location.replace("/me");
     console.log("data: ", response.data);
   } catch (error) {
-    console.log("from register: ", error.response.data);
+    console.log("login: ", error.response.data);
 
     dispatch({
       type: types.LOGIN_FAILURE,

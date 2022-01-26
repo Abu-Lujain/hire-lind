@@ -1,5 +1,5 @@
 import { types } from "../types";
-export default function authReducer(state, action) {
+export default function profileReducer(state, action) {
   const { type, payload } = action;
   switch (type) {
     // @ case start

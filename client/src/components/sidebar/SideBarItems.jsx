@@ -6,9 +6,7 @@ const SideBarItems = () => {
         <h6 className="text-center text-second-danger">Filter the jobs</h6>
         <li className="     ">
           {" "}
-          <a href="3" className=" -action btn -action active">
-            Tech Jobs
-          </a>
+          <a href="3" className=" -action btn -action active"></a>
         </li>
         <li className="    ">
           <a href="3" className=" -action btn">

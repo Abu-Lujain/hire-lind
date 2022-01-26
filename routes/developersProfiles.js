@@ -1,10 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const Profile = require("../model/Profile");
-const User = require("../model/User");
 const { check, validationResult } = require("express-validator");
 const authMiddleware = require("../middlewares/authMiddleware");
-const { findOneAndUpdate, findByIdAndUpdate } = require("../model/User");
 
 /* ############################################################
 @operation : get profile for current user
@@ -30,61 +28,41 @@ router.get("/me", authMiddleware, async (req, res) => {
 @method : post
 @access : private
 */
-router.post(
-  "/",
-  [authMiddleware, check("title", "title is required")],
-  async (req, res) => {
-    console.log("from profile");
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) res.json({ error: errors.array() });
-    const {
-      title,
-      loc,
-      website,
-      role,
-      photo,
-      gitHubUserName,
-      bio,
+router.post("/", authMiddleware, async (req, res) => {
+  const { title, loc, website, role, photo, gitHubUserName, bio, skills } =
+    req.body;
+  const profileData = {};
+  profileData.user = req.user.id;
+  if (title) profileData.title = title;
+  if (loc) profileData.loc = loc;
+  if (role) profileData.role = role;
+  if (website) profileData.website = website;
+  if (bio) profileData.bio = bio;
+  if (photo) profileData.photo = photo;
+  if (gitHubUserName) profileData.gitHubUserName = gitHubUserName;
+  if (skills) profileData.skills = skills;
 
-      skills,
-    } = req.body;
-    const profileData = {};
-    profileData.user = req.user.id;
-    if (title) profileData.title = title;
-    if (loc) profileData.loc = loc;
-    if (role) profileData.role = role;
-    if (website) profileData.website = website;
-    if (bio) profileData.bio = bio;
-    if (photo) profileData.photo = photo;
-    if (gitHubUserName) profileData.gitHubUserName = gitHubUserName;
-    // build skills objects
-    if (skills)
-      // profileData.skills = skills.split(",").map((skill) => skill.trim());
-
-      try {
-        let profile = await Profile.findOne({ user: req.user.id });
-        if (profile) {
-          profile = await Profile.findOneAndUpdate(
-            { user: req.user.id },
-            { $set: profileData },
-            { new: true }
-          );
-          console.log("profile Updated");
-          res.json(profile);
-          console.log(profile.bio);
-        }
-        if (!profile) {
-          console.log("profile created");
-          profile = new Profile(profileData);
-          await profile.save();
-          res.status(201).json(profile);
-        }
-      } catch (error) {
-        console.error(error.message);
-        res.status(500).json({ error: "Server Error" });
-      }
+  try {
+    let profile = await Profile.findOne({ user: req.user.id });
+    console.log(profile);
+    if (profile) {
+      profile = await Profile.findOneAndUpdate(
+        { user: req.user.id },
+        { $set: profileData },
+        { new: true }
+      );
+      res.status(200).json(profile);
+    }
+    if (!profile) {
+      profile = new Profile(profileData);
+      await profile.save();
+      res.status(201).json(profile);
+    }
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ error: "Server Error" });
   }
-);
+});
 // adding experience
 router.put(
   "/experience",
