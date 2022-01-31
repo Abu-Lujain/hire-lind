@@ -67,9 +67,13 @@ export const addExperince = async (body, dispatch) => {
     response.data &&
       dispatch({ type: types.ADD_EXPERIENCE_SUCCESS, payload: response.data });
   } catch (error) {
+    const res = await axios.get("/developersProfiles/me");
     dispatch({
       type: types.ADD_EXPERIENCE_FAILURE,
-      payload: error.response.data.errors,
+      payload: {
+        errors: error.response.data.errors,
+        profile: res.data,
+      },
     });
   }
 };
@@ -116,7 +120,7 @@ export const addEducation = async (body, dispatch) => {
   }
 };
 
-// // Delete experience
+// // Delete education
 export const deleteEducation = async (id, dispatch) => {
   dispatch({ type: types.DELETE_EDUCATION_START });
   try {

@@ -4,35 +4,43 @@ import { MoreVertRounded, CloseSharp } from "@material-ui/icons";
 import { useContext } from "react";
 import { Spinner } from "react-bootstrap";
 
-import { profileContext } from "../../context/profile_context/profileContext";
-import { deleteExperience } from "../../api_Calls/profileCalls";
+import { profileContext } from "../../../context/profile_context/profileContext";
+import { deleteExperience } from "../../../api_Calls/profileCalls";
 // import MoreVertRounded className="icon" from '@mui/icons-material/MoreVert';
-function SingleExp({ adding, setAddExp }) {
+function SingleExp({ adding }) {
   const { profile, dispatch, isFetching } = useContext(profileContext);
   const [openOption, setOpenOption] = useState(null);
   const [expPdf, setExpPdf] = useState(false);
+
   // delete experience
-  console.log();
-  const handleDelete = async (id) => {
+  const handleDelete = (id) => {
     deleteExperience(id, dispatch);
   };
-  setTimeout(() => setExpPdf(false), 1000);
+  setTimeout(() => setExpPdf(false), 7000);
 
   return (
     <>
       {profile?.experience?.length <= 0 ? (
         <div className="no-experience-message">
-          <h3 className="text-danger mt-3"> you don't have experience</h3>
-          <p className="text-muted m-3">
+          <h3 className="text-danger mt-3 text-center">
+            {" "}
+            you don't have experience
+          </h3>
+          <p className="text-muted m-3 ">
             the experiences you add will appear here
           </p>
           {adding}
+          <small className="text-center text-success mx-3">
+            {" "}
+            employers always prefer someone with experience, this way they trust
+            you to do the job
+          </small>
         </div>
       ) : (
         profile?.experience &&
-        profile?.experience?.map((exp) => {
+        profile.experience.map((exp) => {
           return (
-            <>
+            <React.Fragment key={exp._id}>
               {" "}
               {isFetching ? (
                 <Spinner
@@ -41,7 +49,7 @@ function SingleExp({ adding, setAddExp }) {
                   role="status"
                 ></Spinner>
               ) : (
-                <div className="experience" key={exp._id}>
+                <div className="experience">
                   <div className="options position-absolute ">
                     <MoreVertRounded
                       className="icon"
@@ -87,20 +95,23 @@ function SingleExp({ adding, setAddExp }) {
                     >
                       View pdf
                     </button>
-                    <button className="btn-sm btn btn-success">
+                    <button
+                      onClick={() => setExpPdf(true)}
+                      className="btn-sm btn btn-success"
+                    >
                       {" "}
                       Download pdf
                     </button>
                   </div>
                   {expPdf && (
-                    <h6 className="text-primary no_statement-msg m-2">
+                    <h6 className="text-primary no_statement-msg m-2 text-align-center">
                       {" "}
                       coming soon, we are sorry!
                     </h6>
                   )}
                 </div>
               )}{" "}
-            </>
+            </React.Fragment>
           );
         })
       )}

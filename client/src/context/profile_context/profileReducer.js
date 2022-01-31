@@ -39,9 +39,10 @@ export default function profileReducer(state, action) {
     case types.ADD_EXPERIENCE_FAILURE:
       return {
         ...state, //here I am copying the state, that
-        // should have the profile, but it returns an empty s
+        // should have the profile, but it returns an empty state
+        profile: payload.profile,
         isFetching: false,
-        profileErrors: payload,
+        profileErrors: payload.errors,
       };
 
     default:

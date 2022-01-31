@@ -13,12 +13,7 @@
   margin-top: 45px;
   min-height: calc(100vh - 45px);
 }
-.social-media-parent,
-.about-me-parent,
-.skills {
-  box-shadow: var(--main-box-shadow);
-  background: var(--main-bg-color);
-}
+
 .user-name {
   text-align: center;
   font-family: serif;
@@ -109,35 +104,6 @@
   box-shadow: var(--main-box-shadow);
   background: var(--main-bg-color);
 }
-.social-media-parent {
-  width: 100%;
-  padding: 5px;
-  position: relative;
-  /* box-shadow: 0px 0px 11px -7px; */
-  border-radius: 10px;
-  margin: 10px;
-}
-.social-media-parent .social-media-icon {
-  font-size: 45px;
-}
-.social-media-parent li {
-  display: flex;
-  justify-content: space-between;
-}
-.social-media-parent .f {
-  color: blue;
-}
-.social-media-parent .y {
-  color: red;
-}
-.social-media-parent .t {
-  color: rgb(6, 193, 255);
-}
-.social-media-parent .tel {
-  color: rgb(214, 10, 71);
-  /* background-color: rgb(0, 195, 255); */
-  /* border-radius: 50%; */
-}
 .profile-init-form {
   position: relative;
   background: var(--main-bg-color);
@@ -211,6 +177,7 @@
   width: 100%;
   height: 200px;
   border-radius: 10px;
+  background-color: rgb(245 248 243);
 }
 .edit-profile-actions-parent {
   display: flex;

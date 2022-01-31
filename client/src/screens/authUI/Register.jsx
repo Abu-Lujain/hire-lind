@@ -1,11 +1,11 @@
 // import { Link, Redirect } from "react-router-dom";
 import "./register.css";
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { registerCall } from "../../api_Calls/authCalls";
 import { authContext } from "../../context/auth_context/authContext";
 import { Spinner } from "react-bootstrap";
-const Register = () => {
+const Register = ({}) => {
   const { token, user, loading, dispatch, errors } = useContext(authContext);
   const [userName, setuserName] = useState("");
   const [email, setEmail] = useState("");
@@ -25,7 +25,7 @@ const Register = () => {
 
   return (
     <div className="register row">
-      {loading ? (
+      {loading || user ? (
         <div className="spinner-parent">
           <Spinner
             className="load-profile-spinner m-3"

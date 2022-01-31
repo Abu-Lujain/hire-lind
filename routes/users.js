@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../model/User");
-const gravatar = require("gravatar");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const config = require("config");
@@ -29,7 +28,7 @@ router.post(
   [
     check("userName", "please enter your userName").not().isEmpty(),
     check("email", "please enter your email").isEmail(),
-    check("password", "please enter longer password").isLength({ min: 6 }),
+    check("password", "please enter a longer password").isLength({ min: 6 }),
     check("profileType", "please choose a profile type").isLength({ min: 6 }),
   ],
   async (req, res) => {

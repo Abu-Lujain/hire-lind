@@ -12,7 +12,7 @@ export const registerCall = async (credentials, dispatch) => {
   try {
     const response = await axios.post("/users", credentials, config);
     dispatch({ type: types.REGISTER_SUCCUESS, payload: response.data });
-    response.data && window.location.replace("/me");
+    response.data && window.location.replace("/profile");
     console.log("data: ", response.data);
   } catch (error) {
     console.log("from register: ", error.response.data);
@@ -34,11 +34,8 @@ export const loginCall = async (credentials, dispatch) => {
   try {
     const response = await axios.post("/auth", credentials, config);
     dispatch({ type: types.LOGIN_SUCCESS, payload: response.data });
-    response.data && window.location.replace("/me");
-    console.log("data: ", response.data);
+    response.data && window.location.replace("/profile");
   } catch (error) {
-    console.log("login: ", error.response.data);
-
     dispatch({
       type: types.LOGIN_FAILURE,
       payload: error.response.data.errors,

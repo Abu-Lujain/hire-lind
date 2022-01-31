@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const config = require("config");
 const express = require("express");
+console.log(config);
 
 const db = config.get("mongoURI");
 const connentDB = async () => {

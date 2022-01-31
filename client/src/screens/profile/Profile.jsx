@@ -1,43 +1,18 @@
 import "./profile.css";
-import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
-// import { Facebook, YouTube, Twitter, Instagram } from "@material-ui/icons";
-import CoProfile from "./CoProfile";
-import DevProfile from "./DevProfile";
+import React, { useContext } from "react";
 import { authContext } from "../../context/auth_context/authContext";
-import { profileContext } from "../../context/profile_context/profileContext";
-import { Spinner } from "react-bootstrap";
+import CompanyProfile from "../company/CompanyProfile";
+import CadidateProfile from "../candidate/CadidateProfile";
 function Profile() {
-  const [initializing, setInitializing] = useState(true);
-  const { isFetching } = useContext(profileContext);
-  const { user, loading } = useContext(authContext);
-  setTimeout(() => setInitializing(false));
+  const { user } = useContext(authContext);
+  // const user = {
+  //   profileType: "company",
+
+  // };
   return (
     <div className=" profile-parent">
-      {isFetching ? (
-        <div className="container spinner-parent">
-          <Spinner
-            className="load-profile-spinner"
-            animation="grow"
-            role="status"
-          ></Spinner>
-          <h5 className="text-muted">Loading profile...</h5>
-        </div>
-      ) : (
-        <>{user?.profileType === "company" && <CoProfile />}</>
-      )}
-      {initializing ? (
-        <div className="container spinner-parent">
-          <Spinner
-            className="load-profile-spinner"
-            animation="grow"
-            role="status"
-          ></Spinner>
-          <h5 className="text-muted">initializing....</h5>
-        </div>
-      ) : (
-        <>{user?.profileType === "employee" && <DevProfile />}</>
-      )}
+      {user?.profileType === "company" && <CompanyProfile />}
+      {user?.profileType === "employee" && <CadidateProfile />}
     </div>
   );
 }

@@ -1,12 +1,7 @@
 import "./devProfile.css";
+
 import React, { useState, useContext } from "react";
-import Education from "../../components/education/Education";
-import Experience from "../../components/experience/Experience";
-import {
-  EditSharp,
-  InsertPhotoRounded,
-  SettingsEthernetRounded,
-} from "@material-ui/icons";
+import { EditSharp, InsertPhotoRounded } from "@material-ui/icons";
 import {
   createProfile,
   fetchProfile,
@@ -16,17 +11,20 @@ import {
 import { profileContext } from "../../context/profile_context/profileContext";
 import { authContext } from "../../context/auth_context/authContext";
 import { Spinner } from "react-bootstrap";
-import axios from "axios";
 import { useEffect, useRef } from "react";
-const DevProfile = () => {
+import Experience from "../../components/candidate_components/experience/Experience";
+import Education from "../../components/candidate_components/education/Education";
+import SocialMedia from "../../components/candidate_components/social_media/SocialMedia";
+const CadidateProfile = () => {
   const [editProfile, setEditProfile] = useState(false);
   const [bio, setBio] = useState("");
   const [title, setTitle] = useState("");
-  const [photo, setPhoto] = useState(null);
   const [uploading, setUploading] = useState(false);
+  const [boiUpdating, setBoiUpdating] = useState(false);
+  const [addingExp, setAddingExp] = useState(false);
   const { user } = useContext(authContext);
   const { dispatch, profile, isFetching } = useContext(profileContext);
-  const isMounted = useRef(false);
+  const isMounted = useRef(true);
   // update profile
   const body = { bio, title };
   const handleUpdate = (e) => {
@@ -39,33 +37,37 @@ const DevProfile = () => {
 
   useEffect(() => {
     isMounted.current = true;
+    if (isMounted.current) {
+      console.log("mounted");
 
-    createProfile(dispatch);
-    fetchProfile(dispatch);
+      createProfile(dispatch);
+      fetchProfile(dispatch);
+    }
     return () => {
+      console.log("unmounted");
       isMounted.current = false;
     };
   }, [isMounted]);
   const handleUpload = (e) => {
     setUploading(true);
     uploadProfilePhoto(e, profile, dispatch);
-    setTimeout(() => setUploading(false), 5000);
   };
   const PF = "http://localhost:8000";
   return (
     <>
-      {!isMounted.current ? (
+      {!isMounted.current && isFetching ? (
         <div className="spinner-parent">
           <Spinner
             className="load-profile-spinner m-3"
             variant="primary"
             animation="border"
             role="status"
+            setBoiUpdating
           >
             <span className="visually-hidden">Loading...</span>
           </Spinner>
           {/* create JS animatino */}
-          <h4>please wait ...</h4>
+          <h4>Please wait ...</h4>
         </div>
       ) : (
         <div className="dev-profile  row">
@@ -78,7 +80,7 @@ const DevProfile = () => {
                   alt=""
                 />
               )}
-              {uploading ? (
+              {isFetching ? (
                 <Spinner
                   className="change-profile-photo-spinner"
                   animation="border"
@@ -103,17 +105,12 @@ const DevProfile = () => {
               onSubmit={handleUpdate}
             >
               <>
-                {isFetching && !editProfile ? (
-                  <Spinner
-                    animation="grow"
-                    className="update-boi-spinner"
-                    variant="primary"
-                  >
+                {isFetching ? (
+                  <Spinner animation="grow" className="update-boi-spinner">
                     {" "}
                   </Spinner>
                 ) : (
                   <>
-                    {<div>{photo && photo}</div>}
                     <div className="user-name col-12">
                       <h6>{user?.userName && user.userName}</h6>
                       {!editProfile && (
@@ -185,35 +182,17 @@ const DevProfile = () => {
             </form>
           </div>
 
-          <Experience profile={profile} />
-
-          <Education profile={profile} />
+          <div className="row col-12 col-md-9">
+            <Experience />
+            <Education />
+            <SocialMedia />
+          </div>
 
           {/* {res.data.education.length === 0 && <Education profile={profile} />} */}
-
-          {/* <div className="social-media-parent  list-unstyled">
-          <h5>check me on:</h5>
-          <li>
-          <Facebook className="social-media-icon f" /> <span>Abu-Lujain</span>{" "}
-          <span>300k</span>
-      </li>
-      <li>
-      <YouTube className="social-media-icon y" />
-      <span>Abu-Lujain</span> <span>300k</span>
-      </li>
-      <li>
-      <Twitter className="social-media-icon t" />
-      <span>Abu-Lujain</span> <span>40k</span>
-      </li>
-      <li>
-        <Instagram className="social-media-icon tel" />
-        <span>Abu-Lujain</span> <span>134k</span>
-        </li>
-      </div> */}
         </div>
       )}
     </>
   );
 };
 
-export default DevProfile;
+export default CadidateProfile;

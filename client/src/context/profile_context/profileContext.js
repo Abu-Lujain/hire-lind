@@ -1,6 +1,6 @@
 import { createContext, useReducer } from "react";
 import profileReducer from "./profileReducer";
-const initialState = {
+let initialState = {
   profile: null,
   isFetching: false,
   profileErrors: null,

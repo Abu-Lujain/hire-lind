@@ -1,26 +1,24 @@
-import { Link } from "react-router-dom";
+import "./sidebar.css";
+import { useContext } from "react";
+
+import { Link, useLocation } from "react-router-dom";
+import { logOut } from "../../api_Calls/authCalls";
+import { authContext } from "../../context/auth_context/authContext";
 const SideBarItems = () => {
+  const { dispatch } = useContext(authContext);
+  const { pathname } = useLocation();
   return (
     <div className="sidebar-items">
-      <div className="   list-group   py-1 mt-1 mt-3">
-        <h6 className="text-center text-second-danger">Filter the jobs</h6>
-        <li className="     ">
-          {" "}
-          <a href="3" className=" -action btn -action active"></a>
-        </li>
-        <li className="    ">
-          <a href="3" className=" -action btn">
-            entry level
-          </a>{" "}
-        </li>
-
-        <Link to="register">sign up</Link>
-      </div>
-      <Link to="me">
-        <h5 className=" view-profile list-group   p-3  rounded mt-4 text-center">
-          view profile
-        </h5>
+      <div className="logout mb-5" onClick={() => logOut(dispatch)}>
+        Logout
+      </div>{" "}
+      <span>Or</span>
+      <Link to="login" className="m5-5">
+        sign up
       </Link>
+      <Link to="register">Log in</Link>
+      <Link to="settings">settings</Link>
+      <Link to="me">profile</Link>
     </div>
   );
 };

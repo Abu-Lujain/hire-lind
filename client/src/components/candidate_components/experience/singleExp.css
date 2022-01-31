@@ -2,6 +2,8 @@
   border-radius: 10px;
   background: #edf2e8;
   margin: 10px;
+  width: 100%;
+  height: 250px;
 }
 .exp-header-spinner {
   background-color: #edf2e8;

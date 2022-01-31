@@ -1,15 +1,13 @@
 import React, { useState } from "react";
 import AddBox from "@material-ui/icons/AddBox";
 import "./education.css";
-import { addEducation } from "../../api_Calls/profileCalls";
 import { useContext } from "react";
-import { profileContext } from "../../context/profile_context/profileContext";
 import SingleEdu from "./SignleEdu";
+import { addEducation } from "../../../api_Calls/profileCalls";
+import { profileContext } from "../../../context/profile_context/profileContext";
 function Education() {
   const { dispatch, profile } = useContext(profileContext);
   const [addEdu, setAddEdu] = useState(false);
-  // const [authError, setAuthError] = useState([]);
-
   const [school, setSchool] = useState("");
   const [degree, setDegree] = useState("");
   const [loc, setLoc] = useState("");
@@ -39,8 +37,9 @@ function Education() {
       Add <AddBox className="add-edu" />
     </span>
   );
+
   return (
-    <div className="education-parent  m-auto mt-5  col-11 col-md-4">
+    <div className="education-parent  m-auto mt-5  col-11 col-md-5">
       <div className="edu-header">
         <h3 className="experience-title">My Education</h3>
         {profile?.education?.length > 0 && adding}

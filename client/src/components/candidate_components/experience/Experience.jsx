@@ -2,14 +2,12 @@ import React, { useState } from "react";
 import "./experience.css";
 import AddBox from "@material-ui/icons/AddBox";
 import SingleExp from "./SingleExp";
-import { addExperince } from "../../api_Calls/profileCalls";
-import { Spinner } from "react-bootstrap";
 import { useContext } from "react";
-import { profileContext } from "../../context/profile_context/profileContext";
-function Experience({}) {
-  const { dispatch, profile, isFetching } = useContext(profileContext);
+import { profileContext } from "../../../context/profile_context/profileContext";
+import { addExperince } from "../../../api_Calls/profileCalls";
+function Experience() {
+  const { dispatch, profile, profileErrors } = useContext(profileContext);
   const [addExp, setAddExp] = useState(false);
-  const [authError, setAuthError] = useState([]);
   const [company, setCompany] = useState("");
   const [title, setTitle] = useState("");
   const [from, setFrom] = useState("");
@@ -26,6 +24,7 @@ function Experience({}) {
     to,
     description,
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     addExperince(body, dispatch);
@@ -44,24 +43,17 @@ function Experience({}) {
   );
 
   return (
-    <div className="experience-parent m-auto mt-5 col-11 col-md-4 row">
-      <>
-        {isFetching ? (
-          <Spinner
-            className="exp-header-spinner"
-            animation="grow"
-            role="status"
-          ></Spinner>
-        ) : (
-          <div className="exp-header">
-            <h3 className="experience-title">My Experiences</h3>
-            {profile?.experience?.length > 0 ? adding : ""}
-          </div>
-        )}
-      </>
-
+    <div className="experience-parent m-auto mt-5 col-11 col-md-6 row">
+      <div className="exp-header">
+        <h3 className="experience-title">My Experiences</h3>
+        {profile?.experience?.length > 0 ? adding : ""}
+      </div>
       {addExp && ( //   @styled with in educatin.css
-        <form className="education-form col-11 row" onSubmit={handleSubmit}>
+        <form
+          className="education-form col-11 row"
+          autoComplete="off"
+          onSubmit={handleSubmit}
+        >
           <div className="col-12">
             <label className="col-3 ">company</label>
             <input
@@ -69,6 +61,7 @@ function Experience({}) {
               className="col-8 "
               type="text"
               name="company"
+              required
             />
           </div>
           <div className="col-12">
@@ -78,12 +71,14 @@ function Experience({}) {
               className="col-8 "
               type="text"
               name="loc"
+              required
               placeholder="where was the compnay based?"
             />
           </div>
           <div className="col-12">
             <label className="col-3 ">Title</label>
             <input
+              required
               onChange={(e) => setTitle(e.target.value)}
               className="col-8 "
               type="text"
@@ -95,6 +90,7 @@ function Experience({}) {
           <div className="col-12">
             <label className="col-3 ">From</label>
             <input
+              required
               onChange={(e) => setFrom(e.target.value)}
               className="col-8 "
               type="date"
@@ -136,8 +132,8 @@ function Experience({}) {
               concel
             </button>
           </div>
-          {authError &&
-            authError.map((arr) => (
+          {profileErrors &&
+            profileErrors.map((arr) => (
               <h5 className="text-center text-danger p-2" key={arr.msg}>
                 {arr.msg}
               </h5>

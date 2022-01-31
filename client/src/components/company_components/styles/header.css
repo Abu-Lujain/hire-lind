@@ -1,0 +1,70 @@
+.company-top .logo {
+  border-radius: 25%;
+  border: 2px #006d77 solid;
+  width: 74px;
+
+  padding: 0;
+}
+
+.company-logo {
+  margin: 5px;
+  border-radius: 10px;
+  padding: 5px;
+  display: flex;
+  transition: ease-in-out 0.5s;
+  background-color: #ffffff;
+  height: -moz-fit-content;
+  height: fit-content;
+  justify-content: center;
+  align-items: center;
+}
+.company-logo:hover {
+  box-shadow: var(--main-box-shadow);
+}
+.company-logo .company-title {
+  color: #006d77;
+  font-family: serif;
+  font-weight: 600;
+  text-align: center;
+}
+.company-logo .moto {
+  position: relative;
+}
+.company-logo .moto h6 {
+  color: rgb(104, 93, 93);
+  padding-top: 10px;
+  letter-spacing: 2px;
+}
+.company-logo .moto p {
+  padding: 5px;
+  border-radius: 5px;
+  color: #686868;
+  background: #f3f3f3;
+}
+.company-logo .moto .moto-body::first-letter {
+  color: blue;
+  margin-left: 10px;
+  font-weight: 600;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 25px;
+}
+.settings-box {
+  display: flex;
+  justify-content: end;
+  position: absolute;
+  right: 3px;
+  align-content: flex-end;
+}
+.moto .header {
+}
+.settings-box .settings-icon {
+  font-size: 34px;
+  padding: 1px;
+  cursor: pointer;
+  border-radius: 4px;
+  border: 1px rgb(207, 228, 217) solid;
+  transition: background ease-in-out 0.5s;
+}
+.settings-box .settings-icon:hover {
+  background: #ebffd7;
+}

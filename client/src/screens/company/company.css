@@ -1,0 +1,33 @@
+.co-proifle {
+  margin: auto;
+  /* min-height: 100vh; */
+  background: var(--main-bg-color);
+}
+/* .company-top {
+  height: 50vh;
+  margin-top: 0;
+} */
+.company-top {
+  margin: auto;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+/* middle */
+.middle {
+  height: 170px;
+}
+.middle div {
+  margin: 5px;
+  background: #ffffff;
+  /* box-shadow: var(--main-box-shadow); */
+  padding: 10px;
+  border-radius: 10px;
+}
+.middle .location {
+}
+.middle .contacts {
+}
+.middle .latest-offer {
+  flex-grow: 1;
+}

@@ -14,7 +14,7 @@ import HomeScreen from "./screens/home/HomeScreen";
 /////////////////////////////////////////////////////////////////
 // setting auth token
 if (localStorage.token) setAuthToken(localStorage.token);
-function App() {
+const App = () => {
   const { dispatch, user } = useContext(authContext);
   const [openNav, setOpenNav] = useState(false);
   // loading user
@@ -45,11 +45,14 @@ function App() {
           <Route path="/register">
             <Register />
           </Route>
-          <Route path="/me">{user && <Profile user={user} />}</Route>
+          <Route path="/profile">
+            {" "}
+            <Profile user={user} />
+          </Route>
         </Switch>
       </BrowserRouter>
     </div>
   );
-}
+};
 
 export default App;
