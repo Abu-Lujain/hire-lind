@@ -10,7 +10,7 @@ import CompanyMiddle from "../../components/company_components/CompanyMiddle";
 import AboutCompany from "../../components/company_components/AboutCompany";
 import OtherOffers from "../../components/company_components/OtherOffers";
 
-function CompanyProfile() {
+function CompanyProfile({ showOverlay, setShowOverlay }) {
   const { dispatch, company } = useContext(companyContext);
   useEffect(() => {
     createProfile(dispatch);
@@ -18,7 +18,11 @@ function CompanyProfile() {
   console.log(company);
   return (
     <div className="co-proifle row ">
-      <CompanyHeader />
+      {showOverlay && <div className="overlay"> </div>}
+      <CompanyHeader
+        showOverlay={showOverlay}
+        setShowOverlay={setShowOverlay}
+      />
       <CompanyMiddle />
       {/* <OtherOffers /> */}
       {/* <AboutCompany /> */}

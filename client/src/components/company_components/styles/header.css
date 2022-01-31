@@ -68,3 +68,62 @@
 .settings-box .settings-icon:hover {
   background: #ebffd7;
 }
+.no-comapny-values-message h4 {
+  padding: 5px;
+  color: #4caf50;
+  text-align: center;
+}
+.no-comapny-values-message .note {
+  color: rgb(247 116 182);
+  text-align: center;
+  font-size: 15px;
+}
+.add-values-form {
+  position: absolute;
+  left: 14vw;
+  top: 20vh;
+  transition: all ease-in-out 0.5s;
+  z-index: 99;
+  height: 200px;
+  background: #edf2e8;
+  width: 360px;
+  box-shadow: var(--main-box-shadow);
+  transform: scale(1.5);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  padding: 2px;
+}
+
+.add-values-form textarea {
+  height: 90%;
+  width: 90%;
+  border: var(--main-input-border);
+  border-radius: 10px;
+  outline: none;
+  margin: 5px;
+  padding: 5px;
+}
+.add-value-submit {
+}
+.close-values-form {
+  align-self: end;
+  color: #ff00a5;
+  background: white;
+  border-radius: 2px;
+  cursor: pointer;
+}
+.overlay {
+  position: absolute;
+  width: 100vw;
+  height: calc(100vh - 45px);
+  background: #020202c7;
+  z-index: 99;
+}
+@media only screen and (max-width: 600px) {
+  .add-values-form {
+    width: 50vw;
+    left: 100px;
+  }
+}

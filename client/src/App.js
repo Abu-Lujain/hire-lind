@@ -17,6 +17,7 @@ if (localStorage.token) setAuthToken(localStorage.token);
 const App = () => {
   const { dispatch, user } = useContext(authContext);
   const [openNav, setOpenNav] = useState(false);
+  const [showOverlay, setShowOverlay] = useState(false);
   // loading user
   useEffect(() => {
     loadUserCall(dispatch);
@@ -47,7 +48,10 @@ const App = () => {
           </Route>
           <Route path="/profile">
             {" "}
-            <Profile user={user} />
+            <Profile
+              showOverlay={showOverlay}
+              setShowOverlay={setShowOverlay}
+            />
           </Route>
         </Switch>
       </BrowserRouter>

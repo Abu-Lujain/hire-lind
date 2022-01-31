@@ -1,10 +1,10 @@
 import CompanyPhotoSlider from "./CompanyPhotoSlider";
 import CompanyTitle from "./CompanyTitle";
 
-function CompanyHeader() {
+function CompanyHeader({ setShowOverlay, showOverlay }) {
   return (
     <div className="company-top col-12 m-auto row">
-      <CompanyTitle />
+      <CompanyTitle showOverlay={showOverlay} setShowOverlay={setShowOverlay} />
 
       <CompanyPhotoSlider />
     </div>
