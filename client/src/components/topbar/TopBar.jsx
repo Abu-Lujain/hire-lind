@@ -5,12 +5,14 @@ import Menu from "../menu/Menu";
 import { profileContext } from "../../context/profile_context/profileContext";
 import { useContext } from "react";
 import { authContext } from "../../context/auth_context/authContext";
+import { companyContext } from "../../context/company_context/companyContext"
 function Topbar({ openNav, setOpenNav }) {
-  const PF = "http://localhost:8000";
-  const { profile } = useContext(profileContext);
-  const { pathname } = useLocation();
-  const { user } = useContext(authContext);
-
+  const PF = "http://localhost:8000"
+  const { profile } = useContext(profileContext)
+  const { company } = useContext(companyContext)
+  const { user } = useContext(authContext)
+  const { pathname } = useLocation()
+  const candidate = user?.profileType === "employee"
   return (
     <div className="row m-0 topbar">
       <div className="col col-md-6 col-9   d-flex top-right">
@@ -18,13 +20,25 @@ function Topbar({ openNav, setOpenNav }) {
         <Link to="/" className=" link">
           <h2 className="logo mx-1 link">4Carrier</h2>
         </Link>
+        {user?.isAdmin && (
+          <Link to="/" className=" link">
+            <h6 className="logo mx-1 link">Admins Dashboard</h6>
+          </Link>
+        )}
         {pathname === "/profile" ? (
           ""
         ) : (
           <>
             {" "}
             {user && (
-              <Link to="/profile" className=" link">
+              <Link
+                to={`/${
+                  candidate
+                    ? "profile/" + profile?._id
+                    : "company/" + company?._id
+                }`}
+                className=" link"
+              >
                 <img
                   src={`${PF}${profile?.photo}`}
                   className="profile-icon"
@@ -53,11 +67,11 @@ function Topbar({ openNav, setOpenNav }) {
           <Link className="link" to="/contacts">
             Contacts
           </Link>
-        </li>
+        </li>{" "}
         <div className="join-links col-md-5 join">
           {" "}
           <Join openNav={openNav} />
-        </div>
+        </div>{" "}
       </div>
       {/* profile icon */}
 
@@ -83,7 +97,7 @@ function Topbar({ openNav, setOpenNav }) {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
 export default Topbar;

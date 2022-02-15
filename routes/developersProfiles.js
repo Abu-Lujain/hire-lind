@@ -51,7 +51,7 @@ router.post("/", authMiddleware, async (req, res) => {
         { $set: profileData },
         { new: true }
       );
-      res.status(200).json(profile);
+      return res.status(200).json(profile);
     }
     if (!profile) {
       profile = new Profile(profileData);
@@ -75,7 +75,6 @@ router.put(
     ],
   ],
   async (req, res) => {
-    console.log(req.body.loc);
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       console.log(errors);

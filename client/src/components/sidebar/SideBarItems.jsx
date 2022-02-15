@@ -1,12 +1,11 @@
 import "./sidebar.css";
 import { useContext } from "react";
 
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { logOut } from "../../api_Calls/authCalls";
 import { authContext } from "../../context/auth_context/authContext";
 const SideBarItems = () => {
   const { dispatch } = useContext(authContext);
-  const { pathname } = useLocation();
   return (
     <div className="sidebar-items">
       <div className="logout mb-5" onClick={() => logOut(dispatch)}>

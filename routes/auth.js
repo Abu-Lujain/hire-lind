@@ -13,15 +13,14 @@ const User = require("../model/User");
  2. send user to the client 
 */
 router.get("/", authMiddleware, async (req, res) => {
-  console.log("from auth");
   try {
-    const user = await User.findById(req.user.id).select("-password");
-    res.status(200).json(user);
+    const user = await User.findById(req.user.id).select("-password")
+    res.status(200).json(user)
   } catch (error) {
-    console.error(error);
-    res.status(500).json("Server Error");
+    console.error(error)
+    res.status(500).json("Server Error")
   }
-});
+})
 /* ############################################################
 @operation : login users
 @route : /api/auth

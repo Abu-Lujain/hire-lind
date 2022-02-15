@@ -4,11 +4,29 @@ const User = require("../model/User");
 const { check, validationResult } = require("express-validator");
 const authMiddleware = require("../middlewares/authMiddleware");
 const Company = require("../model/Company");
+const mongoose = require("mongoose")
 
-/* ############################################################
-@operation : get company for current user
-@route : /api/dev_profiles/me
+/*  
+@operation : get current company profile for current user
+@route : /api/companyprofile/me
 @method : get
+@access : private
+*/
+
+router.get("/me", authMiddleware, async (req, res) => {
+  try {
+    const company = await Company.findOne({ user: req.user.id });
+    if (!company) res.status(404).json("No company profile");
+    res.json(company);
+  } catch (error) {
+    console.error(error);
+  }
+});
+
+/*
+@operation : create or update profile, if already exists
+@route : /api/companyprofile
+@method : post
 @access : private
 */
 
@@ -18,11 +36,10 @@ router.post("/", authMiddleware, async (req, res) => {
     loc,
     area,
     logo,
-    jobs,
+    contacts,
+    values,
     website,
     about,
-    products,
-    services,
     foundedYear,
     email,
   } = req.body;
@@ -35,11 +52,9 @@ router.post("/", authMiddleware, async (req, res) => {
   if (website) companyData.website = website;
   if (about) companyData.about = about;
   if (logo) companyData.logo = logo;
-  if (jobs) companyData.jobs = jobs;
-  if (products) companyData.products = products;
-  if (services) companyData.services = services;
+  if (contacts) companyData.contacts = contacts;
+  if (values) companyData.values = values;
   if (foundedYear) companyData.foundedYear = foundedYear;
-  console.log(companyData.user);
   try {
     let company = await Company.findOne({ user: req.user.id });
     if (company) {
@@ -49,38 +64,50 @@ router.post("/", authMiddleware, async (req, res) => {
         { new: true }
       );
       await company.save();
-      res.status(200).json(company);
+      return res.status(200).json(company);
     }
     company = new Company(companyData);
+    console.log(Company);
     await company.save();
-    res.status(200).json(company);
+    res.json(company);
   } catch (error) {
-    console.error(error);
+    console.log(error.message);
     res.status(500).send("Server Error");
   }
 });
-// get current user's company
-router.get("/company", authMiddleware, async (req, res) => {
+
+/*
+@operation : get sigle company
+@route : /api/companyprofile/:id
+@method : GET
+@access : public
+*/ router.get("/:id", async (req, res) => {
+  var companyUser = mongoose.Types.ObjectId(req.params.id)
   try {
-    const company = await Company.findOne({ user: req.user.id });
-    if (!company) res.status(404).send("No company profile");
-    res.json(company);
+    const company = await Company.findOne({ user: companyUser })
+     if (!company) res.status(404).json("No company profile");
+     res.json(company);
   } catch (error) {
-    console.error(error);
+    console.error(error.message);
+    res.status(500).send(error);
   }
 });
 
-// delete company
-router.delete("/company", authMiddleware, async (req, res) => {
-  console.log(req.user.id);
+router.delete("/:id", authMiddleware, async (req, res) => {
   try {
-    const company = await Company.findOneAndRemove({ user: req.user.id });
+    const company = await Company.findByIdAndRemove(req.params.id);
+    console.log(company);
     if (!company) res.json("company not found");
-    res.json("you have deleted your comapny profile");
+    res.json("you have deleted your company profile");
   } catch (error) {
-    console.error(error);
+    res.status(500).send("Server Error");
   }
 });
-// delete company
+/*
+@operation : add job
+@route : /api/companyprofile
+@method : POST
+@access : private
+*/
 
 module.exports = router;

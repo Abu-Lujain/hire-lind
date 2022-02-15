@@ -1,5 +1,5 @@
-import { types } from "../context/types";
 import axios from "axios";
+import { types } from "../context/profile_context/types";
 
 // create profile
 export const createProfile = async (dispatch) => {
@@ -24,7 +24,6 @@ export const fetchProfile = async (dispatch) => {
     response.data &&
       dispatch({ type: types.LOAD_PROFILE_SUCCESS, payload: response.data });
   } catch (error) {
-    console.log(error);
     dispatch({
       type: types.LOAD_PROFILE_FAILURE,
       payload: error.response.data.errors,

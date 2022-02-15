@@ -1,10 +1,21 @@
-import Candidates from "../../components/candidates/Candidates";
-import LatestJobs from "../../components/jobs/LatestJobs";
-import HighPaying from "../../components/jobs/HighPaying";
-import profile from "../../assets/profile.jpeg";
-import CandidatesPosts from "../../components/candidates/CandidatesPosts";
+import "./home.css"
+import Candidates from "../../components/candidates/Candidates"
+import LatestJobs from "../../components/jobs/LatestJobs"
+import HighPaying from "../../components/jobs/HighPaying"
+import profile from "../../assets/profile.jpeg"
+import CandidatesPosts from "../../components/candidates/CandidatesPosts"
+import { useContext } from "react"
 
+import Search from "../../components/search/Search"
+import { companyContext } from "../../context/company_context/companyContext"
+import { useEffect } from "react"
+import { loadCompany } from "../../api_Calls/companyCall"
 const HomeScreen = () => {
+  const { dispatch: loadCompanyDispatch } = useContext(companyContext)
+  useEffect(() => {
+    loadCompany(loadCompanyDispatch)
+  }, [loadCompanyDispatch])
+
   return (
     <div className=" home row ">
       {/* <SideBar /> */}
@@ -15,16 +26,12 @@ const HomeScreen = () => {
           <HighPaying profile={profile} />
         </div>
       </div>
-      <div className="right  col-4 ms-auto d-none d-md-block">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure facere
-        illum laudantium adipisci tenetur rem ipsa maxime ea dolorum molestias,
-        fuga rerum eum sapiente debitis est suscipit itaque ad aut?
-      </div>
+      <Search />
       <LatestJobs />
       <Candidates />
       <CandidatesPosts />
     </div>
-  );
-};
+  )
+}
 
-export default HomeScreen;
+export default HomeScreen

@@ -7,7 +7,7 @@ function AboutCompany() {
       ipsum, aliquid labore quasi repudiandae sint laboriosam optio dignissimos
       officiis! Perspiciatis accusantium, consequatur nam repellendus sint ut
       dolorum vel nihil! a
-      <a href="" className="more">
+      <a href="/" className="more">
         read more
       </a>
     </div>

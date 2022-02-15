@@ -1,0 +1,31 @@
+.single-job {
+  justify-content: center;
+  /* align-items: center; */
+  height: 100vh;
+  margin: 0;
+  margin-top: 45px;
+}
+.single-job div {
+  background: var(--main-child-bg-color);
+  padding: 5px;
+  border-radius: 5px;
+  margin: 10px;
+  height: fit-content;
+}
+.msg {
+ top: 31vh;
+    position: fixed;
+    place-self: center;
+    z-index: 9999;
+    left: 50px;
+    background: #ffffff;
+    width: -moz-fit-content;
+    width: fit-content;
+    font-weight: 600;
+    box-shadow: var(--main-box-shadow);
+    color: #ff0000;
+    border-radius: 10px;
+    transform: scale(1.5);
+    padding: 5px;
+    font-family: fangsong;
+}

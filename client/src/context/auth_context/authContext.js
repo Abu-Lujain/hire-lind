@@ -2,10 +2,10 @@ import { createContext, useReducer } from "react";
 import authReducer from "./authReducer";
 const initialState = {
   token: localStorage.getItem("token"),
-  loading: true,
+  loading: false,
   errors: null,
   user: null,
-};
+}
 // auth context
 export const authContext = createContext(initialState);
 // auth context provider component

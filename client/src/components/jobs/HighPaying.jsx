@@ -108,6 +108,16 @@ const TopProfiles = ({ profile }) => {
               </div>
               <div className="high-pay-job-body col-8">
                 <h2 className="high-pay-job-title">{prof.job}</h2>
+                <h3>Full Time</h3>
+                <h5>
+                  <span className="text-success">100K$</span> Negotiable{" "}
+                </h5>
+                <p className="High-paying-job-description">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Quos
+                  reprehenderit, error sequi laboriosam a, libero facere dicta
+                  totam, tempore accusamus cum earum. Totam, voluptatem minus
+                  officiis consequatur cumque repellendus sit.
+                </p>
               </div>
             </div>
             <button className="btn btn-outline-dark float-end">

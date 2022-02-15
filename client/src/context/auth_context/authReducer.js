@@ -1,4 +1,5 @@
-import { types } from "../types";
+import { types } from "./types";
+
 export default function authReducer(state, action) {
   const { type, payload } = action;
   switch (type) {

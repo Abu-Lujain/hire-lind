@@ -3,20 +3,22 @@ import React, { useState } from "react";
 import { MoreVertRounded, CloseSharp } from "@material-ui/icons";
 import { useContext } from "react";
 import { Spinner } from "react-bootstrap";
-
-import { profileContext } from "../../../context/profile_context/profileContext";
-import { deleteExperience } from "../../../api_Calls/profileCalls";
-// import MoreVertRounded className="icon" from '@mui/icons-material/MoreVert';
+import { useLocation } from "react-router-dom"
+import { profileContext } from "../../../context/profile_context/profileContext"
+import { deleteExperience } from "../../../api_Calls/profileCalls"
 function SingleExp({ adding }) {
-  const { profile, dispatch, isFetching } = useContext(profileContext);
-  const [openOption, setOpenOption] = useState(null);
-  const [expPdf, setExpPdf] = useState(false);
-
+  const { profile, dispatch, isFetching } = useContext(profileContext)
+  const [openOption, setOpenOption] = useState(null)
+  const [expPdf, setExpPdf] = useState(false)
+  const { pathname } = useLocation()
+  const userId = pathname.split("/").pop()
+  const authorized = userId === profile?._id
   // delete experience
   const handleDelete = (id) => {
-    deleteExperience(id, dispatch);
-  };
-  setTimeout(() => setExpPdf(false), 7000);
+    deleteExperience(id, dispatch)
+  }
+  console.log(profile)
+  setTimeout(() => setExpPdf(false), 7000)
 
   return (
     <>
@@ -49,13 +51,18 @@ function SingleExp({ adding }) {
                   role="status"
                 ></Spinner>
               ) : (
-                <div className="experience">
-                  <div className="options position-absolute ">
-                    <MoreVertRounded
-                      className="icon"
-                      onClick={() => setOpenOption(exp._id)}
-                    />{" "}
-                  </div>
+                <div
+                  className="experience"
+                  onClick={() => setOpenOption(false)}
+                >
+                  {authorized && (
+                    <div className="options position-absolute ">
+                      <MoreVertRounded
+                        className="icon"
+                        onClick={() => setOpenOption(exp._id)}
+                      />{" "}
+                    </div>
+                  )}
                   {openOption === exp._id && (
                     <div className="options-menu ">
                       <li className="edit ">Edit</li>
@@ -70,23 +77,23 @@ function SingleExp({ adding }) {
                     </div>
                   )}
                   <h5 className="co-name">
-                    <span className="preffix">Co:</span> {exp.company}
+                    <span className="preffix">Co</span> {exp.company}
                   </h5>
                   <div className="role">
-                    <span className="preffix">Role:</span> {exp.title}
+                    <span className="preffix">Role</span> {exp.title}
                   </div>
                   <div className="role">
-                    <span className="preffix">location:</span> {exp.loc}
+                    <span className="preffix">location</span> {exp.loc}
                   </div>
                   <div className="from">
-                    <span className="preffix">From:</span> {exp.from}
+                    <span className="preffix">From</span> {exp.from}
                   </div>
                   <div className="to">
-                    <span className="preffix">To: </span> {exp.to}
+                    <span className="preffix">To </span> {exp.to}
                   </div>
-                  <div>
-                    <span> description: </span>
-                    {exp.description}
+                  <div className="description-parent">
+                    <h6> description </h6>
+                    <p>{exp.description}</p>
                   </div>
                   <div className="col-12 experience-statement">
                     <button
@@ -112,11 +119,11 @@ function SingleExp({ adding }) {
                 </div>
               )}{" "}
             </React.Fragment>
-          );
+          )
         })
       )}
     </>
-  );
+  )
 }
 
 export default SingleExp;

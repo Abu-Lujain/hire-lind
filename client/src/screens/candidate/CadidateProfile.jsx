@@ -18,40 +18,33 @@ import SocialMedia from "../../components/candidate_components/social_media/Soci
 const CadidateProfile = () => {
   const [editProfile, setEditProfile] = useState(false);
   const [bio, setBio] = useState("");
-  const [title, setTitle] = useState("");
-  const [uploading, setUploading] = useState(false);
-  const [boiUpdating, setBoiUpdating] = useState(false);
-  const [addingExp, setAddingExp] = useState(false);
-  const { user } = useContext(authContext);
-  const { dispatch, profile, isFetching } = useContext(profileContext);
-  const isMounted = useRef(true);
+  const [title, setTitle] = useState("")
+  const { user } = useContext(authContext)
+  const { dispatch, profile, isFetching } = useContext(profileContext)
+  const isMounted = useRef(true)
   // update profile
-  const body = { bio, title };
+  const body = { bio, title }
   const handleUpdate = (e) => {
-    e.preventDefault();
-    updateProfile(body, dispatch);
-    setEditProfile(false);
-  };
+    e.preventDefault()
+    updateProfile(body, dispatch)
+    setEditProfile(false)
+  }
   // create new profile
   // upload profile photo
 
   useEffect(() => {
-    isMounted.current = true;
+    isMounted.current = true
     if (isMounted.current) {
-      console.log("mounted");
-
-      createProfile(dispatch);
-      fetchProfile(dispatch);
+      console.log("mounted")
     }
     return () => {
-      console.log("unmounted");
-      isMounted.current = false;
-    };
-  }, [isMounted]);
+      console.log("unmounted")
+      isMounted.current = false
+    }
+  }, [isMounted, dispatch])
   const handleUpload = (e) => {
-    setUploading(true);
-    uploadProfilePhoto(e, profile, dispatch);
-  };
+    uploadProfilePhoto(e, profile, dispatch)
+  }
   const PF = "http://localhost:8000";
   return (
     <>

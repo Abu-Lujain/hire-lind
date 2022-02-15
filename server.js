@@ -16,6 +16,7 @@ app.use("/api/auth", require("./routes/auth"));
 app.use("/api/developersProfiles", require("./routes/developersProfiles"));
 app.use("/api/companiesProfiles", require("./routes/companiesProfiles"));
 app.use("/api/jobs", require("./routes/jobs"));
+app.use("/api/products", require("./routes/products"))
 app.use("/api/uploads", require("./routes/uploads"));
 
 app.listen(8000, () => console.log("listening to  port 8000"));

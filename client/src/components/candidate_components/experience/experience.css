@@ -6,20 +6,17 @@
   min-height: 360px;
 }
 .experience {
-  transition: all 2s;
-  background: var(--main-bg-color);
-  padding: 10px;
-  border-radius: 10px;
-  margin: 0 0 20px 0;
-  position: relative;
-  /* box-shadow: 0px 0px 24px -13px #0027ff; */
-  /* box-shadow: var(--main-box-shadow); */
+    background: #ffffff;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 0 0 10px 0;
+    position: relative;
+    box-shadow: 0px 0px 24px -20px #00f36c;
+    color: #757a77;
+    transition: all 1s;
 
-  transition: all 1s;
 }
-.experience:hover {
-  transform: scale(1);
-}
+ 
 .exp-header {
   display: flex;
   justify-content: space-between;
@@ -44,12 +41,26 @@
 }
 
 .preffix {
-  color: #9b3356;
-  font-weight: 600;
-  margin: 10px;
+     color: #0fc962;
+    font-weight: 600;
+    margin-right: 10px;
+    font-family: serif;
+    letter-spacing: 1px;
+    
 }
 .experience-parent .projects-parent li {
   color: gray;
+}
+.description-parent{
+  margin: 5px 0;
+    background: #f5f8f3;
+    color: #626262;
+    padding: 5px;
+    border-radius: 5px;
+}
+.description-parent h6{
+       color: #0fc962;
+
 }
 /* .exp-form input {
   outline: none;
@@ -80,12 +91,14 @@
   flex-direction: column;
 }
 .options {
-  right: 5px;
+ right: 8px;
+    width: 30px;
+    top: 2px;
 }
 .options .icon {
   cursor: pointer;
   transition: all 0.5s;
-  color: #4c4c4c;
+  color: #9b9797;
   border-radius: 5px;
 }
 .options .icon:hover {
@@ -95,17 +108,18 @@
   background-color: red;
 }
 .options-menu {
-  height: auto;
-  list-style: none;
-  border-radius: 5px;
-  box-shadow: var(--main-box-shadow);
-  position: absolute;
-  flex-direction: column;
-  z-index: 999;
-  width: fit-content;
-  top: 28px;
-  right: 20px;
-  background: #ffffff;
+ height: auto;
+    list-style: none;
+    border-radius: 5px;
+    box-shadow: var(--main-box-shadow);
+    position: absolute;
+    flex-direction: column;
+    z-index: 999;
+    width: -moz-fit-content;
+    width: fit-content;
+    top: 21px;
+    right: 32px;
+    background: #ffffff;
 }
 .options-menu li {
   border: 2px #ffffff solid;

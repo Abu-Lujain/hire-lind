@@ -12,20 +12,12 @@ function Profile({ showOverlay, setShowOverlay }) {
   // user?.profileType === "company";
   return (
     <div className=" profile-parent">
-      {true && (
-        <CompanyProfile
-          showOverlay={showOverlay}
-          setShowOverlay={setShowOverlay}
-        />
-      )}
-      {user?.profileType === "employee" && (
-        <CadidateProfile
-          showOverlay={showOverlay}
-          setShowOverlay={setShowOverlay}
-        />
-      )}
+      <CadidateProfile
+        showOverlay={showOverlay}
+        setShowOverlay={setShowOverlay}
+      />
     </div>
-  );
+  )
 }
 
 export default Profile;

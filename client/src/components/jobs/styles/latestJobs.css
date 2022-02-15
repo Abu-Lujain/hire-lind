@@ -1,8 +1,26 @@
 .latest-jobs {
   display: grid;
-  grid-template-columns: 33% 33% 33%;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 10px;
+  position: relative;
 }
+
+.errors {
+  /* background: transparent; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  top: 66px;
+}
+.errors h5 {
+  z-index: 999;
+  margin: 5px;
+  padding: 5px;
+  box-shadow: var(--main-box-shadow);
+  border-radius: 10px;
+}
+
 @media only screen and (max-width: 600px) {
   .latest-jobs {
     grid-template-columns: 99%;
@@ -19,17 +37,43 @@
   margin: 5px;
 }
 .job-title-container {
-  display: flex;
-  align-items: start;
-  justify-content: end;
+  color: #000000;
+  text-align: center;
+  font-family: serif;
+}
+.job-container .company-name {
+  background: #edf2e8;
+  width: 100%;
+  padding: 1px 10px;
+  color: #22ab22;
+  font-weight: 600;
+  border-radius: 5px;
+  transition: all ease-in-out 0.5s;
+}
+.job-container .company-name:hover {
+  color: #00cc00;
 }
 .job-container {
   padding: 10px;
   background-color: #f9fbf7;
-  border-radius: 5px;
   margin: 5px;
-  position: relative;
   border-radius: 10px;
+  padding-top: 3px;
+  height: fit-content;
+}
+.job-container p {
+  height: 80px;
+  width: 100%;
+  padding: 3px;
+  overflow: hidden;
+  margin: 5px;
+  border-radius: 5px;
+}
+.job-container p::first-letter {
+  font-size: large;
+  color: rgb(0, 17, 255);
+  font-family: sans-serif;
+  font-weight: 6000;
 }
 
 .logo-container .logo {
@@ -50,4 +94,43 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.job-container .salary {
+  color: green;
+  /* width: fit-content; */
+  padding: 2px;
+  background: #edf2e8;
+  border-radius: 5px;
+}
+.footer {
+  background: #edf2e8;
+  padding: 5px;
+  border-radius: 5px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+}
+.footer button {
+  padding: 0 4px;
+  margin: 5px;
+  border-radius: 5px;
+  border: none;
+
+  color: white;
+  font-weight: 600;
+  font-family: ui-sans-serif;
+}
+.footer button.details {
+  background: #008bf9;
+}
+.footer button.details:hover {
+  background: #45abff;
+}
+.footer button.apply {
+  background-color: blue;
+}
+.footer button.apply:hover {
+  background-color: rgb(70, 70, 252);
 }

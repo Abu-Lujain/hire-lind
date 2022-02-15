@@ -2,7 +2,7 @@ import { createContext, useReducer } from "react";
 import companyReducer from "./companyReducer";
 const initialState = {
   company: null,
-  isFetching: false,
+  fetchingCompany: false,
   companyErrors: null,
 };
 export const companyContext = createContext(initialState);
@@ -12,7 +12,7 @@ const CompanyContextProvider = ({ children }) => {
     <companyContext.Provider
       value={{
         company: state.company,
-        isFetching: state.isFetching,
+        fetchingCompany: state.fetchingCompany,
         companyErrors: state.companyErrors,
         dispatch,
       }}

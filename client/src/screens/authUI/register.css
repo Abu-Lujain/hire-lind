@@ -22,10 +22,46 @@
   padding: 12px;
   text-align: center;
 }
-form {
+.register form,
+.login form {
   padding: 20px;
   border-radius: 10px;
   background: #f5f8f3;
+  position: relative;
+}
+.register form .register-note
+ {
+        position: absolute;
+        z-index: 999;
+    top: 40px;
+    left: 54px;
+    background: white;
+    border-radius: 5px;
+    box-shadow: var(--main-box-shadow);
+    padding: 0 10px;
+    color: rgb(255, 88, 88);
+    transform: scale(1.2);
+    padding-bottom: 15px;
+}
+.register form .register-note span {
+       width: 25px;
+    background: white;
+    position: absolute;
+    transform: rotate( 
+45deg
+ );
+    height: 21px;
+    left: 90px;
+    top: 25px;
+    box-shadow: var(--main-box-shadow);
+}
+form .profile-type div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+form .profile-type div input:hover {
+  cursor: pointer;
 }
 .register-form label,
 .login-form label {

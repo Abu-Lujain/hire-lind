@@ -1,14 +1,13 @@
-import React from "react";
-import "./join.css";
-import { Link } from "react-router-dom";
-import { useContext } from "react";
-import { logOut } from "../../api_Calls/authCalls";
-import { authContext } from "../../context/auth_context/authContext";
+import "./join.css"
+import { Link } from "react-router-dom"
+import { useContext } from "react"
+import { logOut } from "../../api_Calls/authCalls"
+import { authContext } from "../../context/auth_context/authContext"
 function Join({ openNav }) {
-  const { user, dispatch } = useContext(authContext);
+  const { user, dispatch } = useContext(authContext)
   return (
-    <React.Fragment>
-      {user === null ? (
+    <>
+      {!user ? (
         <div className={openNav ? "move-join join-btns" : " join-btns"}>
           {" "}
           <Link to="login" className="link log-in ">
@@ -29,8 +28,8 @@ function Join({ openNav }) {
           </Link>
         </>
       )}
-    </React.Fragment>
-  );
+    </>
+  )
 }
 
-export default Join;
+export default Join

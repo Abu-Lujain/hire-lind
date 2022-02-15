@@ -29,7 +29,7 @@ router.post(
     check("userName", "please enter your userName").not().isEmpty(),
     check("email", "please enter your email").isEmail(),
     check("password", "please enter a longer password").isLength({ min: 6 }),
-    check("profileType", "please choose a profile type").isLength({ min: 6 }),
+    check("profileType", "please choose a profile type").not().isEmpty(),
   ],
   async (req, res) => {
     // res.send("register a new user");
@@ -38,7 +38,7 @@ router.post(
       res.status(400).json({ errors: errors.array() });
     }
 
-    const { userName, email, password, profileType } = req.body;
+    const { userName, email, password, isAdmin, profileType } = req.body;
     try {
       let user = await User.findOne({ email });
       if (user) {
@@ -50,6 +50,7 @@ router.post(
         email,
         password,
         profileType,
+        isAdmin,
       });
       // hashing user's password
 

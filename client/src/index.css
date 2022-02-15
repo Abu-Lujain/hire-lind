@@ -8,6 +8,11 @@ body {
 }
 .link {
   text-decoration: none;
+  color: white;
+}
+.link:hover {
+  text-decoration: none;
+  color: white;
 }
 :root {
   --main-box-shadow: 3px 3px 20px -11px #0027ff;
@@ -16,12 +21,14 @@ body {
   --main-white-transparent: #ffffffd9;
   --secondary-bg-color: #eff1eb;
   /* --main-text-color: gray; */
-  --main-red: #ea4c89;
+  --main-red: #e9558e;
   --success-color: #05da05;
   --main-parent-bg-color: #f5f8f3;
   --main-first-child-bg-color: #f5f8f3;
+  --main-child-bg-color: #f9fbf7;
   --main-input-border: 1px #009688 solid;
 }
+
 .align-items {
   display: flex;
   justify-content: space-between;
@@ -49,10 +56,13 @@ body {
 .main-b-r {
   border-radius: 10px;
 }
-.main-b-sh {
-  box-shadow: 3px 3px 20px -11px #0027ff;
+.mine {
+  border: 1px #3bef8b solid;
 }
-
+.spacing{
+  letter-spacing: 3px;
+  word-spacing: 4px;
+}
 /* profiles */
 .profile-parent {
   margin-top: 40px;
@@ -149,6 +159,7 @@ body {
   right: 2px;
 }
 .App {
+  background: var(--main-bg-color);
 }
 /* Home////////////////// */
 .home {

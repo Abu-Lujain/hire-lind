@@ -101,8 +101,8 @@
   position: relative;
   border-radius: 10px;
   margin: 10px;
-  box-shadow: var(--main-box-shadow);
-  background: var(--main-bg-color);
+  /* box-shadow: var(--main-box-shadow); */
+  background: var(--main-child-bg-color);
 }
 .profile-init-form {
   position: relative;
@@ -110,7 +110,6 @@
   padding: 10px;
   padding-bottom: 20px;
   display: flex;
-  flex-direction: column;
   justify-content: space-around;
   align-items: center;
 }

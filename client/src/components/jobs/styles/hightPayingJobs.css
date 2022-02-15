@@ -24,6 +24,7 @@
   border-bottom: 1px #006d77 solid;
   display: flex;
   position: relative;
+  background-color: rgb(249 251 247);
 }
 .slide {
   transition: all ease-in-out 1s;
@@ -39,4 +40,6 @@
 .jobs-parent .company-name {
   margin: 10px;
   text-align: center;
+}
+.High-paying-job-description {
 }

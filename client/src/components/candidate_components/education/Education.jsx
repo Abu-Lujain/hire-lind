@@ -119,7 +119,7 @@ function Education() {
       )}
       <SingleEdu adding={adding} addEdu={addEdu} />
     </div>
-  );
+  )
 }
 
 export default Education;

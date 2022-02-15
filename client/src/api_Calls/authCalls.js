@@ -1,5 +1,5 @@
-import { types } from "../context/types";
 import axios from "axios";
+import { types } from "../context/auth_context/types";
 import setAuthToken from "./setAuthToken";
 // Register new user
 export const registerCall = async (credentials, dispatch) => {
@@ -12,7 +12,7 @@ export const registerCall = async (credentials, dispatch) => {
   try {
     const response = await axios.post("/users", credentials, config);
     dispatch({ type: types.REGISTER_SUCCUESS, payload: response.data });
-    response.data && window.location.replace("/profile");
+    response.data && window.location.replace("/");
     console.log("data: ", response.data);
   } catch (error) {
     console.log("from register: ", error.response.data);
@@ -34,7 +34,7 @@ export const loginCall = async (credentials, dispatch) => {
   try {
     const response = await axios.post("/auth", credentials, config);
     dispatch({ type: types.LOGIN_SUCCESS, payload: response.data });
-    response.data && window.location.replace("/profile");
+    response.data && window.location.replace("/");
   } catch (error) {
     dispatch({
       type: types.LOGIN_FAILURE,
@@ -53,9 +53,9 @@ export const loadUserCall = async (dispatch) => {
   } catch (error) {
     dispatch({
       type: types.LOAD_USER_FAILURE,
-      payload: error.response.data.errors,
+      // payload: error.response.data.errors,
+      payload: error,
     });
-    console.log("from load user: ", error.response.data);
   }
 };
 export const logOut = (dispatch) => {

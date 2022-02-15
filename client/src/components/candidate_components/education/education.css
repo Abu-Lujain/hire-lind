@@ -65,10 +65,10 @@
   cursor: pointer;
 }
 .edu-header {
-  display: flex;
-  justify-content: space-between;
-  border-bottom: 2px #00bcd4 dashed;
-  align-items: center;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px #00bcd4 dashed;
+     margin-bottom: 5px;
 }
 .add-edu-parent {
   border-radius: 5px;

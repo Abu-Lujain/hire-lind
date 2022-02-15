@@ -15,7 +15,7 @@ function CandidatesPosts() {
             <p>
               Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit vel
               consequatur et voluptates? Dolores, praesentium consequatur
-              voluptas quos eos eum. <a href="#">Read More</a>
+              voluptas quos eos eum. <a href="/">Read More</a>
             </p>
           </div>
           <div className="info-and-actions col-12">
@@ -39,7 +39,7 @@ function CandidatesPosts() {
             <p>
               Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit vel
               consequatur et voluptates? Dolores, praesentium consequatur
-              voluptas quos eos eum. <a href="#">Read More</a>
+              voluptas quos eos eum. <a href="/">Read More</a>
             </p>
           </div>
           <div className="info-and-actions col-12">
@@ -63,7 +63,7 @@ function CandidatesPosts() {
             <p>
               Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit vel
               consequatur et voluptates? Dolores, praesentium consequatur
-              voluptas quos eos eum. <a href="#">Read More</a>
+              voluptas quos eos eum. <a href="/">Read More</a>
             </p>
           </div>
           <div className="info-and-actions col-12">
