@@ -12,16 +12,14 @@ const authMiddleware = require("../middlewares/authMiddleware");
 */
 router.get("/me", authMiddleware, async (req, res) => {
   try {
-    const profile = await Profile.findOne({ user: req.user.id });
-    console.log(profile);
+    const profile = await Profile.findOne({ user: req.user.id })
     if (!profile)
-      return res.status(404).send("there's no profile with this user");
-    res.json(profile);
+      return res.status(404).send("there's no profile with this user")
+    res.json(profile)
   } catch (error) {
-    console.error(error.message);
-    res.status(500).send("Server Error");
+    res.status(500).send("Server Error")
   }
-});
+})
 /* ############################################################
 @operation : creating profile
 @route : /api/dev_profiles
@@ -30,39 +28,37 @@ router.get("/me", authMiddleware, async (req, res) => {
 */
 router.post("/", authMiddleware, async (req, res) => {
   const { title, loc, website, role, photo, gitHubUserName, bio, skills } =
-    req.body;
-  const profileData = {};
-  profileData.user = req.user.id;
-  if (title) profileData.title = title;
-  if (loc) profileData.loc = loc;
-  if (role) profileData.role = role;
-  if (website) profileData.website = website;
-  if (bio) profileData.bio = bio;
-  if (photo) profileData.photo = photo;
-  if (gitHubUserName) profileData.gitHubUserName = gitHubUserName;
-  if (skills) profileData.skills = skills;
+    req.body
+  const profileData = {}
+  profileData.user = req.user.id
+  if (title) profileData.title = title
+  if (loc) profileData.loc = loc
+  if (role) profileData.role = role
+  if (website) profileData.website = website
+  if (bio) profileData.bio = bio
+  if (photo) profileData.photo = photo
+  if (gitHubUserName) profileData.gitHubUserName = gitHubUserName
+  if (skills) profileData.skills = skills
 
   try {
-    let profile = await Profile.findOne({ user: req.user.id });
-    console.log(profile);
+    let profile = await Profile.findOne({ user: req.user.id })
     if (profile) {
       profile = await Profile.findOneAndUpdate(
         { user: req.user.id },
         { $set: profileData },
         { new: true }
-      );
-      return res.status(200).json(profile);
+      )
+      return res.status(200).json(profile)
     }
     if (!profile) {
-      profile = new Profile(profileData);
-      await profile.save();
-      res.status(201).json(profile);
+      profile = new Profile(profileData)
+      await profile.save()
+      res.status(201).json(profile)
     }
   } catch (error) {
-    console.log(error.message);
-    res.status(500).json({ error: "Server Error" });
+    res.status(500).json({ error: "Server Error" })
   }
-});
+})
 // adding experience
 router.put(
   "/experience",
@@ -75,52 +71,47 @@ router.put(
     ],
   ],
   async (req, res) => {
-    const errors = validationResult(req);
+    const errors = validationResult(req)
     if (!errors.isEmpty()) {
-      console.log(errors);
-      return res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({ errors: errors.array() })
     }
 
-    const exp = req.body;
+    const exp = req.body
 
     try {
-      const profile = await Profile.findOne({ user: req.user.id });
-      profile.experience.unshift(exp);
-      await profile.save();
-      console.log(profile.experience);
-      res.json(profile);
+      const profile = await Profile.findOne({ user: req.user.id })
+      profile.experience.unshift(exp)
+      await profile.save()
+      res.json(profile)
     } catch (error) {
-      console.log(error.message);
+      res.status(500).send("Server Error")
     }
   }
-);
+)
 // deleting experience
 router.delete("/experience/:exp_id", authMiddleware, async (req, res) => {
   try {
-    const profile = await Profile.findOne({ user: req.user.id });
+    const profile = await Profile.findOne({ user: req.user.id })
     // getting experience by id the matches the parmas id
-    const exp = profile.experience.find((exp) => exp.id === req.params.exp_id);
-    console.log(exp);
+    const exp = profile.experience.find((exp) => exp.id === req.params.exp_id)
     if (!exp) {
       return res
         .status(404)
-        .json({ error: { message: "Experience Not Found" } });
+        .json({ error: { message: "Experience Not Found" } })
     }
     // grabbing the index of the experience to
-    const indexToRemove = profile.experience.indexOf(exp).toString();
-    const deleted = profile.experience.splice(indexToRemove, 1);
-    console.log(deleted);
-    await profile.save();
-    res.json(profile);
+    const indexToRemove = profile.experience.indexOf(exp).toString()
+    const deleted = profile.experience.splice(indexToRemove, 1)
+    await profile.save()
+    res.json(profile)
   } catch (error) {
     if (error.message === "Cannot read property 'id' of undefined") {
       return res
         .status(404)
-        .json({ error: { message: "Experience Not Found" } });
+        .json({ error: { message: "Experience Not Found" } })
     }
-    console.error(error.message);
   }
-});
+})
 // adding education
 router.put(
   "/education",
@@ -133,12 +124,11 @@ router.put(
     ],
   ],
   async (req, res) => {
-    const errors = validationResult(req);
-    console.log(errors);
+    const errors = validationResult(req)
     if (!errors.isEmpty())
-      return res.status(400).json({ errors: errors.array() });
+      return res.status(400).json({ errors: errors.array() })
 
-    const { school, name, degree, loc, description, from, to } = req.body;
+    const { school, name, degree, loc, description, from, to } = req.body
     const eduObj = {
       school,
       name,
@@ -147,33 +137,32 @@ router.put(
       description,
       from,
       to,
-    };
+    }
     try {
-      const profile = await Profile.findOne({ user: req.user.id });
-      profile.education.unshift(eduObj);
-      await profile.save();
-      res.json(profile);
+      const profile = await Profile.findOne({ user: req.user.id })
+      profile.education.unshift(eduObj)
+      await profile.save()
+      res.json(profile)
     } catch (error) {
-      console.error(error.message);
+      res.status(500).send("Server Error")
     }
   }
-);
+)
 // deleting education
 router.delete("/education/:edu_id", authMiddleware, async (req, res) => {
   try {
-    const profile = await Profile.findOne({ user: req.user.id });
+    const profile = await Profile.findOne({ user: req.user.id })
     // map all the ids
-    const edu_arr = profile.education.map((edu) => edu._id.toString());
-    const indexToRemove = edu_arr.find((edu) => edu === req.params.edu_id);
+    const edu_arr = profile.education.map((edu) => edu._id.toString())
+    const indexToRemove = edu_arr.find((edu) => edu === req.params.edu_id)
     if (indexToRemove != req.params.edu_id)
-      return res.status(404).send("not found");
-    profile.education.splice(indexToRemove, 1);
-    await profile.save();
-    res.status(200).json(profile);
+      return res.status(404).send("not found")
+    profile.education.splice(indexToRemove, 1)
+    await profile.save()
+    res.status(200).json(profile)
   } catch (error) {
-    console.error(error.message);
-    res.status(500).send("Server Error");
+    res.status(500).send("Server Error")
   }
-});
+})
 
 module.exports = router;

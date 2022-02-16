@@ -10,10 +10,10 @@ export const getSingleJob = async (pathname, dispatch) => {
       payload: res.data,
     })
   } catch (error) {
-    console.log(error.res.data.errors)
+    console.log(error)
     dispatch({
       type: types.GET_SINGLE_JOB_FAILURE,
-      payload: error.res.data.errors,
+      // payload: error.res.data.errors,
     })
   }
 }

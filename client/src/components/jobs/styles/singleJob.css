@@ -1,18 +1,10 @@
 .single-job {
   justify-content: center;
-  /* align-items: center; */
-  height: 100vh;
+   min-height: 100vh;
   margin: 0;
   margin-top: 45px;
 }
-.single-job div {
-  background: var(--main-child-bg-color);
-  padding: 5px;
-  border-radius: 5px;
-  margin: 10px;
-  height: fit-content;
-}
-.msg {
+ .msg {
  top: 31vh;
     position: fixed;
     place-self: center;
@@ -29,3 +21,66 @@
     padding: 5px;
     font-family: fangsong;
 }
+.single-job .experience-needed , .single-job .education, .single-job .perks .single-job .working-days{
+     display: flex;
+    flex-direction: column;
+     margin: 5px;
+    color: #795548;
+}
+.single-job .experience h6,
+ .single-job .education h6,
+  .single-job .perks h6,
+  .single-job .working-days h6{
+ font-weight: bold;
+}
+.single-job .perks li{
+font-weight: 600;
+color: rgb(0, 197, 33);
+letter-spacing: 3px;
+list-style-type: none
+}
+ 
+
+.single-job .working-days li{
+font-weight: 600;
+ letter-spacing: 3px;
+list-style-type: none
+}
+.single-job div {
+  background: var(--main-child-bg-color);
+  padding: 5px;
+  border-radius: 5px;
+  margin: 10px;
+  height: fit-content;
+}
+.single-job .details{
+  
+}
+.single-job .more-details{
+background-color: var(--main-bg-color);
+}
+.single-job .more-details h4{
+  color: green;
+ }
+ .more-details .right{
+  background: var(--main-child-bg-color);
+
+ }
+ .more-details .left{
+  background: var(--main-child-bg-color);
+
+ }
+
+ .single-job .work-place{
+       background: #0fc962;
+    padding: 3px;
+    border-radius: 5px;
+    color: white;
+    font-size: 15px;
+
+ }
+ .single-job .header .title
+ {
+color: rgb(0, 197, 33);
+
+ }

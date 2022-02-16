@@ -42,7 +42,7 @@ function CompanyTitle({ setShowOverlay }) {
     setShowForm(false)
   }
   const authorized = user?._id === company?.user
-  console.log(user?._id, company?.user)
+ 
   return (
     <>
       {showForm && (
