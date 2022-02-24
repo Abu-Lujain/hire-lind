@@ -3,13 +3,13 @@ import Candidates from "../../components/candidates/Candidates"
 import LatestJobs from "../../components/jobs/LatestJobs"
 import HighPaying from "../../components/jobs/HighPaying"
 import profile from "../../assets/profile.jpeg"
-import CandidatesPosts from "../../components/candidates/CandidatesPosts"
 import { useContext } from "react"
 
 import Search from "../../components/search/Search"
 import { companyContext } from "../../context/company_context/companyContext"
 import { useEffect } from "react"
 import { loadCompany } from "../../api_Calls/companyCall"
+import ShowAll from "../../components/posts/ShowAll"
 const HomeScreen = () => {
   const { dispatch: loadCompanyDispatch } = useContext(companyContext)
   useEffect(() => {
@@ -28,8 +28,8 @@ const HomeScreen = () => {
       </div>
       <Search />
       <LatestJobs />
-      <Candidates />
-      <CandidatesPosts />
+      {/* <Candidates /> */}
+      <ShowAll />
     </div>
   )
 }

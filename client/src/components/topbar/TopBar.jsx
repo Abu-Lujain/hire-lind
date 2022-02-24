@@ -25,7 +25,7 @@ function Topbar({ openNav, setOpenNav }) {
             <h6 className="logo mx-1 link">Admins Dashboard</h6>
           </Link>
         )}
-        {pathname === "/profile" ? (
+        {pathname.includes("profile") || pathname.includes("company") ? (
           ""
         ) : (
           <>

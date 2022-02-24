@@ -19,12 +19,15 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    photo: {
+      type: String,
+    },
     profileType: {
       type: String,
       required: true,
     },
   },
   { timestamps: true }
-);
+)
 
 module.exports = User = mongoose.model("user" /*ref*/, userSchema);

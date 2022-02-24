@@ -1,0 +1,59 @@
+const mongoose = require("mongoose")
+const postSchema = mongoose.Schema(
+  [
+    {
+      title: {
+        type: String,
+        required: true,
+      },
+      user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "user",
+      },
+      body: {
+        type: String,
+        required: true,
+      },
+      userName: {
+        type: String,
+        required: true,
+      },
+      photo: {
+        type: String,
+        default: "uploadsphoto-4Carrer-1643102875295.jpeg",
+      },
+      comments: [
+        {
+          user: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "user",
+          },
+          body: {
+            type: String,
+          },
+          userName: {
+            type: String,
+          },
+          photo: {
+            type: String,
+          },
+          date: {
+            type: Date,
+            default: Date.now,
+          },
+        },
+      ],
+      likes: [
+        {
+          user: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "user",
+          },
+          userName: { type: String },
+        },
+      ],
+    },
+  ],
+  { timestamps: true }
+)
+module.exports = Post = mongoose.model("Post", postSchema)

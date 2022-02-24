@@ -38,11 +38,11 @@ router.post(
       res.status(400).json({ errors: errors.array() });
     }
 
-    const { userName, email, password, isAdmin, profileType } = req.body;
+    const { userName, email, password, isAdmin, profileType, photo } = req.body
     try {
-      let user = await User.findOne({ email });
+      let user = await User.findOne({ email })
       if (user) {
-        return res.status(400).json({ msg: "user already exists" });
+        return res.status(400).json({ msg: "user already exists" })
       }
 
       user = new User({
@@ -51,30 +51,31 @@ router.post(
         password,
         profileType,
         isAdmin,
-      });
+        photo,
+      })
       // hashing user's password
 
-      const salt = await bcrypt.genSalt(10);
-      user.password = await bcrypt.hash(password, salt);
-      await user.save();
+      const salt = await bcrypt.genSalt(10)
+      user.password = await bcrypt.hash(password, salt)
+      await user.save()
       // generating jwt
       const payload = {
         user: {
           id: user.id,
         },
-      };
+      }
       jwt.sign(
         payload,
         config.get("jwtKey"),
         { expiresIn: 360000 },
         (err, token) => {
-          if (err) throw err;
-          res.status(200).json({ token });
+          if (err) throw err
+          res.status(200).json({ token })
         }
-      );
+      )
     } catch (error) {
-      console.log(error.message);
-      res.status(500).send("Server Error");
+      console.log(error.message)
+      res.status(500).send("Server Error")
     }
   }
 );

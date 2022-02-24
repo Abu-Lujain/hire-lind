@@ -1,29 +1,58 @@
 // import { Link, Redirect } from "react-router-dom";
 import "./register.css";
 import { useState, useContext, useRef } from "react"
-import { Link } from "react-router-dom"
+import { Link, useHistory } from "react-router-dom"
 import { registerCall } from "../../api_Calls/authCalls"
 import { authContext } from "../../context/auth_context/authContext"
 import { Spinner, Form } from "react-bootstrap"
+import axios from "axios"
+import { CameraAltOutlined } from "@material-ui/icons"
 
 const Register = () => {
   const checkRef = useRef()
-  const { user, loading, dispatch } = useContext(authContext)
+  const { user, loading, dispatch, token } = useContext(authContext)
   const [userName, setuserName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [photo, setPhoto] = useState("")
+  const [uploading, setUploading] = useState(false)
   const [profileType, setProfileType] = useState("")
+  const history = useHistory()
+
   // console.log("token: ", token);
   // console.log("user: ", user);
   // console.log("loading: ", loading);
   // console.log("errors: ", errors);
+  const uploadPhoto = async (e) => {
+    setUploading(true)
+    const file = e.target.files[0]
+    const formData = new FormData()
+    formData.append("photo", file)
+
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }
+    try {
+      const res = await axios.post("/uploads", formData, config)
+      if (res.data) {
+        setPhoto(res.data)
+        setUploading(false)
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  /////////
+  console.log(photo)
+  const body = { userName, email, password, profileType, isAdmin: true, photo }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    registerCall(
-      { userName, email, password, profileType, isAdmin: true },
-      dispatch
-    )
+    registerCall(body, dispatch)
+    console.log(token)
+    token && window.location.replace("/")
   }
 
   return (
@@ -58,9 +87,6 @@ const Register = () => {
               required
               onChange={(e) => setuserName(e.target.value)}
             />
-            <small className="text-muted">
-              this will be the name of your company <span></span>
-            </small>
           </div>
           <div className="form-group">
             <label>email</label>
@@ -111,7 +137,29 @@ const Register = () => {
                   onChange={(e) => setProfileType(e.target.value)}
                 />
               </label>{" "}
-              <label>
+              <div className="photo">
+                {uploading ? (
+                  <label>
+                    <Spinner
+                      className="profile-photo-spinner"
+                      animation="border"
+                      role="status"
+                    ></Spinner>
+                  </label>
+                ) : (
+                  <label htmlFor="file-input">
+                    Add Photo
+                    <CameraAltOutlined className="user-photo" />
+                  </label>
+                )}
+                <input //upload profile photo
+                  type="file"
+                  id="file-input"
+                  className="upload_profile-photo-input"
+                  onChange={uploadPhoto}
+                />
+              </div>
+              {/* <label>
                 <h6>Both</h6>
                 <Form.Check
                   aria-label="option 3"
@@ -122,7 +170,7 @@ const Register = () => {
                   value="both"
                   onChange={(e) => setProfileType(e.target.value)}
                 />
-              </label>{" "}
+              </label>{" "} */}
             </div>
           </div>
           <div className="auth-actions-ui row ">

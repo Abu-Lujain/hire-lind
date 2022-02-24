@@ -50,7 +50,7 @@ function LatestJobs() {
 
       {/* ###################### */}
       <div className="latest-jobs  col-12 ">
-        {<div className="msg">{delMsg}</div>}
+        {delMsg && <div className="msg">{delMsg}</div>}
         {jobs &&
           jobs.map((job) => {
             console.log(company?.user === job?.company)
@@ -59,16 +59,11 @@ function LatestJobs() {
                 className="job-container row  col-12 position-relative"
                 key={job._id}
               >
-                <Link
-                  to={`/company/${job.company}`}
-                  className="link company-name"
-                >
-                  {job.companyName}
-                </Link>{" "}
+                <div className="link job-title">{job.title} </div>{" "}
                 {(company?.user === job?.company ||
                   (user?.isAdmin && !profile)) && (
                   <>
-                    <div className="options position-absolute ">
+                    <div className="latest-jobs-options ">
                       <MoreVertRounded
                         className="icon"
                         onClick={() => setOpenOption(job._id)}
@@ -98,13 +93,25 @@ function LatestJobs() {
                   <img src={profile} alt="logo" className="logo" />{" "}
                 </div>
                 <div className="job-title-container col-10 m-auto row">
-                  <h6 className="job-title col-11">
-                    <small className="text-primary">{job.shift}: </small>
-                    {job.title}
-                  </h6>{" "}
+                  {openOption === job._id && (
+                    <span className="pointer-parent">
+                      <span className="pointer"></span>
+                      <span className="show-profile">
+                        Click to view company
+                      </span>
+                    </span>
+                  )}
+                  <Link
+                    onMouseOver={() => setOpenOption(job._id)}
+                    to={`/company/${job.company}`}
+                    className=" link col-12 company-name"
+                  >
+                    {job.companyName}
+                  </Link>{" "}
+                  {/* <small className="text-primary">{job.shift}: </small> */}
                 </div>
                 <span className="salary">
-                  <span className="text-primary">Salary: </span>
+                  {/* <span className="text-primary">Salary: </span> */}
                   {job.salary} $ per month
                 </span>
                 <p className="description col-11 text-muted ">

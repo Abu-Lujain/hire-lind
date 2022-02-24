@@ -114,31 +114,14 @@ const profileSchema = mongoose.Schema({
       },
     },
   ],
-  comments: [
-    {
-      user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "user",
-      },
-      body: {
-        type: String,
-      },
-      date: {
-        type: Date,
-        default: Date.now,
-      },
-    },
-  ],
+
   likes: [
     {
       user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "user",
       },
-      // number: {
-      //   type: Number,
-      // },
     },
   ],
-});
+})
 module.exports = mongoose.model("Profile", profileSchema);

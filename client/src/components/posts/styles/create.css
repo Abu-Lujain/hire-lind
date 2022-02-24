@@ -1,0 +1,36 @@
+.create-post{
+          display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.create-post form{
+       display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: fit-content;
+    background: linear-gradient(358deg, #0fc96285, white);
+    padding: 10px;
+    border: 1px #ffffff solid;
+    border-radius: 10px
+}
+
+.create-post form input{   
+    padding: 5px;
+    border-radius: 5px;
+ 
+}
+.create-post form textarea{
+     padding: 5px;
+    height: 220px;
+    border-radius: 10px;
+}.create-post form input,.create-post form textarea{
+    outline: none;
+   
+     font-size: 20px;    min-width: 400px;
+    color: #01a74b;
+    font-weight: 600;
+    border: 1px #04ff75 solid;
+}

@@ -18,7 +18,8 @@ import CreateCompany from "./components/company_components/CreateCompany"
 import Company from "./screens/profile/Company"
 import { createProfile, fetchProfile } from "./api_Calls/profileCalls"
 import { profileContext } from "./context/profile_context/profileContext"
-  // setting auth token
+import Create from "./components/posts/Create"
+// setting auth token
 if (localStorage.token) setAuthToken(localStorage.token)
 const App = () => {
   const [openNav, setOpenNav] = useState(false)
@@ -85,6 +86,9 @@ const App = () => {
               showOverlay={showOverlay}
               setShowOverlay={setShowOverlay}
             />
+          </Route>
+          <Route path="/post/create">
+            <Create />
           </Route>
         </Switch>
       </BrowserRouter>

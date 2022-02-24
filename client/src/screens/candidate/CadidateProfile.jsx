@@ -2,22 +2,17 @@ import "./devProfile.css";
 
 import React, { useState, useContext } from "react";
 import { EditSharp, InsertPhotoRounded } from "@material-ui/icons";
-import {
-  createProfile,
-  fetchProfile,
-  updateProfile,
-  uploadProfilePhoto,
-} from "../../api_Calls/profileCalls";
-import { profileContext } from "../../context/profile_context/profileContext";
-import { authContext } from "../../context/auth_context/authContext";
-import { Spinner } from "react-bootstrap";
-import { useEffect, useRef } from "react";
-import Experience from "../../components/candidate_components/experience/Experience";
-import Education from "../../components/candidate_components/education/Education";
-import SocialMedia from "../../components/candidate_components/social_media/SocialMedia";
+import { updateProfile, uploadProfilePhoto } from "../../api_Calls/profileCalls"
+import { profileContext } from "../../context/profile_context/profileContext"
+import { authContext } from "../../context/auth_context/authContext"
+import { Spinner } from "react-bootstrap"
+import { useEffect, useRef } from "react"
+import Experience from "../../components/candidate_components/experience/Experience"
+import Education from "../../components/candidate_components/education/Education"
+import SocialMedia from "../../components/candidate_components/social_media/SocialMedia"
 const CadidateProfile = () => {
-  const [editProfile, setEditProfile] = useState(false);
-  const [bio, setBio] = useState("");
+  const [editProfile, setEditProfile] = useState(false)
+  const [bio, setBio] = useState("")
   const [title, setTitle] = useState("")
   const { user } = useContext(authContext)
   const { dispatch, profile, isFetching } = useContext(profileContext)
@@ -29,9 +24,6 @@ const CadidateProfile = () => {
     updateProfile(body, dispatch)
     setEditProfile(false)
   }
-  // create new profile
-  // upload profile photo
-
   useEffect(() => {
     isMounted.current = true
     if (isMounted.current) {
@@ -45,7 +37,8 @@ const CadidateProfile = () => {
   const handleUpload = (e) => {
     uploadProfilePhoto(e, profile, dispatch)
   }
-  const PF = "http://localhost:8000";
+  console.log(profile?.photo)
+  const PF = "http://localhost:8000"
   return (
     <>
       {!isMounted.current && isFetching ? (
@@ -66,13 +59,12 @@ const CadidateProfile = () => {
         <div className="dev-profile  row">
           <div className="profile-info col-md-3">
             <div className="img-container">
-              {profile?.photo && (
-                <img
-                  className="img-fluid profile-img"
-                  src={profile?.photo && `${PF}${profile.photo}`}
-                  alt=""
-                />
-              )}
+              <img
+                className="img-fluid profile-img"
+                src={user?.photo && `${PF}${user.photo}`}
+                alt=""
+              />
+
               {isFetching ? (
                 <Spinner
                   className="change-profile-photo-spinner"
@@ -185,7 +177,7 @@ const CadidateProfile = () => {
         </div>
       )}
     </>
-  );
-};
+  )
+}
 
 export default CadidateProfile;
