@@ -62,7 +62,7 @@ function Search() {
       <div className=" mt-2">
         {!searchWord ? (
           <div className="latest-searches">
-            {jobs?.slice(5, 12).map((job) => (
+            {jobs?.slice(6, 12).map((job) => (
               <span onClick={handleSetSearchWord} key={job._id}>
                 {job.title.split(" ")[0] + " " + job.title.split(" ")[1]}{" "}
                 <Close

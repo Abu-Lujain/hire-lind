@@ -15,6 +15,7 @@ const User = require("../model/User");
 router.get("/", authMiddleware, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select("-password")
+    console.log("from load: ", user)
     res.status(200).json(user)
   } catch (error) {
     console.error(error)
@@ -41,7 +42,7 @@ router.post(
     // query user from the db by email
     const user = await User.findOne({ email })
     // check if there's not a user
-    console.log(user)
+    console.log("from DB: ", user)
     if (!user) {
       return res
         .status(400)
@@ -62,11 +63,10 @@ router.post(
     }
     jwt.sign(
       payload,
-      config.get("jwtKey"),
-      { expiresIn: 360000 },
+      "jkkjkdjfksdfjuihueirhwehfejdpsfsdfihrieruewrywer3478y3rurhweeubesuebceuhcweygrwenwe",
+      { expiresIn: 36000 },
       (error, token) => {
         if (error) throw error
-        console.log(token)
         res.json({ token })
       }
     )
@@ -78,7 +78,7 @@ router.post(
   async (req, res) => {
     const { userName, email, googleId, password, isAdmin, profileType, photo } =
       req.body
-    let user = await User.findOne({ $or: [{ googleId }, { email }] })
+    let user = await User.find({ $or: [{ googleId }, { email }] })
     console.log("old: ", user)
     if (user) {
       const payload = {
@@ -86,13 +86,14 @@ router.post(
           id: user.id,
         },
       }
+      console.log(user)
       jwt.sign(
         payload,
-        config.get("jwtKey"),
-        { expiresIn: 3600000000 },
+        "jkkjkdjfksdfjuihueirhwehfejdpsfsdfihrieruewrywer3478y3rurhweeubesuebceuhcweygrwenwe",
+        { expiresIn: 36000 },
         (error, token) => {
           if (error) throw error
-          console.log(token)
+
           res.json({ token })
         }
       )
@@ -108,6 +109,7 @@ router.post(
         photo,
       }
       user = new User(newuser)
+      console.log(user)
       await user.save()
       console.log("new: ", user)
     }

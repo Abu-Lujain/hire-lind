@@ -11,35 +11,35 @@ export default function authReducer(state, action) {
         user: null,
         loading: true,
         errors: false,
-      };
+      }
     case types.LOGIN_SUCCESS:
     case types.REGISTER_SUCCUESS:
-      localStorage.setItem("token", payload.token);
+      localStorage.setItem("token", payload.token)
       return {
         token: localStorage.getItem("token"),
         user: null,
         loading: false,
         errors: false,
-      };
+      }
     case types.LOAD_USER_SUCCESS:
       return {
         token: localStorage.getItem("token"),
         user: payload,
         loading: false,
         errors: false,
-      };
+      }
     case types.LOGIN_FAILURE:
     case types.REGISTER_FAILURE:
     case types.LOAD_USER_FAILURE:
     case types.LOG_OUT_USER:
-      localStorage.removeItem("token");
+      // localStorage.removeItem("token");
       return {
         token: null,
         user: null,
         loading: false,
         errors: payload,
-      };
+      }
     default:
-      return state;
+      return state
   }
 }

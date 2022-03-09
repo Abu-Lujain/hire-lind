@@ -56,9 +56,8 @@ function PostJob() {
     e.preventDefault()
     AddJobHandler(body, dispatch)
     clearFields()
-    if (!errors) {
-      history.push("/")
-    }
+    history.push("/")
+    
     // clear errors
     setErrors(jobError)
     setTimeout(() => {

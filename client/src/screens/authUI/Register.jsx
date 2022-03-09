@@ -2,6 +2,7 @@
 import "./register.css";
 import { useState, useContext, useRef } from "react"
 import { Link, useHistory } from "react-router-dom"
+
 import { authContext } from "../../context/auth_context/authContext"
 import { Spinner, Form } from "react-bootstrap"
 import axios from "axios"

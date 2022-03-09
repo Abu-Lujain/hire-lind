@@ -21,8 +21,8 @@ import Create from "./components/posts/Create"
 import JobApplication from "./screens/job_application/JobApplication"
 import CompanyProfile from "./screens/company/CompanyProfile"
 // setting auth token
+if (localStorage.token) setAuthToken(localStorage.token)
 const App = () => {
-  if (localStorage.token) setAuthToken(localStorage.token)
   const [openNav, setOpenNav] = useState(false)
   const [showOverlay, setShowOverlay] = useState(false)
   const { dispatch: CompanyDispatch } = useContext(companyContext)
@@ -34,7 +34,7 @@ const App = () => {
     loadCompany(CompanyDispatch)
     fetchProfile(profileDispatch)
     !profile && createProfile(profileDispatch)
-  }, [dispatch, CompanyDispatch, profileDispatch, localStorage.token])
+  }, [dispatch, CompanyDispatch, profileDispatch])
 
   return (
     <div

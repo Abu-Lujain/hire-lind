@@ -12,7 +12,10 @@ module.exports = (req, res, next) => {
   }
   try {
     // verify the token
-    const verified = jwt.verify(token, config.get("jwtKey"))
+    const verified = jwt.verify(
+      token,
+      "jkkjkdjfksdfjuihueirhwehfejdpsfsdfihrieruewrywer3478y3rurhweeubesuebceuhcweygrwenwe"
+    )
     // set the token to the req object
     req.user = verified.user
     // call the next function
