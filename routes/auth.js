@@ -63,7 +63,7 @@ router.post(
     }
     jwt.sign(
       payload,
-      "jkkjkdjfksdfjuihueirhwehfejdpsfsdfihrieruewrywer3478y3rurhweeubesuebceuhcweygrwenwe",
+      process.env.JWT_SECRET_KEY,
       { expiresIn: 36000 },
       (error, token) => {
         if (error) throw error
@@ -89,7 +89,7 @@ router.post(
       console.log(user)
       jwt.sign(
         payload,
-        "jkkjkdjfksdfjuihueirhwehfejdpsfsdfihrieruewrywer3478y3rurhweeubesuebceuhcweygrwenwe",
+        process.env.JWT_SECRET_KEY,
         { expiresIn: 36000 },
         (error, token) => {
           if (error) throw error

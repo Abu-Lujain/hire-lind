@@ -36,7 +36,7 @@ router.get("/confirmation/:token", async (req, res) => {
   try {
     const userId = await jwt.verify(
       req.params.token,
-      "jkkjkdjfksdfjuihueirhwehfejdpsfsdfihrieruewrywer3478y3rurhweeubesuebceuhcweygrwenwe"
+      process.env.JWT_SECRET_KEY
     ).user.id
     const user = await User.findByIdAndUpdate(
       userId,
@@ -95,7 +95,7 @@ router.post(
       }
       jwt.sign(
         payload,
-        "jkkjkdjfksdfjuihueirhwehfejdpsfsdfihrieruewrywer3478y3rurhweeubesuebceuhcweygrwenwe",
+        process.env.JWT_SECRET_KEY,
         { expiresIn: 36000 },
         (err, token) => {
           if (err) throw err
