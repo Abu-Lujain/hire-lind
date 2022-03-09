@@ -1,14 +1,16 @@
 .topbar {
-  position: fixed;
-  width: 100%;
-  top: 0;
-  height: 45px;
-  background-color: #0fc962;
-  z-index: 999;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    height: 45px;
+    background-color: #3f51b5;
+    z-index: 9999;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
+
+
 .top-right {
   align-items: center;
   justify-content: space-between;
@@ -49,9 +51,9 @@
   transition: all ease-in-out 0.5s;
 }
 .middle-links {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
+    display: flex;
+    align-items: center;
+    justify-content: end;
 }
 .middle-links li a {
   transition: all ease-in-out 0.5s;

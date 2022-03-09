@@ -6,6 +6,8 @@ function Create() {
   const history = useHistory()
   const [title, setTitle] = useState("")
   const [body, setBody] = useState("")
+  const [error, setError] = useState("")
+
   console.log({ body, title })
   const createPost = async (e) => {
     e.preventDefault()
@@ -18,7 +20,7 @@ function Create() {
       const res = await axios.post("/posts", { body, title }, config)
       res.data && history.push("/")
     } catch (error) {
-      console.log(error)
+      setError(error.response.data)
     }
   }
   return (
@@ -32,6 +34,7 @@ function Create() {
           name="title"
           className="post-title"
         />
+        {error && <div className="msg text-danger">{error}</div>}
         <label> Post Body</label>
         <textarea
           onChange={(e) => setBody(e.target.value)}

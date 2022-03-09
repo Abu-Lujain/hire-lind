@@ -7,22 +7,13 @@ import { AddToProfile } from "../../api_Calls/companyCall"
 import { companyContext } from "../../context/company_context/companyContext"
 import CompanyName from "./CompanyName"
 import { authContext } from "../../context/auth_context/authContext"
-import { useFetch } from "../../hooks/useFetch"
-import { useLocation } from "react-router-dom"
-function CompanyTitle({ setShowOverlay }) {
+import NoValuesMsg from "./NoValuesMsg"
+import Phones from "./Phones"
+function CompanyTitle({ setShowOverlay, fetcher, setFetcher, company }) {
   const [showForm, setShowForm] = useState(false)
   const [values, setValues] = useState("")
   const { dispatch, company: currentCompany } = useContext(companyContext)
   const { user } = useContext(authContext)
-  const { pathname } = useLocation()
-  const id = pathname.split("/").pop()
-  const {
-    data: company,
-    loading,
-    setFetcher,
-    fetcher,
-  } = useFetch(`/companiesProfiles/${id}`)
-
   const body = {
     values,
   }
@@ -31,7 +22,6 @@ function CompanyTitle({ setShowOverlay }) {
     AddToProfile(body, dispatch)
     setFetcher(!fetcher)
     closeValuesFormHandler()
-    // window.location.reload()
   }
   const openValuesFormHandler = () => {
     setShowOverlay(true)
@@ -42,7 +32,7 @@ function CompanyTitle({ setShowOverlay }) {
     setShowForm(false)
   }
   const authorized = user?._id === company?.user
- 
+
   return (
     <>
       {showForm && (
@@ -76,8 +66,10 @@ function CompanyTitle({ setShowOverlay }) {
         <div className="moto col-12 row">
           <div className="header col-12 row">
             <h6 className="col-9">Our Values and Vistion</h6>
-            {user && authorized && (
-              <div className="settings-box col-3">
+          </div>
+          <div className="settings-box col-3">
+            {authorized && (
+              <>
                 {!company?.values ? (
                   <AddBox
                     className="settings-icon"
@@ -89,30 +81,26 @@ function CompanyTitle({ setShowOverlay }) {
                     onClick={openValuesFormHandler}
                   />
                 )}
-              </div>
+              </>
             )}
           </div>
-
-          {!company?.values ? (
-            <div className="no-comapny-values-message">
-              <h4>
-                Add your comapany values and mission here{" "}
-                <span className="note">50 words required</span>
-              </h4>{" "}
-              <div className="small text-muted">
-                Stating your Company Values Clearly really helps you gain a
-                better reputaion for your firm. Here are some links to learn
-                more about company values importance <br />
-                <a href="/">
-                  {" "}
-                  the significance of clear Company Value statement
-                </a>
-              </div>
-            </div>
+          {!company?.values && authorized ? (
+            <NoValuesMsg />
           ) : (
-            <p className="moto-body col-12">
-              {company?.values && company?.values}
-            </p>
+            <>
+              {company?.values && (
+                <p className="moto-body col-12">{company && company?.values}</p>
+              )}
+            </>
+          )}
+          {!authorized && (
+            <>
+              <h5 className="text-danger text-center my-5">
+                {" "}
+                {company?.name} Did add their values yet.
+              </h5>
+              please contact them in <Phones />
+            </>
           )}
         </div>
       </div>{" "}

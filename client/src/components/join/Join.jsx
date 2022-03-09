@@ -6,7 +6,7 @@ import { authContext } from "../../context/auth_context/authContext"
 function Join({ openNav }) {
   const { user, dispatch } = useContext(authContext)
   return (
-    <>
+    <div className="join-links join">
       {!user ? (
         <div className={openNav ? "move-join join-btns" : " join-btns"}>
           {" "}
@@ -28,7 +28,7 @@ function Join({ openNav }) {
           </Link>
         </>
       )}
-    </>
+    </div>
   )
 }
 

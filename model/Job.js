@@ -9,12 +9,27 @@ const jobSchema = mongoose.Schema(
       companyName: {
         type: String,
       },
+      companyLogo: {
+        type: String,
+      },
       title: {
         type: String,
         required: true,
       },
-      stillVacant: {
+      educationRequired: {
         type: String,
+        // required: true,
+      },
+      workingDays: {
+        type: [String],
+        required: true,
+      },
+      place: {
+        type: String,
+        required: true,
+      },
+      stillVacant: {
+        type: Boolean,
         default: true,
       },
       perks: {

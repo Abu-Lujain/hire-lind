@@ -13,9 +13,16 @@ router.post(
     [
       check("title", "title is required").not().isEmpty(),
       check("salary", " please provide a rough salary").not().isEmpty(),
-      check("shift", "what kind of shift of this job? full-time or part-time")
+      check("shift", "what is the Job shift? full-time or part-time")
         .not()
         .isEmpty(),
+      check("place", "Choose a place of work").not().isEmpty(),
+      // check(
+      //   "educationRequired ",
+      //   "what is the education required for this job?"
+      // ).not()
+      //   .isEmpty(),
+      check("workingDays", "what are the work days?").not().isEmpty(),
       check("recruitmentProcess", "what is the process of recruitment")
         .not()
         .isEmpty(),
@@ -40,7 +47,10 @@ router.post(
       salary,
       shift,
       industry,
-      companyName,
+      educationRequired,
+      workingDays,
+      stillVacant,
+      place,
     } = req.body
 
     const jobObject = {}
@@ -48,18 +58,26 @@ router.post(
     if (recruitmentProcess) jobObject.recruitmentProcess = recruitmentProcess
     if (experienceRequired) jobObject.experienceRequired = experienceRequired
     if (description) jobObject.description = description
-    if (companyName) jobObject.companyName = companyName
     if (industry) jobObject.industry = industry
     if (salary) jobObject.salary = salary
+    if (educationRequired) jobObject.educationRequired = educationRequired
+    if (stillVacant) jobObject.stillVacant = stillVacant
+    if (place) jobObject.place = place
     if (shift) jobObject.shift = shift
     if (title) jobObject.title = title
+    if (workingDays)
+      jobObject.workingDays = workingDays.split(",").map((perk) => {
+        return perk.trim()
+      })
     if (perks)
       jobObject.perks = perks.split(",").map((perk) => {
         return perk.trim()
       })
-
-    console.log(jobObject.perks)
+    console.log(jobObject.workingDays)
     try {
+      const user = await User.findById(req.user.id)
+      jobObject.companyLogo = user.photo
+      jobObject.companyName = user.userName
       let job = await Job.findOne({ company: req.user.id })
       job = new Job(jobObject)
       await job.save()
@@ -114,11 +132,18 @@ router.put(
   }
 )
 // @operation : get all jobs of a particular company
-// @route : /api/jobs @method : get @access : private
+// @route : /api/jobs @method : get @access : public
 router.get("/:id", async (req, res) => {
   const jobs = await Job.find({ company: req.params.id })
   res.json(jobs)
 })
+// @operation : search for jobs
+// @route : /api/jobs @method : get @access : public
+// router.get("/", async (req, res) => {
+//   const {q} =  req.query
+//   const jobs = await Job.find({ $regex: q}).limit(3)
+//   res.json(jobs)
+// })
 // @operation : get all jobs
 // @route : /api/jobs /@method : get /@access : public
 router.get("/", async (req, res) => {

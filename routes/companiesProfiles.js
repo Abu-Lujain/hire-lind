@@ -42,39 +42,43 @@ router.post("/", authMiddleware, async (req, res) => {
     about,
     foundedYear,
     email,
-  } = req.body;
-  let companyData = {};
-  companyData.user = req.user.id;
-  if (name) companyData.name = name;
-  if (loc) companyData.loc = loc;
-  if (email) companyData.email = email;
-  if (area) companyData.area = area;
-  if (website) companyData.website = website;
-  if (about) companyData.about = about;
-  if (logo) companyData.logo = logo;
-  if (contacts) companyData.contacts = contacts;
-  if (values) companyData.values = values;
-  if (foundedYear) companyData.foundedYear = foundedYear;
+  } = req.body
+  let companyData = {}
+  companyData.user = req.user.id
+  if (name) companyData.name = name
+  if (loc) companyData.loc = loc
+  if (email) companyData.email = email
+  if (area) companyData.area = area
+  if (website) companyData.website = website
+  if (about) companyData.about = about
+  if (logo) companyData.logo = logo
+  if (contacts) companyData.contacts = contacts
+  if (values) companyData.values = values
+  if (foundedYear) companyData.foundedYear = foundedYear
   try {
-    let company = await Company.findOne({ user: req.user.id });
+    const user = await User.findById(req.user.id)
+    companyData.logo = user.photo
+    companyData.name = user.userName
+    console.log(companyData)
+    let company = await Company.findOne({ user: req.user.id })
     if (company) {
       company = await Company.findOneAndUpdate(
         { user: req.user.id },
         { $set: companyData },
         { new: true }
-      );
-      await company.save();
-      return res.status(200).json(company);
+      )
+      await company.save()
+      return res.status(200).json(company)
     }
-    company = new Company(companyData);
-    console.log(Company);
-    await company.save();
-    res.json(company);
+    company = new Company(companyData)
+    console.log(Company)
+    await company.save()
+    res.json(company)
   } catch (error) {
-    console.log(error.message);
-    res.status(500).send("Server Error");
+    console.log(error.message)
+    res.status(500).send("Server Error")
   }
-});
+})
 
 /*
 @operation : get sigle company
@@ -84,14 +88,14 @@ router.post("/", authMiddleware, async (req, res) => {
 */ router.get("/:id", async (req, res) => {
   var companyUser = mongoose.Types.ObjectId(req.params.id)
   try {
-    const company = await Company.findOne({ user: companyUser })
-     if (!company) res.status(404).json("No company profile");
-     res.json(company);
+    const company = await Company.findById(req.params.id)
+    if (!company) res.status(404).json("No company profile")
+    res.json(company)
   } catch (error) {
-    console.error(error.message);
-    res.status(500).send(error);
+    console.error(error.message)
+    res.status(500).send(error)
   }
-});
+})
 
 router.delete("/:id", authMiddleware, async (req, res) => {
   try {

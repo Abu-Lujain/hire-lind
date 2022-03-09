@@ -3,23 +3,50 @@ const router = express.Router();
 const User = require("../model/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const config = require("config");
-const { check, validationResult } = require("express-validator");
-const authMiddleware = require("../middlewares/authMiddleware");
-const exp = 2 * 24 * 60 * 60;
+const nodemailer = require("nodemailer")
+const config = require("config")
+const { check, validationResult } = require("express-validator")
+const authMiddleware = require("../middlewares/authMiddleware")
+const exp = 2 * 24 * 60 * 60
 // #route: /api/users
 // method   POST
 // #operation: creating a new user
 // #accessibility:   public
 router.get("/", async (req, res) => {
-  console.log("getting all users");
+  console.log("getting all users")
   try {
-    const users = await User.find();
-    res.json(users);
+    const users = await User.find()
+    res.json(users)
   } catch (error) {
-    console.log(error);
+    console.log(error)
   }
-});
+})
+const transporter = nodemailer.createTransport({
+  host: "smtp.gmail.com",
+  port: 587,
+  secure: false,
+  auth: {
+    user: "mrabdu965@gmail.com",
+    pass: "lujain188965ge",
+  },
+  tls: { rejectUnauthorized: false },
+})
+
+router.get("/confirmation/:token", async (req, res) => {
+  try {
+    const userId = await jwt.verify(req.params.token, config.get("jwtKey")).user
+      .id
+    const user = await User.findByIdAndUpdate(
+      userId,
+      { confirmed: true },
+      { new: true }
+    )
+    console.log(userId)
+    if (user.confirmed === true) res.redirect("http://localhost:3000/login")
+  } catch (error) {
+    console.log(error.message)
+  }
+})
 // #route: /api/users
 // #operation: creating a new user
 // #accessibility:   public
@@ -33,9 +60,9 @@ router.post(
   ],
   async (req, res) => {
     // res.send("register a new user");
-    const errors = validationResult(req);
+    const errors = validationResult(req)
     if (!errors.isEmpty()) {
-      res.status(400).json({ errors: errors.array() });
+      res.status(400).json({ errors: errors.array() })
     }
 
     const { userName, email, password, isAdmin, profileType, photo } = req.body
@@ -70,16 +97,25 @@ router.post(
         { expiresIn: 360000 },
         (err, token) => {
           if (err) throw err
-          res.status(200).json({ token })
+          console.log(user.email)
+          const url = `http://localhost:8000/api/users/confirmation/${token}`
+          transporter.sendMail({
+            from: "from <HireLand@gmail.com>",
+            to: "mrabdu965@gmail.com",
+            subject: "Email Confirmation",
+            html: ` <h4 style="color:red background-black">Thanks for Choosing HireLand!</h4> <br/> <h3>Please click here
+               to Confirm your Email:
+               ${url} <a href=${url}></a> </h3>`,
+          })
+          res.status(200).json(token)
         }
       )
     } catch (error) {
-      console.log(error.message)
+      // console.log(error.message)
       res.status(500).send("Server Error")
     }
   }
-);
-
+)
 // #route:           /api/users/:id
 // #operation:       deleting a user
 // #accessibility:   protected

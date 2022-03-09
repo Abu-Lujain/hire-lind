@@ -28,8 +28,9 @@ const postSchema = mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: "user",
           },
-          body: {
+          text: {
             type: String,
+            required: [true, "please provide a text for your comment"],
           },
           userName: {
             type: String,

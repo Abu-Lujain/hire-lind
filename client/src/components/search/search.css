@@ -27,16 +27,42 @@
 }
 .search-area .latest-searches {
   display: grid;
-  grid-template-columns: 60% 39%;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 5px;
 }
 .search-area .latest-searches span {
-  background: rgb(255 255 255);
-  padding: 5px;
-  position: relative;
-  border-radius: 10px;
-  margin: 5px;
-  height: fit-content;
-  box-shadow: var(--main-box-shadow);
+     background: rgb(255 255 255);
+    padding: 5px;
+    position: relative;
+    border-radius: 10px;
+    margin: 5px;
+    cursor: pointer;
+    height: fit-content;
+    box-shadow: var(--main-box-shadow);
+    text-align: center;
+}
+.search-area .latest-searches span:hover {
+  background: var(--main-bg-color);
+}
+.searchedJobs-list{
+     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 3px 7px;
+    margin-bottom: 5px;
+    box-shadow: var(--main-box-shadow);
+    border-radius: 5px;
+    list-style: none;
+    cursor: pointer;
+}
+.searchedJobs-list:hover{
+    background: rgb(224, 240, 210);
+
+}
+.searchedJob-title{
+     color: #0fc962;
+    margin-left: 5px;
 }
 
 .search-area .latest-searches span .hide-icon {

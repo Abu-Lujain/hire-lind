@@ -1,10 +1,13 @@
 .latest-jobs {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 10px;
-  position: relative;
+     display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+    grid-gap: 10px;
+    gap: 10px;
+    position: relative;
 }
-
+@media only screen and (max-width: 800px){
+  .latest-jobs{   grid-template-columns: 49% 49%;}
+}
 .errors {
   /* background: transparent; */
   display: flex;
@@ -12,6 +15,14 @@
   align-items: center;
   flex-direction: column;
   top: 66px;
+}
+.job-date{
+    color: #ffc107;
+    background: darkblue;
+    padding: 0 5px;
+    font-size: 13px;
+    min-width: fit-content;
+    border-radius: 5px; 
 }
 .errors h5 {
   z-index: 999;
@@ -53,14 +64,14 @@ top: 15vh;
   font-family: serif;
 }
 .job-container .job-title {
-    padding: 2px 5px;
-    background: #22ab22;
+    background: #3f51b5;
     font-weight: 600;
+    color: #ffffff;
     border-radius: 5px;
-
+    padding-right: 15px;
 }
 
-.job-container .company-name {
+.job-container .name {
   transition: all 0.5s;
 color: blue;
 font-weight: 600;
@@ -90,18 +101,14 @@ font-weight: 600;
     background: #ffffff;
     transform: rotate(45deg);
 }
-.job-container .company-name:hover {
-  color: rgb(0, 0, 139);
-  letter-spacing: 1px;
 
-}
 .job-container {
-  padding: 10px;
-  background-color: #f9fbf7;
-  margin: 5px;
-  border-radius: 10px;
-  padding-top: 3px;
-  height: fit-content;
+padding: 10px;
+    background-color: #f9fbf7;
+    margin: 5px;
+    border-radius: 10px;
+    padding-top: 3px;
+    box-shadow: var(--main-box-shadow);
 }
 .job-container p {
   height: 80px;
@@ -153,12 +160,14 @@ font-weight: 600;
   align-items: center;
 }
 .job-container .salary {
-    color: #0fc962;
+color: #00ff72;
     padding: 2px;
-    background: #ffffff;
+    background: #685d3c;
     font-weight: 600;
+    width: fit-content;
     border-radius: 5px;
 }
+
 .footer {
   background: #edf2e8;
   padding: 5px;
@@ -168,6 +177,10 @@ font-weight: 600;
   justify-content: space-between;
   flex-direction: row;
   align-items: center;
+}
+.pagin{
+      align-items: center;
+    justify-content: center;
 }
 .footer button {
   padding: 0 4px;
@@ -190,6 +203,27 @@ font-weight: 600;
 }
 .footer button.apply:hover {
   background-color: rgb(70, 70, 252);
+}
+.page-number,
+.arrow{
+  cursor: pointer;
+  border-radius: 10px;
+  user-select: none;
+}
+ 
+.disabled{
+      background: rgb(194, 194, 194);
+    /* cursor: not-allowed; */
+    pointer-events: none;
+  
+}
+.active{
+      background: #0d6efd;
+    color: white;
+}
+.active:hover{
+   background: #0d6efd;
+    color: white;
 }
 @media only screen and (max-width: 600px) {
   .latest-jobs {

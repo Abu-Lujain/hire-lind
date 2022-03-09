@@ -29,6 +29,7 @@ router.get("/", authMiddleware, async (req, res) => {
  2. compare the password. (send wrong credentials error)
  3. generate a token to send to client
 */
+
 router.post(
   "/",
   [
@@ -36,38 +37,81 @@ router.post(
     check("password", "password is required").exists(),
   ],
   async (req, res) => {
-    const { email, password } = req.body;
+    const { email, password } = req.body
     // query user from the db by email
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email })
     // check if there's not a user
+    console.log(user)
     if (!user) {
       return res
         .status(400)
-        .json({ errors: { message: "invalid credentials" } });
+        .json({ errors: { message: "invalid credentials" } })
     }
     // compare the req.body.password with the user's password
-    const match = await bcrypt.compare(password, user.password);
+    const match = await bcrypt.compare(password, user.password)
     if (!match) {
       return res
         .status(400)
-        .json({ errors: { message: "invalid credentials" } });
+        .json({ errors: { message: "invalid credentials" } })
     }
     // generate a token and send it to the client
     const payload = {
       user: {
         id: user.id,
       },
-    };
+    }
     jwt.sign(
       payload,
       config.get("jwtKey"),
       { expiresIn: 360000 },
       (error, token) => {
-        if (error) throw error;
-        console.log(token);
-        res.json({ token });
+        if (error) throw error
+        console.log(token)
+        res.json({ token })
       }
-    );
+    )
   }
-);
+)
+router.post(
+  "/google",
+
+  async (req, res) => {
+    const { userName, email, googleId, password, isAdmin, profileType, photo } =
+      req.body
+    let user = await User.findOne({ $or: [{ googleId }, { email }] })
+    console.log("old: ", user)
+    if (user) {
+      const payload = {
+        user: {
+          id: user.id,
+        },
+      }
+      jwt.sign(
+        payload,
+        config.get("jwtKey"),
+        { expiresIn: 3600000000 },
+        (error, token) => {
+          if (error) throw error
+          console.log(token)
+          res.json({ token })
+        }
+      )
+    }
+    if (!user) {
+      const newuser = {
+        userName,
+        password,
+        email,
+        googleId,
+        isAdmin,
+        profileType,
+        photo,
+      }
+      user = new User(newuser)
+      await user.save()
+      console.log("new: ", user)
+    }
+  }
+)
+
 module.exports = router;

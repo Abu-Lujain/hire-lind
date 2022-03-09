@@ -3,19 +3,9 @@ import Candidates from "../../components/candidates/Candidates"
 import LatestJobs from "../../components/jobs/LatestJobs"
 import HighPaying from "../../components/jobs/HighPaying"
 import profile from "../../assets/profile.jpeg"
-import { useContext } from "react"
-
 import Search from "../../components/search/Search"
-import { companyContext } from "../../context/company_context/companyContext"
-import { useEffect } from "react"
-import { loadCompany } from "../../api_Calls/companyCall"
 import ShowAll from "../../components/posts/ShowAll"
-const HomeScreen = () => {
-  const { dispatch: loadCompanyDispatch } = useContext(companyContext)
-  useEffect(() => {
-    loadCompany(loadCompanyDispatch)
-  }, [loadCompanyDispatch])
-
+const HomeScreen = ({ user }) => {
   return (
     <div className=" home row ">
       {/* <SideBar /> */}
@@ -29,7 +19,7 @@ const HomeScreen = () => {
       <Search />
       <LatestJobs />
       {/* <Candidates /> */}
-      <ShowAll />
+      <ShowAll user={user} />
     </div>
   )
 }

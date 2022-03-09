@@ -10,7 +10,6 @@ export const createCompany = async (body, dispatch) => {
   dispatch({ type: types.CREATE_COMPANY_START })
   try {
     const response = await axios.post("/companiesProfiles", body, config)
-    console.log(response.data)
     response.data &&
       dispatch({ type: types.CREATE_COMPANY_SUCCESS, payload: response.data })
   } catch (error) {
@@ -25,12 +24,9 @@ export const loadCompany = async (dispatch) => {
   dispatch({ type: types.LOAD_COMPANY_START })
   try {
     const response = await axios.get("/companiesProfiles/me")
-    console.log(response);
     response.data &&
       dispatch({ type: types.LOAD_COMPANY_SUCCESS, payload: response.data })
   } catch (error) {
-    console.log(error.response)
-
     dispatch({
       type: types.LOAD_COMPANY_FAILURE,
       payload: error.response.data,
@@ -50,8 +46,6 @@ export const AddToProfile = async (body, dispatch) => {
     response.data &&
       dispatch({ type: types.EDIT_PROFILE_SUCCESS, payload: response.data })
   } catch (error) {
-    console.log(error.response.data.errors)
-
     dispatch({
       type: types.EDIT_PROFILE_FAILURE,
       payload: error.response.data,

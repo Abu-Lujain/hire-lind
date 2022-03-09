@@ -10,7 +10,16 @@
   margin: 0;
   padding: 0;
 }
+.spinner-parent h4{
+      background: #0b30ff;
+    font-weight: 600;
+    border-radius: 5px;
+}
 
+.spinner-parent h2{
+    font-weight: 600;
+    border-radius: 5px;
+}
 .register h1,
 .login h1 {
   position: absolute;
@@ -185,9 +194,13 @@ form .profile-type div input:hover {
   border-bottom-left-radius: 40px;
 }
 .auth-actions-ui {
-  display: flex;
-  justify-content: space-around;
-  margin-top: 12px;
+display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    background: #c8e5c9;
+    padding: 5px;
+    border-radius: 7px;
 }
 .photo{
   color: red;

@@ -1,21 +1,21 @@
-import {
-  AddBoxOutlined,
-  CloseRounded,
-  Edit,
-  EmailOutlined,
-  PhoneCallback,
-} from "@material-ui/icons"
 import "./styles/contacts.css"
+import AddBoxOutlined from "@material-ui/icons/AddBoxOutlined"
+import EmailOutlined from "@material-ui/icons/EmailOutlined"
+import Edit from "@material-ui/icons/Edit"
+
 import { companyContext } from "../../context/company_context/companyContext"
 import { AddToProfile } from "../../api_Calls/companyCall"
-import { useEffect, useContext, useState } from "react"
+import { useContext, useState } from "react"
 import { authContext } from "../../context/auth_context/authContext"
 import { useFetch } from "../../hooks/useFetch"
 import { useLocation } from "react-router-dom"
+import Phones from "./Phones"
+import NoPhonesMsg from "./NoPhonesMsg"
+import ContactsForm from "./ContactsForm"
 function CompanyContacts({ setShowOverlay }) {
-  const [showForm, setShowForm] = useState(false)
   const [phones, setPhones] = useState([])
   const [emails, setEmails] = useState([])
+  const [showForm, setShowForm] = useState(false)
   const { user } = useContext(authContext)
   const { dispatch, company: currentCompany } = useContext(companyContext)
   const { pathname } = useLocation()
@@ -36,7 +36,7 @@ function CompanyContacts({ setShowOverlay }) {
       },
     }
     AddToProfile(body, dispatch)
-    setFetcher(fetcher)
+    setFetcher(!fetcher)
     closeContactsForm()
   }
   const closeContactsForm = () => {
@@ -69,23 +69,12 @@ function CompanyContacts({ setShowOverlay }) {
               {company && company?.name} Did't Add Any Contacts!
             </div>
           )}
+          <NoPhonesMsg />
         </>
       ) : (
         <>
           <div className="contacts-container">
-            <span>
-              {company &&
-                company?.contacts?.phones?.map((phone) => {
-                  return (
-                    <span key={phone}>
-                      <PhoneCallback className="phone-icon" />
-                      <a className="m-2 link" href={`tel:${phone}`}>
-                        {phone}
-                      </a>
-                    </span>
-                  )
-                })}
-            </span>
+            <Phones company={company} />
             <span className="email">
               {company &&
                 company?.contacts?.emails?.map((email) => {
@@ -106,43 +95,13 @@ function CompanyContacts({ setShowOverlay }) {
         </>
       )}
       {showForm && (
-        <form className="contacts-form" onSubmit={addContactsHandler}>
-          {/* autoComplete="off" */}
-          <CloseRounded
-            className="close-values-form"
-            onClick={closeContactsForm}
-          />
-          <label className="text-success">your company's Contacts</label>
-          <small className="text-muted note">
-            <span className="title"> Note* </span> separate emails and phones
-            with comma e.g. x@gmail.com, y@gmail.com.
-          </small>
-          <label> Phones</label>
-          <input
-            type="text"
-            name="phones"
-            required
-            className="text-center"
-            defaultValue={company?.contacts?.phones?.map((phone) => {
-              return phone
-            })}
-            onChange={(e) => setPhones(e.target.value)}
-            placeholder="965717288, 6993387396"
-          />
-          <label>Emails </label>
-          <input
-            type="text"
-            className="text-center"
-            defaultValue={company?.contacts?.emails?.map((email) => {
-              return email
-            })}
-            onChange={(e) => setEmails(e.target.value)}
-            name="emails"
-            required
-            placeholder="something@gmail.com"
-          />
-          <button className="btn btn-sm btn-success m-2">Add Contacts</button>
-        </form>
+        <ContactsForm
+          company={company}
+          setEmails={setEmails}
+          closeContactsForm={closeContactsForm}
+          setPhones={setPhones}
+          addContactsHandler={addContactsHandler}
+        />
       )}
     </div>
   )

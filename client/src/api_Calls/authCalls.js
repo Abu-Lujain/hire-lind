@@ -3,7 +3,6 @@ import { types } from "../context/auth_context/types";
 import setAuthToken from "./setAuthToken";
 import { useHistory } from "react-router-dom"
 // Register new user
-
 export const registerCall = async (credentials, dispatch) => {
   const config = {
     headers: {
@@ -12,15 +11,13 @@ export const registerCall = async (credentials, dispatch) => {
   }
   dispatch({ type: types.REGISTER_START })
   try {
-    const response = await axios.post("/users", credentials, config)
-    dispatch({ type: types.REGISTER_SUCCUESS, payload: response.data })
-    console.log("data: ", response.data)
+    const res = await axios.post("/users", credentials, config)
+    dispatch({ type: types.REGISTER_SUCCUESS, payload: res.data })
   } catch (error) {
-    console.log("from register: ", error.response.data)
-
+    console.log("from register: ", error.res.data)
     dispatch({
       type: types.LOGIN_FAILURE,
-      payload: error.response.data.errors,
+      payload: error.res.data.errors,
     })
   }
 }
@@ -33,13 +30,12 @@ export const loginCall = async (credentials, dispatch) => {
   }
   dispatch({ type: types.LOGIN_START })
   try {
-    const response = await axios.post("/auth", credentials, config)
-    dispatch({ type: types.LOGIN_SUCCESS, payload: response.data })
-    response.data && window.location.replace("/")
+    const res = await axios.post("/auth", credentials, config)
+    dispatch({ type: types.LOGIN_SUCCESS, payload: res.data })
   } catch (error) {
     dispatch({
       type: types.LOGIN_FAILURE,
-      payload: error.response.data.errors,
+      payload: error.res.data.errors,
     })
   }
 }
@@ -54,14 +50,13 @@ export const loadUserCall = async (dispatch) => {
   } catch (error) {
     dispatch({
       type: types.LOAD_USER_FAILURE,
-      // payload: error.response.data.errors,
+      // payload: error.res.data.errors,
       payload: error,
     })
   }
 }
 export const logOut = (dispatch) => {
-  dispatch({ type: types.LOG_OUT_USER, payload: "you are loging out..." })
-  // window.location.reload()
+  dispatch({ type: types.LOG_OUT_USER, payload: "you are loging out..." })                                                                    
 }
 
  

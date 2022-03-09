@@ -2,12 +2,11 @@
 import "./register.css";
 import { useState, useContext, useRef } from "react"
 import { Link, useHistory } from "react-router-dom"
-import { registerCall } from "../../api_Calls/authCalls"
 import { authContext } from "../../context/auth_context/authContext"
 import { Spinner, Form } from "react-bootstrap"
 import axios from "axios"
 import { CameraAltOutlined } from "@material-ui/icons"
-
+import Google from "./Google"
 const Register = () => {
   const checkRef = useRef()
   const { user, loading, dispatch, token } = useContext(authContext)
@@ -17,8 +16,9 @@ const Register = () => {
   const [photo, setPhoto] = useState("")
   const [uploading, setUploading] = useState(false)
   const [profileType, setProfileType] = useState("")
+  const [checkProfile, setCheckProfile] = useState("")
+  const [notConfirmed, setNotConfirmed] = useState("")
   const history = useHistory()
-
   // console.log("token: ", token);
   // console.log("user: ", user);
   // console.log("loading: ", loading);
@@ -44,19 +44,32 @@ const Register = () => {
       console.log(error)
     }
   }
-  /////////
-  console.log(photo)
-  const body = { userName, email, password, profileType, isAdmin: true, photo }
+
+  const newUser = {
+    userName,
+    email,
+    password,
+    profileType,
+    photo,
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    registerCall(body, dispatch)
-    console.log(token)
-    token && window.location.replace("/")
+    const config = {
+      headers: {
+        "Context-Type": "application/json",
+      },
+    }
+    try {
+      const res = await axios.post("/users", newUser, config)
+      setNotConfirmed(res.data)
+    } catch (error) {
+      console.log(error.response)
+    }
   }
 
   return (
-    <div className="register row">
+    <div className="register row mt-3">
       {loading ? (
         <div className="spinner-parent">
           <Spinner
@@ -69,133 +82,142 @@ const Register = () => {
           <h4>Registering...</h4>
         </div>
       ) : (
-        <form className=" col-10 col-md-5" onSubmit={handleSubmit}>
-          {" "}
-          {profileType === "company" && (
-            <small className="register-note">
-              this will be the name of your company <span></span>
-            </small>
-          )}
-          <h5 className="text-center text-primary">create and account</h5>
-          <div className="form-group">
-            <label>name</label>
-            <input
-              name="userName"
-              type="text"
-              className="form-control my-3 "
-              autoComplete="off"
-              required
-              onChange={(e) => setuserName(e.target.value)}
-            />
-          </div>
-          <div className="form-group">
-            <label>email</label>
-
-            <input
-              className="form-control my-3"
-              name="email"
-              type="email"
-              required
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
-          <div className="form-group">
-            <label>password</label>{" "}
-            <input
-              name="password"
-              className="form-control mb-3"
-              type="password"
-              required
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-          <div>
-            <span>what kind of profile you want to make? </span>{" "}
-            <div className="form-group profile-type" ref={checkRef}>
-              <label>
-                <h6>Company</h6>
-
-                <Form.Check
-                  aria-label="option 1"
-                  name="profileType"
-                  className="form-control mb-3"
-                  type="checkbox"
+        <>
+          {notConfirmed ? (
+            <div className="spinner-parent">
+              <h4 className=" text-white mb-3 p-3">thanks for Choosing Us!</h4>
+              <h2 className="bg-success  text-white m-5 p-3">
+                We Have Sent You an Email, Please Click the Confirmation Link to
+                Login.
+              </h2>
+            </div>
+          ) : (
+            <form className=" col-10 col-md-5" onSubmit={handleSubmit}>
+              {" "}
+              {profileType === "company" && (
+                <small className="register-note">
+                  this will be the name of your company <span></span>
+                </small>
+              )}
+              <h5 className="text-center text-primary">create and account</h5>
+              <div className="form-group">
+                <label>name</label>
+                <input
+                  name="userName"
+                  type="text"
+                  className="form-control my-3 "
+                  autoComplete="off"
                   required
-                  value="company"
-                  onChange={(e) => setProfileType(e.target.value)}
-                />
-              </label>{" "}
-              <label>
-                <h6>Employee</h6>
-                <Form.Check
-                  aria-label="option 2"
-                  name="profileType"
-                  className="form-control mb-3"
-                  type="checkbox"
-                  required
-                  value="employee"
-                  onChange={(e) => setProfileType(e.target.value)}
-                />
-              </label>{" "}
-              <div className="photo">
-                {uploading ? (
-                  <label>
-                    <Spinner
-                      className="profile-photo-spinner"
-                      animation="border"
-                      role="status"
-                    ></Spinner>
-                  </label>
-                ) : (
-                  <label htmlFor="file-input">
-                    Add Photo
-                    <CameraAltOutlined className="user-photo" />
-                  </label>
-                )}
-                <input //upload profile photo
-                  type="file"
-                  id="file-input"
-                  className="upload_profile-photo-input"
-                  onChange={uploadPhoto}
+                  onChange={(e) => setuserName(e.target.value)}
                 />
               </div>
-              {/* <label>
-                <h6>Both</h6>
-                <Form.Check
-                  aria-label="option 3"
-                  name="profileType"
-                  className="form-control mb-3"
-                  type="checkbox"
+              <div className="form-group">
+                <label>email</label>
+
+                <input
+                  className="form-control my-3"
+                  name="email"
+                  type="email"
                   required
-                  value="both"
-                  onChange={(e) => setProfileType(e.target.value)}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
-              </label>{" "} */}
-            </div>
-          </div>
-          <div className="auth-actions-ui row ">
-            <div className="col-12 col-md-5">
-              <button
-                type="button"
-                className="btn  btn-success  btn-sm"
-                onClick={handleSubmit}
-                mt={3}
-              >
-                {" "}
-                Submit
-              </button>
-            </div>
-            <Link to="/login" className=" bottom-0 col-10 col-md-5 text-end">
+              </div>
+              <div className="form-group">
+                <label>password</label>{" "}
+                <input
+                  name="password"
+                  className="form-control mb-3"
+                  type="password"
+                  required
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
               <div>
-                {/* {errors &&
-            errors.map((err) => (
-              <span className="text-danger">{err.msg} </span>
-            ))} */}
+                <span>what kind of profile you want to make? </span>{" "}
+                <div className="form-group profile-type" ref={checkRef}>
+                  <label>
+                    <h6>Company</h6>
+
+                    <Form.Check
+                      aria-label="option 1"
+                      name="profileType"
+                      className="form-control mb-3"
+                      type="checkbox"
+                      required
+                      value="company"
+                      onChange={(e) => setProfileType(e.target.value)}
+                    />
+                  </label>{" "}
+                  <label>
+                    <h6>Employee</h6>
+                    <Form.Check
+                      aria-label="option 2"
+                      name="profileType"
+                      className="form-control mb-3"
+                      type="checkbox"
+                      required
+                      value="employee"
+                      onChange={(e) => setProfileType(e.target.value)}
+                    />
+                  </label>{" "}
+                  <div className="photo">
+                    {uploading ? (
+                      <label>
+                        <Spinner
+                          className="profile-photo-spinner"
+                          animation="border"
+                          role="status"
+                        ></Spinner>
+                      </label>
+                    ) : (
+                      <label htmlFor="file-input">
+                        Add Photo
+                        <CameraAltOutlined className="user-photo" />
+                      </label>
+                    )}
+                    <input //upload profile photo
+                      type="file"
+                      id="file-input"
+                      className="upload_profile-photo-input"
+                      onChange={uploadPhoto}
+                    />
+                  </div>
+                </div>
               </div>
-              have an Account? Login
-            </Link>
-          </div>
-        </form>
+              {checkProfile.length > 1 && (
+                <div className="bg-danger text-white p-2 my-2 text-center">
+                  {checkProfile}
+                </div>
+              )}
+              <div className="auth-actions-ui col-12">
+                <button
+                  type="button"
+                  className="btn  btn-success  btn-sm"
+                  onClick={handleSubmit}
+                  mt={3}
+                >
+                  {" "}
+                  Submit
+                </button>{" "}
+                <Link
+                  to="/login"
+                  className=" bottom-0 col-10 col-md-5 text-end"
+                >
+                  <div></div>
+                  have an Account? Login
+                </Link>
+                <Google
+                  userName={userName}
+                  email={email}
+                  password={password}
+                  profileType={profileType}
+                  photo={photo}
+                  setCheckProfile={setCheckProfile}
+                />
+              </div>
+            </form>
+          )}
+        </>
       )}
     </div>
   )

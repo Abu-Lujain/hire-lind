@@ -37,8 +37,8 @@ export const AddJobHandler = async (body, dispatch) => {
   }
   try {
     const res = await axios.post("/jobs", body, config)
+    res.data && console.log(res.data)
     dispatch({ type: types.ADD_JOB_SUCCESS, payload: res.data })
-    res.data && window.location.replace("/")
   } catch (error) {
     console.log(error.response.data.errors)
     dispatch({
@@ -46,7 +46,9 @@ export const AddJobHandler = async (body, dispatch) => {
       payload: error.response.data.errors,
     })
 
-    error.response.data.errors && window.scrollTo(0, 300)
+    error.response.data.errors && window.scrollTo(0, 3000)
+    setTimeout(() => {window.scrollTo(0, 0) }, 5000)
+
   }
 }
 

@@ -15,69 +15,50 @@ function Topbar({ openNav, setOpenNav }) {
   const candidate = user?.profileType === "employee"
   return (
     <div className="row m-0 topbar">
-      <div className="col col-md-6 col-9   d-flex top-right">
+      <div className="col col-2  d-flex top-right">
         {/* <img src={logo} alt="logo" className="logo-img rounded-circle " /> */}
         <Link to="/" className=" link">
           <h2 className="logo mx-1 link">4Carrier</h2>
         </Link>
-        {user?.isAdmin && (
-          <Link to="/" className=" link">
-            <h6 className="logo mx-1 link">Admins Dashboard</h6>
-          </Link>
-        )}
+      </div>
+      <div className="middle-links col-7 col-md-9 ">
         {pathname.includes("profile") || pathname.includes("company") ? (
           ""
         ) : (
           <>
             {" "}
             {user && (
-              <Link
-                to={`/${
-                  candidate
-                    ? "profile/" + profile?._id
-                    : "company/" + company?._id
-                }`}
-                className=" link"
-              >
-                <img
-                  src={`${PF}${profile?.photo}`}
-                  className="profile-icon"
-                  alt="profile"
-                />
-              </Link>
+              <>
+                {user?.isAdmin ? (
+                  <Link to="/" className=" link">
+                    <h6 className="logo mx-1 link">Admins Dashboard</h6>
+                  </Link>
+                ) : (
+                  <span>{user?.userName}</span>
+                )}
+                <Link
+                  to={`/${
+                    candidate
+                      ? "profile/" + profile?._id
+                      : "company/" + company?._id
+                  }`}
+                  className="px-3 link"
+                >
+                  <img
+                    src={`${PF}${user?.photo}`}
+                    className="profile-icon"
+                    alt="profile"
+                  />
+                </Link>
+              </>
             )}
           </>
         )}
-        <div className=" join d-md-none d-lg-block d-lg-none .d-xl-block d-md-none .d-lg-block">
-          <Join openNav={openNav} />
-        </div>
+        <Join openNav={openNav} />
       </div>
-      <div className="middle-links col col-md-5 d-none d-md-flex ">
-        <li className=" ">
-          <Link className="link" to="/">
-            Home
-          </Link>
-        </li>
-        <li className=" ">
-          <Link className="link" to="/about">
-            About
-          </Link>
-        </li>
-        <li className=" ">
-          <Link className="link" to="/contacts">
-            Contacts
-          </Link>
-        </li>{" "}
-        <div className="join-links col-md-5 join">
-          {" "}
-          <Join openNav={openNav} />
-        </div>{" "}
-      </div>
-      {/* profile icon */}
-
       <Menu openNav={openNav} />
-      <div className="col d-flex  col-sm-2 col-3  ">
-        <div className=" nav-btn col col-md-12 d-md-none  position-relative d-flex justify-content-end mt-1">
+      <div className="col-2 d-md-none d-lg-block d-lg-none d-xl-block d-xl-none d-xxl-block ">
+        <div className=" nav-btn  position-relative d-flex justify-content-end">
           <div
             onClick={() => setOpenNav(!openNav)}
             className={

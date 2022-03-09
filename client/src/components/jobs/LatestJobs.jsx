@@ -1,24 +1,30 @@
-import "./styles/latestJobs.css";
-import { MoreVertRounded, CloseSharp } from "@material-ui/icons"
-import profile from "../../assets/profile.jpeg"
-import { useEffect, useState, useRef } from "react"
-import axios from "axios"
+//ui
+import "./styles/latestJobs.css"
 import { Link } from "react-router-dom"
-import { useContext } from "react"
-// import { jobContext } from "../../context/job_context/jobContext"
+//init
+import { useEffect, useState, useContext } from "react"
+import axios from "axios"
+//components
+import Pagination from "./Pagination"
+import Authorized from "./Authorized"
+//others
+import { formatDistance, subDays } from "date-fns"
+//context
 import { authContext } from "../../context/auth_context/authContext"
 import { companyContext } from "../../context/company_context/companyContext"
 import { profileContext } from "../../context/profile_context/profileContext"
-// import { getAllJobs } from "../../api_Calls/jobCalls";
+import JobTitle from "./JobTitle"
 function LatestJobs() {
+  const [currentPage, setCurrentPage] = useState(1)
+  const [itemsPerPage] = useState(6)
   const [openOption, setOpenOption] = useState(null)
   const { user } = useContext(authContext)
   const { company } = useContext(companyContext)
-  const { profile } = useContext(profileContext)
-
   const [delMsg, setDelMsg] = useState("")
   const [deletedJob, setDeletedJob] = useState("")
   const [jobs, setJobs] = useState([])
+  const [showNote, setShowNote] = useState(null)
+
   useEffect(() => {
     async function fetchjobs(params) {
       try {
@@ -30,7 +36,7 @@ function LatestJobs() {
     }
     fetchjobs()
   }, [deletedJob])
-  console.log(!profile)
+
   const deleteJobHandler = async (id) => {
     try {
       const res = await axios.delete(`/jobs/job/${id}`)
@@ -44,72 +50,44 @@ function LatestJobs() {
       console.log(error)
     }
   }
+  // setting for pagination
+  const indexOfLastJob = currentPage * itemsPerPage
+  const indexOfFirstJob = indexOfLastJob - itemsPerPage
+  const currentJobs = jobs.slice(indexOfFirstJob, indexOfLastJob)
   return (
     <div className="mt-2 row m-auto ">
       <h4 className="job-list-title col-12">Latest jobs</h4>
-
-      {/* ###################### */}
       <div className="latest-jobs  col-12 ">
         {delMsg && <div className="msg">{delMsg}</div>}
         {jobs &&
-          jobs.map((job) => {
-            console.log(company?.user === job?.company)
+          currentJobs.map((job) => {
             return (
               <div
                 className="job-container row  col-12 position-relative"
                 key={job._id}
               >
                 <div className="link job-title">{job.title} </div>{" "}
-                {(company?.user === job?.company ||
-                  (user?.isAdmin && !profile)) && (
-                  <>
-                    <div className="latest-jobs-options ">
-                      <MoreVertRounded
-                        className="icon"
-                        onClick={() => setOpenOption(job._id)}
-                      />{" "}
-                    </div>
-                    {openOption === job._id && (
-                      <div className="options-menu ">
-                        <Link className="link text-dark" to={`edit/${job._id}`}>
-                          <li className="edit ">Edit</li>{" "}
-                        </Link>
-                        <li
-                          className="del"
-                          onClick={() => deleteJobHandler(job._id)}
-                        >
-                          Delete
-                        </li>
-                        <CloseSharp
-                          className="close-option-menu"
-                          onClick={() => setOpenOption(null)}
-                        />
-                      </div>
-                    )}{" "}
-                  </>
-                )}
+                <Authorized
+                  job={job}
+                  deleteJobHandler={deleteJobHandler}
+                  user={user}
+                  openOption={openOption}
+                  company={company}
+                  setOpenOption={setOpenOption}
+                />
                 {/* <span className="job-marker">Vacant</span> */}
                 <div className="logo-container col-2">
-                  <img src={profile} alt="logo" className="logo" />{" "}
+                  <img
+                    src={`http://localhost:8000${job?.companyLogo}`}
+                    alt="logo"
+                    className="logo"
+                  />{" "}
                 </div>
-                <div className="job-title-container col-10 m-auto row">
-                  {openOption === job._id && (
-                    <span className="pointer-parent">
-                      <span className="pointer"></span>
-                      <span className="show-profile">
-                        Click to view company
-                      </span>
-                    </span>
-                  )}
-                  <Link
-                    onMouseOver={() => setOpenOption(job._id)}
-                    to={`/company/${job.company}`}
-                    className=" link col-12 company-name"
-                  >
-                    {job.companyName}
-                  </Link>{" "}
-                  {/* <small className="text-primary">{job.shift}: </small> */}
-                </div>
+                <JobTitle
+                  job={job}
+                  setShowNote={setShowNote}
+                  showNote={showNote}
+                />
                 <span className="salary">
                   {/* <span className="text-primary">Salary: </span> */}
                   {job.salary} $ per month
@@ -118,22 +96,40 @@ function LatestJobs() {
                   {job.description}
                 </p>
                 <div className="footer  col-12">
-                  <span>{job.createdAt}</span>
+                  <span className="job-date">
+                    {formatDistance(
+                      subDays(new Date(job.createdAt), 0),
+                      Date.now(),
+                      {
+                        addSuffix: true,
+                      }
+                    )}
+                  </span>
                   <button className=" details">
                     {" "}
                     <Link className="link" to={`job/${job._id}`}>
                       Details
                     </Link>
                   </button>
-                  <button className="apply">Appy</button>
+
+                  <button className="apply">
+                    <Link className="link" to={`apply/${job._id}`}>
+                      Apply
+                    </Link>
+                  </button>
                 </div>
               </div>
             )
           })}
       </div>
-      {/* ###################### */}
+      <Pagination
+        items={jobs}
+        itemsPerPage={itemsPerPage}
+        setCurrentPage={setCurrentPage}
+        currentPage={currentPage}
+      />
     </div>
   )
 }
 
-export default LatestJobs;
+export default LatestJobs

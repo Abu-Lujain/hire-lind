@@ -2,19 +2,28 @@ import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { authContext } from "../../context/auth_context/authContext";
 import { loginCall } from "../../api_Calls/authCalls";
-
-import { Spinner } from "react-bootstrap";
+import { GoogleLogin } from "react-google-login"
+import { useHistory } from "react-router-dom"
+import { Spinner } from "react-bootstrap"
+import Google from "./Google"
 const Login = () => {
-  const { dispatch, user, loading } = useContext(authContext);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const { dispatch, user, loading, token } = useContext(authContext)
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const history = useHistory()
   const handleSubmit = (e) => {
-    e.preventDefault();
-    loginCall({ email, password }, dispatch);
-  };
+    e.preventDefault()
+    loginCall({ email, password }, dispatch)
+    history.push("/")
+  }
+
+  const responseGoogle = (response) => {
+    console.log(response.accessToken)
+  }
+
   return (
     <div className=" login row">
-      {loading || user ? (
+      {loading && !token ? (
         <div className="spinner-parent">
           <Spinner
             className="load-profile-spinner m-3"
@@ -63,11 +72,12 @@ const Login = () => {
             <Link to="/register" className="">
               Create an Account
             </Link>
+            <Google />
           </div>
         </form>
       )}
     </div>
-  );
-};
+  )
+}
 
 export default Login;

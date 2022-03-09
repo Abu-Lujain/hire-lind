@@ -15,29 +15,26 @@ import EditedJob from "./components/jobs/EditedJob"
 import { companyContext } from "./context/company_context/companyContext"
 import { createCompany, loadCompany } from "./api_Calls/companyCall"
 import CreateCompany from "./components/company_components/CreateCompany"
-import Company from "./screens/profile/Company"
 import { createProfile, fetchProfile } from "./api_Calls/profileCalls"
 import { profileContext } from "./context/profile_context/profileContext"
 import Create from "./components/posts/Create"
+import JobApplication from "./screens/job_application/JobApplication"
+import CompanyProfile from "./screens/company/CompanyProfile"
 // setting auth token
-if (localStorage.token) setAuthToken(localStorage.token)
 const App = () => {
+  if (localStorage.token) setAuthToken(localStorage.token)
   const [openNav, setOpenNav] = useState(false)
   const [showOverlay, setShowOverlay] = useState(false)
-  const { dispatch: CompanyDispatch, company } = useContext(companyContext)
+  const { dispatch: CompanyDispatch } = useContext(companyContext)
   const { dispatch, user } = useContext(authContext)
   const { dispatch: profileDispatch, profile } = useContext(profileContext)
   useEffect(() => {
     loadUserCall(dispatch)
-  }, [dispatch])
-  useEffect(() => {
-    user && createCompany({ name: user.userName }, CompanyDispatch)
+    createCompany({}, CompanyDispatch)
     loadCompany(CompanyDispatch)
-  }, [CompanyDispatch])
-  useEffect(() => {
     fetchProfile(profileDispatch)
     !profile && createProfile(profileDispatch)
-  }, [profileDispatch])
+  }, [dispatch, CompanyDispatch, profileDispatch, localStorage.token])
 
   return (
     <div
@@ -51,14 +48,16 @@ const App = () => {
       <BrowserRouter>
         <TopBar openNav={openNav} setOpenNav={setOpenNav} />
         <Switch>
-          {" "}
           <Route path="/login">
             <Login />
           </Route>
           <Route path="/job/:id">
             <SingleJob />
           </Route>
-          <Route exact path="/edit/:id">
+          <Route path="/apply/:id">
+            <JobApplication />
+          </Route>
+          <Route path="/edit/:id">
             <EditedJob />
           </Route>
           <Route path="/post-job">
@@ -82,7 +81,7 @@ const App = () => {
             />
           </Route>
           <Route path="/company/:id">
-            <Company
+            <CompanyProfile
               showOverlay={showOverlay}
               setShowOverlay={setShowOverlay}
             />

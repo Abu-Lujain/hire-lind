@@ -5,6 +5,16 @@ const Post = require("../model/Post")
 const authMiddleware = require("../middlewares/authMiddleware")
 const User = require("../model/User")
 
+const handleError = (error) => {
+  const errors = {}
+  if (error.message.includes("Post validation failed")) {
+    Object.values(error.errors).forEach(({ properties }) => {
+      errors.msg = properties.message
+      console.log(errors)
+    })
+  }
+  return errors
+}
 // @operation : create post
 // @route : /api/posts / @method : post / @access : private
 router.post(
@@ -152,30 +162,15 @@ router.put("/unlikePost/:id", authMiddleware, async (req, res) => {
 // @operation : add comments
 // @route : /api/posts/comment/:id / @method :put / @access : private
 
-router.put(
-  "/comment/:id",
-  [
-    authMiddleware,
-    [check("body", "please write a body for your post").not().isEmpty()],
-  ],
-  async (req, res) => {
-    const errors = validationResult(req)
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() })
-    }
-    const { body } = req.body
-    let user
-    let post
-    try {
-      user = await User.findById(req.user.id)
-      post = await Post.findById(req.params.id)
-    } catch (error) {
-      res.status(500).send("Server Error")
-      console.error(error)
-    }
-    console.log(user.userName)
+router.put("/comment/:id", authMiddleware, async (req, res) => {
+  const { text } = req.body
+  console.log(req.body)
+  try {
+    const user = await User.findById(req.user.id)
+    const post = await Post.findById(req.params.id)
+    console.log(text)
     const newComment = {
-      body,
+      text,
       user: req.user.id,
       userName: user.userName,
       photo: user.photo,
@@ -183,17 +178,20 @@ router.put(
     post.comments.unshift(newComment)
     await post.save()
     res.json(post.comments)
+  } catch (error) {
+    const errors = handleError(error)
+    res.status(500).json({ errors: errors })
   }
-)
+})
 
 // @operation : remove comment
 // @route : /api/posts/comment/:id / @method :put / @access : private
-router.delete("/comment/:id", authMiddleware, async (req, res) => {
+router.delete("/comment/:id", async (req, res) => {
   try {
     const post = await Post.findById(req.params.id)
     const indexToRemove = post.comments
       .map((like) => like.user.toString())
-      .indexOf(req.user.id)
+      .indexOf(req.params.id)
     post.comments.splice(indexToRemove, 1)
     await post.save()
     res.status(200).json(post.comments)

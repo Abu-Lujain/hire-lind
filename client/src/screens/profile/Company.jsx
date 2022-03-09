@@ -20,13 +20,11 @@ function Company({ showOverlay, setShowOverlay }) {
   }, [])
   // console.log("company: ", company)
   return (
-    <div className=" profile-parent">
-      <CompanyProfile
-        company={company}
-        showOverlay={showOverlay}
-        setShowOverlay={setShowOverlay}
-      />
-    </div>
+    <CompanyProfile
+      company={company}
+      showOverlay={showOverlay}
+      setShowOverlay={setShowOverlay}
+    />
   )
 }
 
