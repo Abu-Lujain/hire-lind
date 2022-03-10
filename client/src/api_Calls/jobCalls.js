@@ -37,7 +37,7 @@ export const AddJobHandler = async (body, dispatch) => {
   }
   try {
     const res = await axiosInstance.post("/jobs", body, config)
-    res.data && console.log(res.data)
+    res.data && window.location.replace("/")
     dispatch({ type: types.ADD_JOB_SUCCESS, payload: res.data })
   } catch (error) {
     console.log(error.response.data.errors)
@@ -67,7 +67,6 @@ export const updateJobHandler = async (id, body, dispatch) => {
     dispatch({ type: types.UPDATE_JOB_SUCCESS, payload: res.data })
     res.data && window.location.replace("/")
   } catch (error) {
-    console.log(error.response.data.errors)
     dispatch({
       type: types.UPDATE_JOB_FAILURE,
       payload: error.response.data.errors,

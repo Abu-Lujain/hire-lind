@@ -1,3 +1,4 @@
+import "./apply.css"
 import axios from "axios"
 import { useEffect, useRef, useState } from "react"
 import { useLocation } from "react-router-dom"
@@ -27,25 +28,8 @@ function JobApplication() {
   }, [])
   console.log(jobToAppyTo)
   return (
-    <div>
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi
-      similique explicabo hic quidem tempore impedit eum, esse provident totam
-      alias inventore temporibus quaerat suscipit libero vero aperi Lorem ipsum
-      dolor sit amet, consectetur adipisicing elit. Excepturi similique
-      explicabo hic quidem tempore impedit eum, esse provident totam alias
-      inventore temporibus quaerat suscipit libero vero aperi Lorem ipsum dolor
-      sit amet, consectetur adipisicing elit. Excepturi similique explicabo hic
-      quidem tempore impedit eum, esse provident totam alias inventore
-      temporibus quaerat suscipit libero vero aperi Lorem ipsum dolor sit amet,
-      consectetur adipisicing elit. Excepturi similique explicabo hic quidem
-      tempore impedit eum, esse provident totam alias inventore temporibus
-      quaerat suscipit libero vero aperi Lorem ipsum dolor sit amet, consectetur
-      adipisicing elit. Excepturi similique explicabo hic quidem tempore impedit
-      eum, esse provident totam alias inventore temporibus quaerat suscipit
-      libero vero aperi Lorem ipsum dolor sit amet, consectetur adipisicing
-      elit. Excepturi similique explicabo hic quidem tempore impedit eum, esse
-      provident totam alias inventore temporibus quaerat suscipit libero vero
-      aperiam saepe doloribus voluptatum?
+    <div className="job-application col-12">
+      <h1 className="text-info">coming soon!</h1>
     </div>
   )
 }

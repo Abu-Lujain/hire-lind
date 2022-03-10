@@ -20,7 +20,7 @@ export const createCompany = async (body, dispatch) => {
   } catch (error) {
     dispatch({
       type: types.CREATE_COMPANY_FAILURE,
-      payload: error.response.data,
+      payload: error?.response?.data,
     })
   }
 }
@@ -34,7 +34,7 @@ export const loadCompany = async (dispatch) => {
   } catch (error) {
     dispatch({
       type: types.LOAD_COMPANY_FAILURE,
-      payload: error.response.data,
+      payload: error?.response?.data,
     })
   }
 }
@@ -57,7 +57,7 @@ export const AddToProfile = async (body, dispatch) => {
   } catch (error) {
     dispatch({
       type: types.EDIT_PROFILE_FAILURE,
-      payload: error.response.data,
+      payload: error?.response?.data,
     })
   }
 }

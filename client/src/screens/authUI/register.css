@@ -35,8 +35,14 @@
 .login form {
   padding: 20px;
   border-radius: 10px;
-  background: #f5f8f3;
+   background: #3f51b5;
   position: relative;
+}
+.form-color{
+    color: rgb(237 242 232);
+    font-weight: 600;
+    letter-spacing: 2px;
+    font-family: serif;
 }
 .register form .register-note
  {
@@ -194,13 +200,12 @@ form .profile-type div input:hover {
   border-bottom-left-radius: 40px;
 }
 .auth-actions-ui {
-display: flex;
+    display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 15px;
-    background: #c8e5c9;
+    background: #ffffff;
     padding: 5px;
-    border-radius: 7px;
+    border-radius: 5px;
 }
 .photo{
   color: red;

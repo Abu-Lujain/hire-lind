@@ -1,9 +1,7 @@
 import { useState } from "react"
 import "./styles/create.css"
-import { useHistory } from "react-router-dom"
 import { axiosInstance } from "../../config/axiosInstance"
 function Create() {
-  const history = useHistory()
   const [title, setTitle] = useState("")
   const [body, setBody] = useState("")
   const [error, setError] = useState("")
@@ -18,14 +16,17 @@ function Create() {
     }
     try {
       const res = await axiosInstance.post("/posts", { body, title }, config)
-      res.data && history.push("/")
+      window.location.replace("/")
     } catch (error) {
       setError(error.response.data)
     }
   }
   return (
-    <div className="container row create-post">
-      <form className="create-form" onSubmit={createPost}>
+    <div className=" row create-post col-12 row">
+      <form
+        className="create-form col-md-7 m-auto col-12"
+        onSubmit={createPost}
+      >
         <h2 className="text-center text-success">New Post</h2>
         <label>Post Title</label>
         <input

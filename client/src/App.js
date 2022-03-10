@@ -38,7 +38,7 @@ const App = () => {
 
   return (
     <div
-      className="App"
+      className="App row"
       onClick={() => {
         if (openNav) {
           setOpenNav(!openNav)

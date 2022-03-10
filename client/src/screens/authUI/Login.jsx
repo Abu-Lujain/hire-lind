@@ -13,7 +13,7 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     loginCall({ email, password }, dispatch)
-    history.push("/")
+    window.location.replace("/")
   }
 
   return (
@@ -31,9 +31,9 @@ const Login = () => {
         </div>
       ) : (
         <form className=" col-10 col-md-5" onSubmit={handleSubmit}>
-          <h3 className="text-center ">Log In</h3>
+          <h3 className="text-center form-color ">Log In</h3>
           <div className="form-group">
-            <label>email</label>
+            <label className="form-color">email</label>
 
             <input
               className="form-control my-3"
@@ -45,7 +45,7 @@ const Login = () => {
           </div>
 
           <div className="form-group">
-            <label>password</label>{" "}
+            <label className="form-color">password</label>{" "}
             <input
               name="password"
               className="form-control mb-3"

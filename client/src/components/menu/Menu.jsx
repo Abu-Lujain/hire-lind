@@ -6,13 +6,13 @@ const Menu = ({ openNav }) => {
     <div
       className={
         openNav
-          ? "open-nav menu d-md-none d-lg-block d-lg-none .d-xl-block d-md-none .d-lg-block"
-          : "menu d-md-none d-lg-block d-lg-none .d-xl-block d-md-none .d-lg-block"
+          ? "open-nav menu d-md-none d-lg-block d-lg-none d-xl-block d-md-none d-lg-block"
+          : "menu d-md-none d-lg-block d-lg-none d-xl-block d-md-none d-lg-block"
       }
     >
       <SideBarItems />
     </div>
-  );
+  )
 };
 
 export default Menu;

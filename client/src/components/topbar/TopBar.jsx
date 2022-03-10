@@ -14,7 +14,7 @@ function Topbar({ openNav, setOpenNav }) {
   const { pathname } = useLocation()
   const candidate = user?.profileType === "employee"
   return (
-    <div className="row m-0 topbar">
+    <div className="row m-0 topbar col-12">
       <div className="col col-2  d-flex top-right">
         {/* <img src={logo} alt="logo" className="logo-img rounded-circle " /> */}
         <Link to="/" className=" link">

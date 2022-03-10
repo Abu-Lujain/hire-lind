@@ -133,7 +133,7 @@ router.put(
 )
 // @operation : get all jobs of a particular company
 // @route : /api/jobs @method : get @access : public
-router.get("/:id", async (req, res) => {
+router.get("/company/:id", async (req, res) => {
   const jobs = await Job.find({ company: req.params.id })
   res.json(jobs)
 })
@@ -148,6 +148,10 @@ router.get("/:id", async (req, res) => {
 // @route : /api/jobs /@method : get /@access : public
 router.get("/", async (req, res) => {
   const jobs = await Job.find().sort({ createdAt: -1 })
+  res.json(jobs)
+})
+router.get("/hightPaying", async (req, res) => {
+  const jobs = await Job.find().sort({ salary: -1 })
   res.json(jobs)
 })
 // @operation : get a single job

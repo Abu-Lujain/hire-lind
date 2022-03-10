@@ -3,13 +3,13 @@ import "./styles/posts.css"
 //init
 import { useEffect, useState } from "react"
 //others
-import axios from "axios"
-//components
+ //components
 import PostHeader from "./PostHeader"
 import PostBody from "./PostBody"
 import InfoAndActioins from "./InfoAndActioins"
 import Comments from "./Comments"
 import Pagination from "../jobs/Pagination"
+import { axiosInstance } from "../../config/axiosInstance"
 function ShowAll({ user }) {
   const [openOption, setOpenOption] = useState(null)
   const [posts, setPosts] = useState([])
@@ -24,7 +24,7 @@ function ShowAll({ user }) {
   useEffect(() => {
     async function fetchPost() {
       try {
-        const res = await axios.get("/posts")
+        const res = await axiosInstance.get("/posts")
         res.data && setPosts(res.data)
       } catch (error) {
         console.log(error)
@@ -35,7 +35,7 @@ function ShowAll({ user }) {
 
   const deletePostHandler = async (id) => {
     try {
-      const res = await axios.delete(`/posts/${id}`)
+      const res = await axiosInstance.delete(`/posts/${id}`)
       console.log(res.data)
       res.data && setMsg(res.data)
       setTimeout(() => {
@@ -45,7 +45,7 @@ function ShowAll({ user }) {
   }
   const handleLike = async (id) => {
     try {
-      const res = await axios.put(`/posts/likePost/${id}`)
+      const res = await axiosInstance.put(`/posts/likePost/${id}`)
       console.log(res.data)
       setLiked(id)
       setLiked(null)
@@ -57,7 +57,7 @@ function ShowAll({ user }) {
 
   const handleUnlike = async (id) => {
     try {
-      const res = await axios.put(`/posts/unlikePost/${id}`)
+      const res = await axiosInstance.put(`/posts/unlikePost/${id}`)
       console.log(res.data)
       setLiked(id)
       res.data && setLikes(res.data)

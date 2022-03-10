@@ -11,7 +11,7 @@ export const createProfile = async (dispatch) => {
   } catch (error) {
     dispatch({
       type: types.CREATE_PROFILE_FAILURE,
-      payload: error.response.data.errors,
+      payload: error?.response?.data.errors,
     })
   }
 }
@@ -26,7 +26,7 @@ export const fetchProfile = async (dispatch) => {
   } catch (error) {
     dispatch({
       type: types.LOAD_PROFILE_FAILURE,
-      payload: error.response.data.errors,
+      payload: error?.response?.data.errors,
     })
   }
 }
@@ -50,7 +50,7 @@ export const updateProfile = async (body, dispatch) => {
   } catch (error) {
     dispatch({
       type: types.UPDATE_PROFILE_FAILURE,
-      payload: error.response.data.errors,
+      payload: error?.response?.data.errors,
     })
   }
 }
@@ -74,7 +74,7 @@ export const addExperince = async (body, dispatch) => {
     dispatch({
       type: types.ADD_EXPERIENCE_FAILURE,
       payload: {
-        errors: error.response.data.errors,
+        errors: error?.response?.data.errors,
         profile: res.data,
       },
     })
@@ -94,10 +94,10 @@ export const deleteExperience = async (id, dispatch) => {
         payload: response.data,
       })
   } catch (error) {
-    console.log(error.response.data.errors)
+    console.log(error?.response?.data.errors)
     dispatch({
       type: types.DELETE_EXPERIENCE_FAILURE,
-      payload: error.response.data.errors,
+      payload: error?.response?.data.errors,
     })
   }
 }
@@ -117,10 +117,10 @@ export const addEducation = async (body, dispatch) => {
     response.data &&
       dispatch({ type: types.ADD_EDUCATION_SUCCESS, payload: response.data })
   } catch (error) {
-    console.log("data: ", error.response.data.errors)
+    console.log("data: ", error?.response?.data.errors)
     dispatch({
       type: types.ADD_EDUCATION_FAILURE,
-      payload: error.response.data.errors,
+      payload: error?.response?.data.errors,
     })
   }
 }
@@ -140,7 +140,7 @@ export const deleteEducation = async (id, dispatch) => {
   } catch (error) {
     dispatch({
       type: types.DELETE_EDUCATION_FAILURE,
-      payload: error.response.data.errors,
+      payload: error?.response?.data.errors,
     })
   }
 }
@@ -171,7 +171,7 @@ export const uploadProfilePhoto = async (e, profile, dispatch) => {
   } catch (error) {
     dispatch({
       type: types.UPLOAD_PHOTO_FAILURE,
-      payload: error.response.data,
+      payload: error?.response?.data,
     })
     console.log(error)
   }

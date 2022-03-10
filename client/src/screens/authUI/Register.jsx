@@ -101,9 +101,9 @@ const Register = () => {
                   this will be the name of your company <span></span>
                 </small>
               )}
-              <h5 className="text-center text-primary">create and account</h5>
+              <h5 className="text-center text-white">create and account</h5>
               <div className="form-group">
-                <label>name</label>
+                <label className="form-color">name</label>
                 <input
                   name="userName"
                   type="text"
@@ -114,7 +114,7 @@ const Register = () => {
                 />
               </div>
               <div className="form-group">
-                <label>email</label>
+                <label className="form-color">email</label>
 
                 <input
                   className="form-control my-3"
@@ -125,7 +125,7 @@ const Register = () => {
                 />
               </div>
               <div className="form-group">
-                <label>password</label>{" "}
+                <label className="form-color">password</label>{" "}
                 <input
                   name="password"
                   className="form-control mb-3"
@@ -137,7 +137,7 @@ const Register = () => {
               <div>
                 <span>what kind of profile you want to make? </span>{" "}
                 <div className="form-group profile-type" ref={checkRef}>
-                  <label>
+                  <label className="form-color">
                     <h6>Company</h6>
 
                     <Form.Check
@@ -150,7 +150,7 @@ const Register = () => {
                       onChange={(e) => setProfileType(e.target.value)}
                     />
                   </label>{" "}
-                  <label>
+                  <label className="form-color">
                     <h6>Employee</h6>
                     <Form.Check
                       aria-label="option 2"
@@ -164,7 +164,7 @@ const Register = () => {
                   </label>{" "}
                   <div className="photo">
                     {uploading ? (
-                      <label>
+                      <label className="form-color">
                         <Spinner
                           className="profile-photo-spinner"
                           animation="border"
