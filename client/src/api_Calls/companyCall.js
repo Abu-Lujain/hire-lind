@@ -1,4 +1,5 @@
-import axios from "axios";
+import { axiosInstance } from "../config/axiosInstance"
+
 import { types } from "../context/company_context/types"
 // create profile
 export const createCompany = async (body, dispatch) => {
@@ -9,7 +10,11 @@ export const createCompany = async (body, dispatch) => {
   }
   dispatch({ type: types.CREATE_COMPANY_START })
   try {
-    const response = await axios.post("/companiesProfiles", body, config)
+    const response = await axiosInstance.post(
+      "/companiesProfiles",
+      body,
+      config
+    )
     response.data &&
       dispatch({ type: types.CREATE_COMPANY_SUCCESS, payload: response.data })
   } catch (error) {
@@ -23,7 +28,7 @@ export const createCompany = async (body, dispatch) => {
 export const loadCompany = async (dispatch) => {
   dispatch({ type: types.LOAD_COMPANY_START })
   try {
-    const response = await axios.get("/companiesProfiles/me")
+    const response = await axiosInstance.get("/companiesProfiles/me")
     response.data &&
       dispatch({ type: types.LOAD_COMPANY_SUCCESS, payload: response.data })
   } catch (error) {
@@ -42,7 +47,11 @@ export const AddToProfile = async (body, dispatch) => {
     },
   }
   try {
-    const response = await axios.post("/companiesProfiles", body, config)
+    const response = await axiosInstance.post(
+      "/companiesProfiles",
+      body,
+      config
+    )
     response.data &&
       dispatch({ type: types.EDIT_PROFILE_SUCCESS, payload: response.data })
   } catch (error) {
@@ -55,5 +64,5 @@ export const AddToProfile = async (body, dispatch) => {
 
 // /////////////
 // export const fetchCompanyById = async (response) => {
- 
+
 // }

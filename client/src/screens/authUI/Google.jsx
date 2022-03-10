@@ -1,6 +1,7 @@
 import { GoogleLogin } from "react-google-login"
 import { Link, useHistory } from "react-router-dom"
-import axios from "axios"
+import { axiosInstance } from "../../config/axiosInstance"
+
 function Google({ setCheckProfile, profileType }) {
   const history = useHistory()
   const responseGoogle = async (response) => {
@@ -25,7 +26,7 @@ function Google({ setCheckProfile, profileType }) {
             response?.profileObj?.familyName,
           photo: response?.profileObj?.imageUrl,
         }
-        const res = await axios.post("/auth/google", newUser, config)
+        const res = await axiosInstance.post("/auth/google", newUser, config)
         console.log(res.data)
         if (res.data) {
           localStorage.setItem("token", res.data.token)

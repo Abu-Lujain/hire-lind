@@ -1,10 +1,11 @@
 import { Close } from "@material-ui/icons"
-import axios from "axios"
+ 
 import { useContext, useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import { authContext } from "../../context/auth_context/authContext"
 import "./search.css"
 import { formatDistance, subDays } from "date-fns"
+import { axiosInstance } from "../../config/axiosInstance"
 function Search() {
   const [searchWord, setSearchWord] = useState("")
   const [jobs, setJobs] = useState([])
@@ -12,7 +13,7 @@ function Search() {
   useEffect(() => {
     async function fetchPost() {
       try {
-        const res = await axios.get("/jobs")
+        const res = await axiosInstance.get("/jobs")
         setJobs(res.data)
       } catch (error) {
         console.log(error)

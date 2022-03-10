@@ -38,7 +38,7 @@ const CadidateProfile = () => {
     uploadProfilePhoto(e, profile, dispatch)
   }
   console.log(profile?.photo)
-  const PF = "http://localhost:8000"
+  const PF = "https://hirelandsite.herokuapp.com"
   return (
     <>
       {!isMounted.current && isFetching ? (

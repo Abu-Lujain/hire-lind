@@ -1,7 +1,7 @@
-import axios from "axios"
 import { useState } from "react"
 import "./styles/create.css"
 import { useHistory } from "react-router-dom"
+import { axiosInstance } from "../../config/axiosInstance"
 function Create() {
   const history = useHistory()
   const [title, setTitle] = useState("")
@@ -17,7 +17,7 @@ function Create() {
       },
     }
     try {
-      const res = await axios.post("/posts", { body, title }, config)
+      const res = await axiosInstance.post("/posts", { body, title }, config)
       res.data && history.push("/")
     } catch (error) {
       setError(error.response.data)

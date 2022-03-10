@@ -5,9 +5,10 @@ import { Link, useHistory } from "react-router-dom"
 
 import { authContext } from "../../context/auth_context/authContext"
 import { Spinner, Form } from "react-bootstrap"
-import axios from "axios"
+ 
 import { CameraAltOutlined } from "@material-ui/icons"
 import Google from "./Google"
+import { axiosInstance } from "../../config/axiosInstance"
 const Register = () => {
   const checkRef = useRef()
   const { user, loading, dispatch, token } = useContext(authContext)
@@ -36,7 +37,7 @@ const Register = () => {
       },
     }
     try {
-      const res = await axios.post("/uploads", formData, config)
+      const res = await axiosInstance.post("/uploads", formData, config)
       if (res.data) {
         setPhoto(res.data)
         setUploading(false)
@@ -62,7 +63,7 @@ const Register = () => {
       },
     }
     try {
-      const res = await axios.post("/users", newUser, config)
+      const res = await axiosInstance.post("/users", newUser, config)
       setNotConfirmed(res.data)
     } catch (error) {
       console.log(error.response)

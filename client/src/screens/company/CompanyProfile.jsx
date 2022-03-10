@@ -1,8 +1,6 @@
 import "./company.css";
  import CompanyHeader from "../../components/company_components/CompanyHeader"
  import CompanyMiddle from "../../components/company_components/CompanyMiddle"
- import AboutCompany from "../../components/company_components/AboutCompany"
- import OtherOffers from "../../components/company_components/OtherOffers"
 import { useLocation } from "react-router-dom"
 import { useFetch } from "../../hooks/useFetch"
 

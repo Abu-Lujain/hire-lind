@@ -2,7 +2,8 @@ import "./styles/singleJob.css"
 import React, { useEffect, useRef, useState } from "react"
 import { Link, useLocation } from "react-router-dom"
  
-import axios from "axios"
+ 
+import { axiosInstance } from "../../config/axiosInstance"
 function SingleJob() {
   const isMounted = useRef(false)
   const { pathname } = useLocation()
@@ -12,7 +13,7 @@ function SingleJob() {
     isMounted.current = true
     async function fetchData() {
       try {
-        const res = await axios.get(`/jobs${pathname}`)
+        const res = await axiosInstance.get(`/jobs${pathname}`)
         if (isMounted.current) {
           res.data && setSingleJob(res.data)
         }

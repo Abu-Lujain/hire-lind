@@ -1,8 +1,7 @@
 import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { authContext } from "../../context/auth_context/authContext";
-import { loginCall } from "../../api_Calls/authCalls";
-import { GoogleLogin } from "react-google-login"
+import { loginCall } from "../../api_Calls/authCalls"
 import { useHistory } from "react-router-dom"
 import { Spinner } from "react-bootstrap"
 import Google from "./Google"
@@ -15,10 +14,6 @@ const Login = () => {
     e.preventDefault()
     loginCall({ email, password }, dispatch)
     history.push("/")
-  }
-
-  const responseGoogle = (response) => {
-    console.log(response.accessToken)
   }
 
   return (

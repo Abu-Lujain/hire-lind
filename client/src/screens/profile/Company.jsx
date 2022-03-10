@@ -1,8 +1,7 @@
-import axios from "axios"
 import React, { useEffect, useState } from "react"
 import { useLocation } from "react-router-dom"
 import CompanyProfile from "../company/CompanyProfile"
-
+import { axiosInstance } from "../../config/axiosInstance"
 function Company({ showOverlay, setShowOverlay }) {
   const [company, setCompany] = useState(null)
   const { pathname } = useLocation()
@@ -10,7 +9,7 @@ function Company({ showOverlay, setShowOverlay }) {
   useEffect(() => {
     async function fetchCo() {
       try {
-        const response = await axios.get(`/companiesProfiles/${id}`)
+        const response = await axiosInstance.get(`/companiesProfiles/${id}`)
         setCompany(response.data)
       } catch (error) {
         // console.log(error.response)

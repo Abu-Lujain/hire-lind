@@ -3,17 +3,16 @@ import "./styles/latestJobs.css"
 import { Link } from "react-router-dom"
 //init
 import { useEffect, useState, useContext } from "react"
-import axios from "axios"
 //components
 import Pagination from "./Pagination"
 import Authorized from "./Authorized"
+import JobTitle from "./JobTitle"
 //others
 import { formatDistance, subDays } from "date-fns"
 //context
 import { authContext } from "../../context/auth_context/authContext"
 import { companyContext } from "../../context/company_context/companyContext"
-import { profileContext } from "../../context/profile_context/profileContext"
-import JobTitle from "./JobTitle"
+import { axiosInstance } from "../../config/axiosInstance"
 function LatestJobs() {
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage] = useState(6)
@@ -28,7 +27,7 @@ function LatestJobs() {
   useEffect(() => {
     async function fetchjobs(params) {
       try {
-        const res = await axios.get("/jobs")
+        const res = await axiosInstance.get("/jobs")
         setJobs(res.data)
       } catch (error) {
         console.log(error)
@@ -39,7 +38,7 @@ function LatestJobs() {
 
   const deleteJobHandler = async (id) => {
     try {
-      const res = await axios.delete(`/jobs/job/${id}`)
+      const res = await axiosInstance.delete(`/jobs/job/${id}`)
       setDeletedJob(res.data)
       setDeletedJob(null)
       setDelMsg(res.data)

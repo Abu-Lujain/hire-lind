@@ -1,5 +1,4 @@
-import axios from "axios";
-
+import { axiosInstance } from "../config/axiosInstance"
 const setAuthToken = (token) => {
   if (token) {
     axios.defaults.headers.common["Authorization"] = token;

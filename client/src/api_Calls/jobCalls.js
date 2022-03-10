@@ -1,10 +1,10 @@
-import axios from "axios"
+import { axiosInstance } from "../config/axiosInstance"
 import { types } from "../context/job_context/types"
 // fetch single job by id
 export const getSingleJob = async (pathname, dispatch) => {
   dispatch({ type: types.GET_SINGLE_JOB_START })
   try {
-    const res = await axios.get(`/jobs${pathname}`)
+    const res = await axiosInstance.get(`/jobs${pathname}`)
     dispatch({
       type: types.GET_SINGLE_JOB_SUCCESS,
       payload: res.data,
@@ -21,7 +21,7 @@ export const getSingleJob = async (pathname, dispatch) => {
 export const fetchAllJobs = async (dispatch) => {
   dispatch({ type: types.FETCH_ALL_JOBS_START })
   try {
-    const res = await axios.get("/jobs")
+    const res = await axiosInstance.get("/jobs")
     dispatch({ type: types.FETCH_ALL_JOBS_SUCCESS, payload: res.data })
   } catch (error) {
     console.log(error)
@@ -36,7 +36,7 @@ export const AddJobHandler = async (body, dispatch) => {
     },
   }
   try {
-    const res = await axios.post("/jobs", body, config)
+    const res = await axiosInstance.post("/jobs", body, config)
     res.data && console.log(res.data)
     dispatch({ type: types.ADD_JOB_SUCCESS, payload: res.data })
   } catch (error) {
@@ -47,8 +47,9 @@ export const AddJobHandler = async (body, dispatch) => {
     })
 
     error.response.data.errors && window.scrollTo(0, 3000)
-    setTimeout(() => {window.scrollTo(0, 0) }, 5000)
-
+    setTimeout(() => {
+      window.scrollTo(0, 0)
+    }, 5000)
   }
 }
 
@@ -61,7 +62,7 @@ export const updateJobHandler = async (id, body, dispatch) => {
     },
   }
   try {
-    const res = await axios.put(`/jobs/${id}`, body, config)
+    const res = await axiosInstance.put(`/jobs/${id}`, body, config)
     console.log(res.data)
     dispatch({ type: types.UPDATE_JOB_SUCCESS, payload: res.data })
     res.data && window.location.replace("/")
