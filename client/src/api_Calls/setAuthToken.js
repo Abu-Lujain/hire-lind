@@ -1,9 +1,9 @@
 import { axiosInstance } from "../config/axiosInstance"
 const setAuthToken = (token) => {
   if (token) {
-    axios.defaults.headers.common["Authorization"] = token;
+    axiosInstance.defaults.headers.common["Authorization"] = token;
   } else {
-    delete axios.defaults.headers.common["Authorization"];
+    delete axiosInstance.defaults.headers.common["Authorization"];
   }
 };
 export default setAuthToken;
