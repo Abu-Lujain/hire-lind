@@ -22,6 +22,7 @@ function Topbar({ openNav, setOpenNav }) {
         </Link>
       </div>
       <div className="middle-links col-7 col-md-9 ">
+
         {pathname.includes("profile") || pathname.includes("company") ? (
           ""
         ) : (
@@ -31,11 +32,12 @@ function Topbar({ openNav, setOpenNav }) {
               <>
                 {user?.isAdmin ? (
                   <Link to="/" className=" link">
-                    <h6 className="logo mx-1 link">Admins Dashboard</h6>
+                    Admins
                   </Link>
                 ) : (
                   <span>{user?.userName}</span>
-                )}
+                  )}
+              
                 <Link
                   to={`/${
                     candidate
