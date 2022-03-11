@@ -9,6 +9,7 @@ import Authorized from "./Authorized"
 import JobTitle from "./JobTitle"
 //others
 import { formatDistance, subDays } from "date-fns"
+import { Spinner } from "react-bootstrap"
 //context
 import { authContext } from "../../context/auth_context/authContext"
 import { companyContext } from "../../context/company_context/companyContext"
@@ -20,15 +21,18 @@ function LatestJobs() {
   const { user } = useContext(authContext)
   const { company } = useContext(companyContext)
   const [delMsg, setDelMsg] = useState("")
+  const [loadingJobs, setLoadingJobs] = useState(false)
   const [deletedJob, setDeletedJob] = useState("")
   const [jobs, setJobs] = useState([])
   const [showNote, setShowNote] = useState(null)
 
   useEffect(() => {
-    async function fetchjobs(params) {
+    async function fetchjobs() {
+      setLoadingJobs(true)
       try {
         const res = await axiosInstance.get("/jobs")
         setJobs(res.data)
+        setLoadingJobs(false)
       } catch (error) {
         console.log(error)
       }
@@ -58,6 +62,32 @@ function LatestJobs() {
       <h4 className="job-list-title col-12">Latest jobs</h4>
       <div className="latest-jobs  col-12 ">
         {delMsg && <div className="msg">{delMsg}</div>}
+        <>
+          {loadingJobs && (
+            <>
+              <Spinner
+                className="update-boi-spinner col-md-3 m-auto  col-12"
+                animation="grow"
+                role="status"
+              ></Spinner>
+              <Spinner
+                className="update-boi-spinner col-md-3 m-auto  col-12"
+                animation="grow"
+                role="status"
+              ></Spinner>
+              <Spinner
+                className="update-boi-spinner col-md-3 m-auto  col-12"
+                animation="grow"
+                role="status"
+              ></Spinner>
+              <Spinner
+                className="update-boi-spinner col-md-2 m-auto  col-12"
+                animation="grow"
+                role="status"
+              ></Spinner>
+            </>
+          )}
+        </>
         {jobs &&
           currentJobs.map((job) => {
             return (

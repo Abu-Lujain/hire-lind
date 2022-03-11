@@ -4,10 +4,14 @@ import ArrowForwardIosOutlined from "@material-ui/icons/ArrowForwardIosOutlined"
 import ArrowBackIosOutlined from "@material-ui/icons/ArrowBackIosOutlined";
 import { profiles } from "../../api_Calls/profiles";
 import { axiosInstance } from "../../config/axiosInstance"
+import { Spinner } from "react-bootstrap"
+
 const TopProfiles = ({ profile }) => {
+  const [loadingJobs, setLoadingJobs] = useState(false)
   const [currentSlide, setCurrentSlide] = useState(0)
   const [slideWithHand, setSlideWithHand] = useState(false)
   const [sliderWidth, setSliderWidth] = useState(0)
+
   const [highPayingJobs, setHighPayingJobs] = useState(0)
   let widthRef = useRef()
   // console.log("sliderWidth: ", sliderWidth);
@@ -67,11 +71,11 @@ const TopProfiles = ({ profile }) => {
   }
   useEffect(() => {
     async function fetchHighPayJobs() {
+      setLoadingJobs(true)
       try {
         const res = await axiosInstance.get("/jobs/hightPaying")
-        console.log(res.data)
         setHighPayingJobs(res.data)
-        console.log(res.data)
+        setLoadingJobs(false)
       } catch (error) {
         console.log(error)
       }
@@ -81,6 +85,15 @@ const TopProfiles = ({ profile }) => {
   // console.log(highPayingJobs?.slice(0, 5))
   return (
     <>
+      <>
+        {loadingJobs && (
+          <Spinner
+            className=" slider-spinner col-12"
+            animation="grow"
+            role="status"
+          ></Spinner>
+        )}
+      </>
       <span
         onClick={() => {
           handleSlide("right")
@@ -105,7 +118,7 @@ const TopProfiles = ({ profile }) => {
             // slide
             <div
               ref={widthRef}
-              className="col slide col-md-12  col-12 p-2  "
+              className="col slide col-12 p-2  "
               style={{
                 transform: `translateX(-${currentSlide * sliderWidth}px)`,
               }}
