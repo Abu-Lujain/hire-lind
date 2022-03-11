@@ -9,21 +9,7 @@
   border-radius: 10px;
   padding: 5px;
 }
-.sidebar-items a,
-.logout {
-  margin: 5px;
-  background-color: rgb(250 255 254);
-  border-radius: 5px;
-  padding: 3px;
-  width: 75%;
-  text-align: center;
-  letter-spacing: 4px;
-  text-decoration: dashed;
-  font-weight: 600;
-  color: #747b97;
-  border: 1px #009688 solid;
-  transition: all 0.5s;
-}
+
 
 .sidebar-items a:hover {
   color: white;

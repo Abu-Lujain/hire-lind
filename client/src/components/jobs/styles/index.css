@@ -1,0 +1,36 @@
+.user-drop-menu{
+background-color: #ffffff;
+    padding: 5px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    position: absolute;
+    right: 115px;
+    top: 30px;
+    box-shadow: var(--main-box-shadow);
+}
+.user-drop-menu li{
+    cursor: pointer;
+    margin: 5px;
+    
+}
+
+.drop-icon{
+    cursor: pointer;
+      color: #ffffff;
+    font-size: 29px;
+     background: #ffffff63;
+    border-radius: 5px;
+ }
+ .user-drop-menu .logout {
+margin: 5px; 
+    background-color: rgb(63 81 181);
+    border-radius: 3px;
+ 
+    letter-spacing: 1px;
+    text-decoration: dashed;
+     color: #f9fbf7;
+     transition: all 0.5s;
+}

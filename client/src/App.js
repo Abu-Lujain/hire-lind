@@ -27,6 +27,7 @@ const App = () => {
       localStorage.getItem("registered")
     )
     const [openNav, setOpenNav] = useState(false)
+    const [openDropDown, setOpenDropDown] = useState(false)
     const [showOverlay, setShowOverlay] = useState(false)
     const { dispatch: CompanyDispatch, company } = useContext(companyContext)
     const { dispatch, user } = useContext(authContext)
@@ -55,7 +56,12 @@ const App = () => {
         }}
       >
         <BrowserRouter>
-          <TopBar openNav={openNav} setOpenNav={setOpenNav} />
+          <TopBar
+            openDropDown={openDropDown}
+            setOpenDropDown={setOpenDropDown}
+            openNav={openNav}
+            setOpenNav={setOpenNav}
+          />
           <Switch>
             <Route path="/login">
               <Login notConfirmed={notConfirmed} />

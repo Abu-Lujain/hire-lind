@@ -1,16 +1,21 @@
 import Join from "../join/Join";
 import "./topbar.css";
-import { Link, useLocation } from "react-router-dom";
-import Menu from "../menu/Menu";
-import { profileContext } from "../../context/profile_context/profileContext";
-import { useContext } from "react";
-import { authContext } from "../../context/auth_context/authContext";
+import Menu from "../menu/Menu"
+import { ArrowDropDown, ArrowDropUp } from "@material-ui/icons"
+//init
+import { Link, useLocation } from "react-router-dom"
+import { useContext } from "react"
+//context
+import { profileContext } from "../../context/profile_context/profileContext"
 import { companyContext } from "../../context/company_context/companyContext"
-function Topbar({ openNav, setOpenNav }) {
-  const PF = "http://localhost:8000"
+import { authContext } from "../../context/auth_context/authContext"
+import { logOut } from "../../api_Calls/authCalls"
+import { PF } from "../../config/axiosInstance"
+function Topbar({ openNav, setOpenNav, openDropDown, setOpenDropDown }) {
+  const { user, dispatch } = useContext(authContext)
+
   const { profile } = useContext(profileContext)
   const { company } = useContext(companyContext)
-  const { user } = useContext(authContext)
   const { pathname } = useLocation()
   const candidate = user?.profileType === "employee"
   return (
@@ -26,33 +31,58 @@ function Topbar({ openNav, setOpenNav }) {
           ""
         ) : (
           <>
-            {" "}
-            {user && (
+            {openDropDown ? (
+              <ArrowDropDown
+                onClick={() => setOpenDropDown(false)}
+                className="drop-icon"
+              />
+            ) : (
+              <ArrowDropUp
+                onClick={() => setOpenDropDown(true)}
+                className="drop-icon"
+              />
+            )}
+            {user && openDropDown && (
               <>
-                {user?.isAdmin ? (
-                  <Link to="/" className=" link">
-                    Admins
-                  </Link>
-                ) : (
-                  <span>{user?.userName}</span>
-                )}
+                <ui className="user-drop-menu">
+                  {user?.isAdmin ? (
+                    <li>
+                      <Link to="/" className=" link">
+                        Admins
+                      </Link>
+                    </li>
+                  ) : (
+                    <>
+                      <li>{user?.userName}</li>
 
-                <Link
-                  to={`/${
-                    candidate
-                      ? "profile/" + profile?._id
-                      : "company/" + company?._id
-                  }`}
-                  className="px-3 link"
-                >
-                  <img
-                    src={`${PF}${user?.photo}`}
-                    className="profile-icon"
-                    alt="profile"
-                  />
-                </Link>
+                      <li>
+                        <Link
+                          to="/"
+                          className="link logout"
+                          onClick={() => logOut(dispatch)}
+                        >
+                          Logout
+                        </Link>
+                      </li>
+                    </>
+                  )}
+                </ui>
               </>
             )}
+            <Link
+              to={`/${
+                candidate
+                  ? "profile/" + profile?._id
+                  : "company/" + company?._id
+              }`}
+              className="px-3 link"
+            >
+              <img
+                src={`${PF}${user?.photo}`}
+                className="profile-icon"
+                alt="profile"
+              />
+            </Link>
           </>
         )}
         <Join openNav={openNav} />

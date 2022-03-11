@@ -25,6 +25,7 @@ const Login = ({ notConfirmed }) => {
             animation="border"
             role="status"
           ></Spinner>
+
           {/* create JS animatino */}
           <h4>Registering...</h4>
         </div>

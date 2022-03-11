@@ -15,7 +15,6 @@ export const loginCall = async (credentials, dispatch) => {
     const res = await axiosInstance.post("/auth", credentials, config)
     dispatch({ type: types.LOGIN_SUCCESS, payload: res.data })
     console.log(res.data)
-    // res.data && window.location.replice("/")
   } catch (error) {
     console.log(error.response)
     dispatch({

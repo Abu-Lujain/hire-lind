@@ -1,4 +1,6 @@
-import { CloseSharp, MoreVertRounded } from "@material-ui/icons"
+import "./styles/index.css"
+import CloseSharp from "@material-ui/icons/CloseSharp"
+import MoreVertRounded from "@material-ui/icons/MoreVertRounded"
 import { Link } from "react-router-dom"
 function Authorized({
   job,
@@ -11,7 +13,7 @@ function Authorized({
   return (
     <>
       {(company?.user === job?.company || user?.isAdmin) && (
-        <>
+        <div className="drop-menu">
           <div className="latest-jobs-options">
             <MoreVertRounded
               className="icon"
@@ -32,7 +34,7 @@ function Authorized({
               />
             </div>
           )}{" "}
-        </>
+        </div>
       )}
     </>
   )
