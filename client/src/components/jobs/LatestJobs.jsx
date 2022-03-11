@@ -89,7 +89,7 @@ function LatestJobs() {
                 />
                 <span className="salary">
                   {/* <span className="text-primary">Salary: </span> */}
-                  {job.salary} $ per month
+                  {job.salary}$ per month
                 </span>
                 <p className="description col-11 text-muted ">
                   {job.description}
