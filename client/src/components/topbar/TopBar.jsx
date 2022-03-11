@@ -18,11 +18,10 @@ function Topbar({ openNav, setOpenNav }) {
       <div className="col col-2  d-flex top-right">
         {/* <img src={logo} alt="logo" className="logo-img rounded-circle " /> */}
         <Link to="/" className=" link">
-          <h2 className="logo mx-1 link">4Carrier</h2>
+          <h2 className="logo mx-1 link">Aamal</h2>
         </Link>
       </div>
       <div className="middle-links col-7 col-md-9 ">
-
         {pathname.includes("profile") || pathname.includes("company") ? (
           ""
         ) : (
@@ -36,8 +35,8 @@ function Topbar({ openNav, setOpenNav }) {
                   </Link>
                 ) : (
                   <span>{user?.userName}</span>
-                  )}
-              
+                )}
+
                 <Link
                   to={`/${
                     candidate
