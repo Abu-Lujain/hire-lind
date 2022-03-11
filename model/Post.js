@@ -20,7 +20,6 @@ const postSchema = mongoose.Schema(
       },
       photo: {
         type: String,
-        default: "uploadsphoto-4Carrer-1643102875295.jpeg",
       },
       comments: [
         {

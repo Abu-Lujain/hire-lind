@@ -2,10 +2,10 @@ import "./styles/comments.css"
 import DeleteForever from "@material-ui/icons/DeleteForever"
 import NewComment from "./NewComment"
 import { useState, useRef, useEffect } from "react"
-import axios from "axios"
 import NoCommentsMSg from "./NoCommentsMSg"
 import { Add, CloseSharp } from "@material-ui/icons"
 import { formatDistance, subDays } from "date-fns"
+import { axiosInstance, PF } from "../../config/axiosInstance"
 function Comments({
   setCommentedOn,
   setShowComments,
@@ -22,13 +22,13 @@ function Comments({
   // const [currentY, setCurrentY] = useState(0)
   // const [active, setActive] = useState(false)
   const [showCommentForm, setShowCommentForm] = useState(false)
-  const PF = "http://localhost:8000"
+
   useEffect(() => {
     setComments(comments.length === 0 ? post.comments : comments)
   }, [comments])
   const deleteCommentHandler = async () => {
     try {
-      const res = await axios.delete(`/posts/comment/${post._id}`)
+      const res = await axiosInstance.delete(`/posts/comment/${post._id}`)
       setComments(res.data)
       console.log(res.data)
     } catch (error) {

@@ -88,8 +88,8 @@ router.post("/", authMiddleware, async (req, res) => {
 */ router.get("/:id", async (req, res) => {
   var companyUser = mongoose.Types.ObjectId(req.params.id)
   try {
-    const company = await Company.findById(req.params.id)
-    if (!company) res.status(404).json("No company profile")
+    const company = await Company.findOne({ user: companyUser })
+    if (!company) return res.status(404).json("No company profile")
     res.json(company)
   } catch (error) {
     console.error(error.message)

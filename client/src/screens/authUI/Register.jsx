@@ -1,15 +1,15 @@
 // import { Link, Redirect } from "react-router-dom";
 import "./register.css";
-import { useState, useContext, useRef } from "react"
+import { useState, useContext, useRef, useEffect } from "react"
 import { Link, useHistory } from "react-router-dom"
 
 import { authContext } from "../../context/auth_context/authContext"
 import { Spinner, Form } from "react-bootstrap"
- 
+
 import { CameraAltOutlined } from "@material-ui/icons"
 import Google from "./Google"
 import { axiosInstance } from "../../config/axiosInstance"
-const Register = () => {
+const Register = ({ notConfirmed, setNotConfirmed }) => {
   const checkRef = useRef()
   const { user, loading, dispatch, token } = useContext(authContext)
   const [userName, setuserName] = useState("")
@@ -19,7 +19,7 @@ const Register = () => {
   const [uploading, setUploading] = useState(false)
   const [profileType, setProfileType] = useState("")
   const [checkProfile, setCheckProfile] = useState("")
-  const [notConfirmed, setNotConfirmed] = useState("")
+
   const history = useHistory()
   // console.log("token: ", token);
   // console.log("user: ", user);
@@ -54,7 +54,9 @@ const Register = () => {
     profileType,
     photo,
   }
-
+  useEffect(() => {
+    setNotConfirmed(localStorage.getItem("registered"))
+  }, [])
   const handleSubmit = async (e) => {
     e.preventDefault()
     const config = {
@@ -64,12 +66,11 @@ const Register = () => {
     }
     try {
       const res = await axiosInstance.post("/users", newUser, config)
-      setNotConfirmed(res.data)
+      if (!notConfirmed) { localStorage.setItem("registered", true) }
     } catch (error) {
       console.log(error.response)
     }
   }
-
   return (
     <div className="register row mt-3">
       {loading ? (
@@ -92,6 +93,14 @@ const Register = () => {
                 We Have Sent You an Email, Please Click the Confirmation Link to
                 Login.
               </h2>
+              <div
+                className="button btn btn-info btn-sm"
+                onClick={() => {
+                  setNotConfirmed("")
+                }}
+              >
+                Try again
+              </div>
             </div>
           ) : (
             <form className=" col-10 col-md-5" onSubmit={handleSubmit}>
@@ -208,14 +217,14 @@ const Register = () => {
                   <div></div>
                   have an Account? Login
                 </Link>
-                <Google
+                {/* <Google
                   userName={userName}
                   email={email}
                   password={password}
                   profileType={profileType}
                   photo={photo}
                   setCheckProfile={setCheckProfile}
-                />
+                /> */}
               </div>
             </form>
           )}

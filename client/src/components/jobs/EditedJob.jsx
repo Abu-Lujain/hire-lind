@@ -1,58 +1,58 @@
-import axios from "axios";
-import { useState, useContext, useEffect } from "react";
-import { Spinner } from "react-bootstrap";
-import { useLocation } from "react-router-dom";
-import { updateJobHandler } from "../../api_Calls/jobCalls";
-import { authContext } from "../../context/auth_context/authContext";
-import { jobContext } from "../../context/job_context/jobContext";
+import { useState, useContext, useEffect } from "react"
+import { Spinner } from "react-bootstrap"
+import { useLocation } from "react-router-dom"
+import { axiosInstance } from "../../config/axiosInstance"
+import { updateJobHandler } from "../../api_Calls/jobCalls"
+import { authContext } from "../../context/auth_context/authContext"
+import { jobContext } from "../../context/job_context/jobContext"
 
 function EditedJob() {
-  const { user } = useContext(authContext);
-  const [errors, setErrors] = useState([]);
-  const [perks, setPerks] = useState([]);
-  const [addJob, setAddJob] = useState(false);
-  const [experienceRequired, setExperienceRequired] = useState("");
-  const [recruitmentProcess, setRecruitmentProcess] = useState("");
-  const [description, setDescription] = useState("");
-  const [title, setTitle] = useState("");
-  const [salary, setSalary] = useState(0);
-  const [job, setJob] = useState(null);
-  const [shift, setShift] = useState("");
-  const [industry, setIndustry] = useState("");
+  const { user } = useContext(authContext)
+  const [errors, setErrors] = useState([])
+  const [perks, setPerks] = useState([])
+  const [addJob, setAddJob] = useState(false)
+  const [experienceRequired, setExperienceRequired] = useState("")
+  const [recruitmentProcess, setRecruitmentProcess] = useState("")
+  const [description, setDescription] = useState("")
+  const [title, setTitle] = useState("")
+  const [salary, setSalary] = useState(0)
+  const [job, setJob] = useState(null)
+  const [shift, setShift] = useState("")
+  const [industry, setIndustry] = useState("")
   const {
     fetching,
     job: updatedJob,
     jobError,
     dispatch,
-  } = useContext(jobContext);
-  const { pathname } = useLocation();
-  const path = pathname.split("/")[2];
-  const route = `/jobs/job/${path}`;
-  const id = pathname.split("/").pop();
-  console.log(updatedJob);
-  console.log(jobError);
+  } = useContext(jobContext)
+  const { pathname } = useLocation()
+  const path = pathname.split("/")[2]
+  const route = `/jobs/job/${path}`
+  const id = pathname.split("/").pop()
+  console.log(updatedJob)
+  console.log(jobError)
   useEffect(() => {
     async function fetchJob() {
       try {
-        const res = await axios.get(route);
-        res.data && setJob(res.data);
+        const res = await axiosInstance.get(route)
+        res.data && setJob(res.data)
       } catch (error) {
-        console.log(error);
+        console.log(error)
       }
     }
-    fetchJob();
-  }, []);
+    fetchJob()
+  }, [])
   const updateJob = async (e) => {
-    e.preventDefault();
-    setPerks("");
-    setAddJob("");
-    setExperienceRequired("");
-    setRecruitmentProcess("");
-    setDescription("");
-    setTitle("");
-    setSalary("");
-    setShift("");
-    setIndustry("");
+    e.preventDefault()
+    setPerks("")
+    setAddJob("")
+    setExperienceRequired("")
+    setRecruitmentProcess("")
+    setDescription("")
+    setTitle("")
+    setSalary("")
+    setShift("")
+    setIndustry("")
 
     const body = {
       companyName: user.userName,
@@ -64,15 +64,15 @@ function EditedJob() {
       salary,
       shift,
       industry,
-    };
+    }
 
-    updateJobHandler(id, body, dispatch);
+    updateJobHandler(id, body, dispatch)
     // clear errors
-    setErrors(jobError);
+    setErrors(jobError)
     setTimeout(() => {
-      setErrors([]);
-    }, 5000);
-  };
+      setErrors([])
+    }, 5000)
+  }
 
   return (
     <div className="col-12 add-new-job row">
@@ -98,6 +98,7 @@ function EditedJob() {
               name="title"
             />
           </div>
+
           <div className="col-12">
             <label>Experience </label>
             <input
@@ -193,7 +194,7 @@ function EditedJob() {
         </form>
       )}
     </div>
-  );
+  )
 }
 
-export default EditedJob;
+export default EditedJob

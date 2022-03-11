@@ -15,7 +15,6 @@ const User = require("../model/User");
 router.get("/", authMiddleware, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select("-password")
-    console.log("from load: ", user)
     res.status(200).json(user)
   } catch (error) {
     console.error(error)
@@ -42,7 +41,7 @@ router.post(
     // query user from the db by email
     const user = await User.findOne({ email })
     // check if there's not a user
-    console.log("from DB: ", user)
+
     if (!user) {
       return res
         .status(400)
@@ -79,14 +78,14 @@ router.post(
     const { userName, email, googleId, password, isAdmin, profileType, photo } =
       req.body
     let user = await User.find({ $or: [{ googleId }, { email }] })
-    console.log("old: ", user)
+
     if (user) {
       const payload = {
         user: {
           id: user.id,
         },
       }
-      console.log(user)
+
       jwt.sign(
         payload,
         process.env.JWT_SECRET_KEY,
@@ -109,9 +108,8 @@ router.post(
         photo,
       }
       user = new User(newuser)
-      console.log(user)
+
       await user.save()
-      console.log("new: ", user)
     }
   }
 )

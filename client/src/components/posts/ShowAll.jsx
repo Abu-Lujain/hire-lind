@@ -9,7 +9,7 @@ import PostBody from "./PostBody"
 import InfoAndActioins from "./InfoAndActioins"
 import Comments from "./Comments"
 import Pagination from "../jobs/Pagination"
-import { axiosInstance } from "../../config/axiosInstance"
+import { axiosInstance, PF } from "../../config/axiosInstance"
 function ShowAll({ user }) {
   const [openOption, setOpenOption] = useState(null)
   const [posts, setPosts] = useState([])
@@ -65,8 +65,6 @@ function ShowAll({ user }) {
       console.log(error.response.data.errors)
     }
   }
-
-  const PF = "http://localhost:8000"
 
   const indexOfLastJob = currentPage * itemsPerPage
   const indexOfFirstJob = indexOfLastJob - itemsPerPage

@@ -17,6 +17,7 @@ export const createCompany = async (body, dispatch) => {
     )
     response.data &&
       dispatch({ type: types.CREATE_COMPANY_SUCCESS, payload: response.data })
+    console.log(response.data)
   } catch (error) {
     dispatch({
       type: types.CREATE_COMPANY_FAILURE,

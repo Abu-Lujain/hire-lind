@@ -39,7 +39,11 @@ function PostHeader({
       <div className="post-auther col-12 row">
         <img
           className="col-4 author-photo"
-          src={PF + post?.photo}
+          src={
+            post?.photo
+              ? PF + post?.photo
+              : "https://www.google.com/url?sa=i&url=https%3A%2F%2Fm.facebook.com%2FNo-profile-picture-102103301588246%2Fphotos%2F&psig=AOvVaw2qeAcFQwiwjq3QJda_ZY6E&ust=1647069452887000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCIC2v4PCvfYCFQAAAAAdAAAAABAD"
+          }
           alt="author"
         />
         <h6 className="col-8">{post?.userName}</h6>

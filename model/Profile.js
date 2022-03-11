@@ -5,7 +5,7 @@ const profileSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "user",
   },
-  company: {
+  userName: {
     type: String,
   },
   loc: {
@@ -26,7 +26,6 @@ const profileSchema = mongoose.Schema({
   },
   photo: {
     type: String,
-    default: "uploadsphoto-4Carrer-1643102875295.jpeg",
   },
   skills: [String],
 

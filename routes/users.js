@@ -13,12 +13,11 @@ const exp = 2 * 24 * 60 * 60
 // #operation: creating a new user
 // #accessibility:   public
 router.get("/", async (req, res) => {
-  console.log("getting all users")
   try {
     const users = await User.find()
     res.json(users)
   } catch (error) {
-    console.log(error)
+    res.status(500).send("Server Error")
   }
 })
 const transporter = nodemailer.createTransport({
@@ -42,12 +41,9 @@ router.get("/confirmation/:token", async (req, res) => {
       userId,
       { confirmed: true },
       { new: true }
-    )
-    console.log(userId)
-    if (user.confirmed === true) res.redirect("http://localhost:3000/login")
-  } catch (error) {
-    console.log(error.message)
-  }
+    )(user.confirmed === true)
+    res.redirect("http://localhost:3000/login")
+  } catch (error) {}
 })
 // #route: /api/users
 // #operation: creating a new user
@@ -99,7 +95,7 @@ router.post(
         { expiresIn: 36000 },
         (err, token) => {
           if (err) throw err
-          console.log(user.email)
+
           const url = `http://localhost:8000/api/users/confirmation/${token}`
           transporter.sendMail({
             from: "from <HireLand@gmail.com>",
@@ -113,7 +109,7 @@ router.post(
         }
       )
     } catch (error) {
-      // console.log(error.message)
+      //
       res.status(500).send("Server Error")
     }
   }

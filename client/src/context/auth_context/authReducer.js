@@ -32,7 +32,7 @@ export default function authReducer(state, action) {
     case types.REGISTER_FAILURE:
     case types.LOAD_USER_FAILURE:
     case types.LOG_OUT_USER:
-      // localStorage.removeItem("token");
+      localStorage.removeItem("token")
       return {
         token: null,
         user: null,

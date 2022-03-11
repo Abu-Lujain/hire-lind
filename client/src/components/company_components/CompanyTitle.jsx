@@ -1,7 +1,5 @@
 import { useContext, useEffect, useState } from "react"
 import { CloseRounded, AddBox, Edit } from "@material-ui/icons"
-// import { Edit } from "@material-ui/icons/Edit";
-// import { AddBox } from "@material-ui/icons/AddBox";
 import "./styles/header.css"
 import { AddToProfile } from "../../api_Calls/companyCall"
 import { companyContext } from "../../context/company_context/companyContext"
@@ -17,6 +15,7 @@ function CompanyTitle({ setShowOverlay, fetcher, setFetcher, company }) {
   const body = {
     values,
   }
+  console.log(company)
   const handleAddValues = (e) => {
     e.preventDefault()
     AddToProfile(body, dispatch)

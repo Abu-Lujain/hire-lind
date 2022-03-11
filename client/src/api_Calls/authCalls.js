@@ -2,24 +2,7 @@ import { axiosInstance } from "../config/axiosInstance"
 import { types } from "../context/auth_context/types"
 import setAuthToken from "./setAuthToken"
 // Register new user
-export const registerCall = async (credentials, dispatch) => {
-  const config = {
-    headers: {
-      "Context-Type": "application/json",
-    },
-  }
-  dispatch({ type: types.REGISTER_START })
-  try {
-    const res = await axiosInstance.post("/users", credentials, config)
-    dispatch({ type: types.REGISTER_SUCCUESS, payload: res.data })
-  } catch (error) {
-    console.log("from register: ", error.res.data)
-    dispatch({
-      type: types.LOGIN_FAILURE,
-      payload: error.res.data.errors,
-    })
-  }
-}
+
 // Log in user
 export const loginCall = async (credentials, dispatch) => {
   const config = {
@@ -30,30 +13,32 @@ export const loginCall = async (credentials, dispatch) => {
   dispatch({ type: types.LOGIN_START })
   try {
     const res = await axiosInstance.post("/auth", credentials, config)
-    console.log("from DB: ", res.data)
-
     dispatch({ type: types.LOGIN_SUCCESS, payload: res.data })
+    console.log(res.data)
+window.location.replice("/")
   } catch (error) {
+    console.log(error.response)
     dispatch({
       type: types.LOGIN_FAILURE,
-      payload: error.response.data.errors,
+      payload: error?.response?.data.errors,
     })
   }
 }
 // loading user
 export const loadUserCall = async (dispatch) => {
-  console.log("form load")
+ 
   if (localStorage.token) {
     setAuthToken(localStorage.token)
   }
   try {
     const res = await axiosInstance.get("/auth")
     dispatch({ type: types.LOAD_USER_SUCCESS, payload: res.data })
+  
   } catch (error) {
-    console.log(error.response)
+    console.log(error?.response)
     dispatch({
       type: types.LOAD_USER_FAILURE,
-      // payload: error.response.data.errors,
+      // payload: error?.response?.data.errors,
       payload: error,
     })
   }

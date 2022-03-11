@@ -12,7 +12,7 @@ import { formatDistance, subDays } from "date-fns"
 //context
 import { authContext } from "../../context/auth_context/authContext"
 import { companyContext } from "../../context/company_context/companyContext"
-import { axiosInstance } from "../../config/axiosInstance"
+import { axiosInstance, PF } from "../../config/axiosInstance"
 function LatestJobs() {
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage] = useState(6)
@@ -77,7 +77,7 @@ function LatestJobs() {
                 {/* <span className="job-marker">Vacant</span> */}
                 <div className="logo-container col-2">
                   <img
-                    src={`http://localhost:8000${job?.companyLogo}`}
+                    src={`${PF + job?.companyLogo}`}
                     alt="logo"
                     className="logo"
                   />{" "}
