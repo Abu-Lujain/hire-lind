@@ -20,97 +20,101 @@ import { profileContext } from "./context/profile_context/profileContext"
 import Create from "./components/posts/Create"
 import JobApplication from "./screens/job_application/JobApplication"
 import CompanyProfile from "./screens/company/CompanyProfile"
+import { Dropdown } from "react-bootstrap"
 // setting auth token
 if (localStorage.token) setAuthToken(localStorage.token)
 const App = () => {
-    const [notConfirmed, setNotConfirmed] = useState(
-      localStorage.getItem("registered")
-    )
-    const [openNav, setOpenNav] = useState(false)
-    const [openDropDown, setOpenDropDown] = useState(false)
-    const [showOverlay, setShowOverlay] = useState(false)
-    const { dispatch: CompanyDispatch, company } = useContext(companyContext)
-    const { dispatch, user } = useContext(authContext)
-    const { dispatch: profileDispatch, profile } = useContext(profileContext)
-    useEffect(() => {
-      loadUserCall(dispatch)
-    }, [])
-    useEffect(() => {
-      createCompany({}, CompanyDispatch)
-      loadCompany(CompanyDispatch)
-    }, [])
-    useEffect(() => {
-      fetchProfile(profileDispatch)
-      !profile && createProfile(profileDispatch)
-    }, [profileDispatch])
-    if (user?.confirmed) {
-      localStorage.removeItem("registered")
-    }
-    return (
-      <div
-        className="App row"
-        onClick={() => {
-          if (openNav) {
-            setOpenNav(!openNav)
-          }
-        }}
-      >
-        <BrowserRouter>
-          <TopBar
-            openDropDown={openDropDown}
-            setOpenDropDown={setOpenDropDown}
-            openNav={openNav}
-            setOpenNav={setOpenNav}
-          />
-          <Switch>
-            <Route path="/login">
-              <Login notConfirmed={notConfirmed} />
-            </Route>
-            <Route path="/job/:id">
-              <SingleJob />
-            </Route>
-            <Route path="/apply/:id">
-              <JobApplication />
-            </Route>
-            <Route path="/edit/:id">
-              <EditedJob />
-            </Route>
-            <Route path="/post-job">
-              <PostJob />
-            </Route>
-            <Route exact path="/">
-              {" "}
-              <HomeScreen user={user} />
-            </Route>
-            <Route path="/register">
-              <Register
-                notConfirmed={notConfirmed}
-                setNotConfirmed={setNotConfirmed}
-              />
-            </Route>
-            <Route path="/create">
-              <CreateCompany />
-            </Route>
-            <Route path="/profile/:id">
-              {" "}
-              <Profile
-                showOverlay={showOverlay}
-                setShowOverlay={setShowOverlay}
-              />
-            </Route>
-            <Route path="/company/:id">
-              <CompanyProfile
-                showOverlay={showOverlay}
-                setShowOverlay={setShowOverlay}
-              />
-            </Route>
-            <Route path="/post/create">
-              <Create />
-            </Route>
-          </Switch>
-        </BrowserRouter>
-      </div>
-    )
+  const [notConfirmed, setNotConfirmed] = useState(
+    localStorage.getItem("registered")
+  )
+  const [openNav, setOpenNav] = useState(false)
+  const [openDropDown, setOpenDropDown] = useState(false)
+  const [showOverlay, setShowOverlay] = useState(false)
+  const { dispatch: CompanyDispatch, company } = useContext(companyContext)
+  const { dispatch, user } = useContext(authContext)
+  const { dispatch: profileDispatch, profile } = useContext(profileContext)
+  useEffect(() => {
+    loadUserCall(dispatch)
+  }, [])
+  useEffect(() => {
+    createCompany({}, CompanyDispatch)
+    loadCompany(CompanyDispatch)
+  }, [])
+  useEffect(() => {
+    fetchProfile(profileDispatch)
+    !profile && createProfile(profileDispatch)
+  }, [profileDispatch])
+  if (user?.confirmed) {
+    localStorage.removeItem("registered")
+  }
+  return (
+    <div
+      className="App row"
+      onClick={() => {
+        if (openNav) {
+          setOpenNav(!openNav)
+        }
+        if (openDropDown) {
+          setOpenDropDown(!openDropDown)
+        }
+      }}
+    >
+      <BrowserRouter>
+        <TopBar
+          openDropDown={openDropDown}
+          setOpenDropDown={setOpenDropDown}
+          openNav={openNav}
+          setOpenNav={setOpenNav}
+        />
+        <Switch>
+          <Route path="/login">
+            <Login notConfirmed={notConfirmed} />
+          </Route>
+          <Route path="/job/:id">
+            <SingleJob />
+          </Route>
+          <Route path="/apply/:id">
+            <JobApplication />
+          </Route>
+          <Route path="/edit/:id">
+            <EditedJob />
+          </Route>
+          <Route path="/post-job">
+            <PostJob />
+          </Route>
+          <Route exact path="/">
+            {" "}
+            <HomeScreen user={user} />
+          </Route>
+          <Route path="/register">
+            <Register
+              notConfirmed={notConfirmed}
+              setNotConfirmed={setNotConfirmed}
+            />
+          </Route>
+          <Route path="/create">
+            <CreateCompany />
+          </Route>
+          <Route path="/profile/:id">
+            {" "}
+            <Profile
+              showOverlay={showOverlay}
+              setShowOverlay={setShowOverlay}
+            />
+          </Route>
+          <Route path="/company/:id">
+            <CompanyProfile
+              showOverlay={showOverlay}
+              setShowOverlay={setShowOverlay}
+            />
+          </Route>
+          <Route path="/post/create">
+            <Create />
+          </Route>
+        </Switch>
+      </BrowserRouter>
+    </div>
+  )
 }
 
 export default App

@@ -9,11 +9,11 @@ import Authorized from "./Authorized"
 import JobTitle from "./JobTitle"
 //others
 import { formatDistance, subDays } from "date-fns"
-import { Spinner } from "react-bootstrap"
 //context
 import { authContext } from "../../context/auth_context/authContext"
 import { companyContext } from "../../context/company_context/companyContext"
 import { axiosInstance, PF } from "../../config/axiosInstance"
+import Loaders from "../common/Loaders"
 function LatestJobs() {
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage] = useState(6)
@@ -62,32 +62,7 @@ function LatestJobs() {
       <h4 className="job-list-title col-12">Latest jobs</h4>
       <div className="latest-jobs  col-12 ">
         {delMsg && <div className="msg">{delMsg}</div>}
-        <>
-          {loadingJobs && (
-            <>
-              <Spinner
-                className="update-boi-spinner col-md-3 m-auto  col-12"
-                animation="grow"
-                role="status"
-              ></Spinner>
-              <Spinner
-                className="update-boi-spinner col-md-3 m-auto  col-12"
-                animation="grow"
-                role="status"
-              ></Spinner>
-              <Spinner
-                className="update-boi-spinner col-md-3 m-auto  col-12"
-                animation="grow"
-                role="status"
-              ></Spinner>
-              <Spinner
-                className="update-boi-spinner col-md-2 m-auto  col-12"
-                animation="grow"
-                role="status"
-              ></Spinner>
-            </>
-          )}
-        </>
+        <>{loadingJobs && <Loaders />}</>
         {jobs &&
           currentJobs.map((job) => {
             return (

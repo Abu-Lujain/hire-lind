@@ -10,7 +10,10 @@ import InfoAndActioins from "./InfoAndActioins"
 import Comments from "./Comments"
 import Pagination from "../jobs/Pagination"
 import { axiosInstance, PF } from "../../config/axiosInstance"
+import Loaders from "../common/Loaders"
 function ShowAll({ user }) {
+  const [loadingPosts, setLoadingPosts] = useState(false)
+
   const [openOption, setOpenOption] = useState(null)
   const [posts, setPosts] = useState([])
   const [delMsg, setMsg] = useState("")
@@ -23,9 +26,13 @@ function ShowAll({ user }) {
   const [itemsPerPage] = useState(3)
   useEffect(() => {
     async function fetchPost() {
+      setLoadingPosts(true)
       try {
         const res = await axiosInstance.get("/posts")
-        res.data && setPosts(res.data)
+        if (res.data) {
+          setPosts(res.data)
+          setLoadingPosts(false)
+        }
       } catch (error) {
         console.log(error)
       }
@@ -74,6 +81,7 @@ function ShowAll({ user }) {
     <div className="posts col-12 m-auto mt-2">
       <h6 className="posts-title">Posts from Candidates</h6>
       <div className="posts-container">
+        {loadingPosts && <Loaders />}
         {posts &&
           currentJobs.map((post) => {
             const hasLike = post?.likes.find((like) => like.user === user?._id)

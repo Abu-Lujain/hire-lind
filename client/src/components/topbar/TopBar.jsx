@@ -26,7 +26,7 @@ function Topbar({ openNav, setOpenNav, openDropDown, setOpenDropDown }) {
           <h2 className="logo mx-1 link">Aamal</h2>
         </Link>
       </div>
-      <div className="middle-links col-7 col-md-9 ">
+      <div className="middle-links col-9 col-md-9 ">
         {pathname.includes("profile") || pathname.includes("company") ? (
           ""
         ) : (
@@ -92,7 +92,7 @@ function Topbar({ openNav, setOpenNav, openDropDown, setOpenDropDown }) {
         <Join openNav={openNav} />
       </div>
       <Menu openNav={openNav} />
-      <div className="col-2 d-md-none d-lg-block d-lg-none d-xl-block d-xl-none d-xxl-block ">
+      <div className="col-1 d-md-none d-lg-block d-lg-none d-xl-block d-xl-none d-xxl-block ">
         <div className=" nav-btn  position-relative d-flex justify-content-end">
           <div
             onClick={() => setOpenNav(!openNav)}

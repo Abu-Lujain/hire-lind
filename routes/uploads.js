@@ -39,7 +39,7 @@ router.post("/", upload.single("photo"), (req, res) => {
   try {
     res.status(200).json(`/${req.file.path}`);
   } catch (error) {
-    res.status(5000).send("Server Error");
+    res.status(500).send("Server Error")
   }
 }),
   (module.exports = router);

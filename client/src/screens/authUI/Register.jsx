@@ -1,30 +1,22 @@
 // import { Link, Redirect } from "react-router-dom";
 import "./register.css";
-import { useState, useContext, useRef, useEffect } from "react"
-import { Link, useHistory } from "react-router-dom"
+import { useState, useRef, useEffect } from "react"
+import { Link } from "react-router-dom"
 
-import { authContext } from "../../context/auth_context/authContext"
 import { Spinner, Form } from "react-bootstrap"
-
-import { CameraAltOutlined } from "@material-ui/icons"
-import Google from "./Google"
+import { CameraAltOutlined, Done } from "@material-ui/icons"
 import { axiosInstance } from "../../config/axiosInstance"
 const Register = ({ notConfirmed, setNotConfirmed }) => {
   const checkRef = useRef()
-  const { user, loading, dispatch, token } = useContext(authContext)
+  const [loading, setLoading] = useState(false)
   const [userName, setuserName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [photo, setPhoto] = useState("")
   const [uploading, setUploading] = useState(false)
   const [profileType, setProfileType] = useState("")
-  const [checkProfile, setCheckProfile] = useState("")
-
-  const history = useHistory()
-  // console.log("token: ", token);
-  // console.log("user: ", user);
-  // console.log("loading: ", loading);
-  // console.log("errors: ", errors);
+  const [checkProfile] = useState("")
+  const [token, setToken] = useState(null)
   const uploadPhoto = async (e) => {
     setUploading(true)
     const file = e.target.files[0]
@@ -58,6 +50,7 @@ const Register = ({ notConfirmed, setNotConfirmed }) => {
     setNotConfirmed(localStorage.getItem("registered"))
   }, [])
   const handleSubmit = async (e) => {
+    setLoading(true)
     e.preventDefault()
     const config = {
       headers: {
@@ -66,14 +59,20 @@ const Register = ({ notConfirmed, setNotConfirmed }) => {
     }
     try {
       const res = await axiosInstance.post("/users", newUser, config)
-      if (!notConfirmed) { localStorage.setItem("registered", true) }
+      console.log(res.data)
+      if (res.data) {
+        setToken(res.data)
+        setNotConfirmed(true)
+        localStorage.setItem("registered", true)
+        setLoading(false)
+      }
     } catch (error) {
       console.log(error.response)
     }
   }
   return (
     <div className="register row mt-3">
-      {loading ? (
+      {loading && token ? (
         <div className="spinner-parent">
           <Spinner
             className="load-profile-spinner m-3"
@@ -181,10 +180,19 @@ const Register = ({ notConfirmed, setNotConfirmed }) => {
                         ></Spinner>
                       </label>
                     ) : (
-                      <label htmlFor="file-input">
-                        Add Photo
-                        <CameraAltOutlined className="user-photo" />
-                      </label>
+                      <>
+                        {photo ? (
+                          <label className="p-3">
+                            Done!
+                            <Done className="user-photo text-success" />
+                          </label>
+                        ) : (
+                          <label htmlFor="file-input">
+                            Add Photo
+                            <CameraAltOutlined className="user-photo" />
+                          </label>
+                        )}
+                      </>
                     )}
                     <input //upload profile photo
                       type="file"

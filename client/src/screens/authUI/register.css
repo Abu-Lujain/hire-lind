@@ -183,21 +183,20 @@ form .profile-type div input:hover {
 }
 
 .profile-type label {
-  background: #ffffff;
-  padding: 5px;
-  /* border-radius: 40px; */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  box-shadow: var(--main-box-shadow);
-  width: 140px;
-  margin: 10px;
-  letter-spacing: 2px;
-  font-family: math;
-  color: #504e4e;
-  border-bottom-right-radius: 40px;
-  border-bottom-left-radius: 40px;
+    background: #ffffff;
+    padding: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--main-box-shadow);
+    width: fit-content;
+    height: fit-content;
+    margin: 10px;
+    letter-spacing: 2px;
+    font-family: math;
+    color: #504e4e;
+    border-radius: 5px;
 }
 .auth-actions-ui {
     display: flex;
