@@ -31,58 +31,62 @@ function Topbar({ openNav, setOpenNav, openDropDown, setOpenDropDown }) {
           ""
         ) : (
           <>
-            {openDropDown ? (
-              <ArrowDropDown
-                onClick={() => setOpenDropDown(false)}
-                className="drop-icon"
-              />
-            ) : (
-              <ArrowDropUp
-                onClick={() => setOpenDropDown(true)}
-                className="drop-icon"
-              />
-            )}
-            {user && openDropDown && (
-              <>
-                <ui className="user-drop-menu">
-                  {user?.isAdmin ? (
-                    <li>
-                      <Link to="/" className=" link">
-                        Admins
-                      </Link>
-                    </li>
-                  ) : (
-                    <>
-                      <li>{user?.userName}</li>
+            {user && (
+              <div>
+                {openDropDown ? (
+                  <ArrowDropDown
+                    onClick={() => setOpenDropDown(false)}
+                    className="drop-icon"
+                  />
+                ) : (
+                  <ArrowDropUp
+                    onClick={() => setOpenDropDown(true)}
+                    className="drop-icon"
+                  />
+                )}
+                {openDropDown && (
+                  <>
+                    <ui className="user-drop-menu">
+                      {user?.isAdmin ? (
+                        <li>
+                          <Link to="/" className=" link">
+                            Admins
+                          </Link>
+                        </li>
+                      ) : (
+                        <>
+                          <li>{user?.userName}</li>
 
-                      <li>
-                        <Link
-                          to="/"
-                          className="link logout"
-                          onClick={() => logOut(dispatch)}
-                        >
-                          Logout
-                        </Link>
-                      </li>
-                    </>
-                  )}
-                </ui>
-              </>
+                          <li>
+                            <Link
+                              to="/"
+                              className="link logout"
+                              onClick={() => logOut(dispatch)}
+                            >
+                              Logout
+                            </Link>
+                          </li>
+                        </>
+                      )}
+                    </ui>
+                  </>
+                )}
+                <Link
+                  to={`/${
+                    candidate
+                      ? "profile/" + profile?._id
+                      : "company/" + company?._id
+                  }`}
+                  className="px-3 link"
+                >
+                  <img
+                    src={`${PF}${user?.photo}`}
+                    className="profile-icon"
+                    alt="profile"
+                  />
+                </Link>
+              </div>
             )}
-            <Link
-              to={`/${
-                candidate
-                  ? "profile/" + profile?._id
-                  : "company/" + company?._id
-              }`}
-              className="px-3 link"
-            >
-              <img
-                src={`${PF}${user?.photo}`}
-                className="profile-icon"
-                alt="profile"
-              />
-            </Link>
           </>
         )}
         <Join openNav={openNav} />
