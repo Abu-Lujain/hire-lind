@@ -20,13 +20,13 @@ function Topbar({ openNav, setOpenNav, openDropDown, setOpenDropDown }) {
   const candidate = user?.profileType === "employee"
   return (
     <div className="row m-0 topbar col-12">
-      <div className="col col-6  d-flex top-right">
+      <div className="col col-3  d-flex top-right">
         {/* <img src={logo} alt="logo" className="logo-img rounded-circle " /> */}
         <Link to="/" className=" link">
           <h2 className="logo mx-1 link">Aamal</h2>
         </Link>
       </div>
-      <div className="middle-links col-4 ">
+      <div className="middle-links col-7">
         <>
           {user && (
             <>

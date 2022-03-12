@@ -63,11 +63,3 @@
 .middle-links li {
   list-style-type: none;
 }
-.middle-links .join-btns {
-  flex-grow: 1;
-  display: flex;
-  justify-content: flex-end;
-}
-.middle-links .join-btns a {
-  margin: 5px;
-}

@@ -5,6 +5,14 @@
   justify-content: space-between;
   transition: ease-in-out 0.5s;
 }
+.join .join-btns {
+flex-grow: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+.middle-links .join-btns a {
+  margin: 5px;
+}
 
 .join a:hover {
   background: #012085;
@@ -17,14 +25,11 @@
 .join .logout,
 .log-in,
 .sign-up {
-      background: #0a1c57;
+    background: #03a9f4;
     width: fit-content;
     cursor: pointer;
     border-radius: 5px;
-    text-decoration: none;
     padding: 2px;
-    border: 1px #01ffe2 solid;
-    margin: 5px;
 }
 .join-links .log-in,
 .sign-up {
