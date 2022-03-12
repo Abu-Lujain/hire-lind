@@ -1,9 +1,10 @@
-import Join from "../join/Join";
-import "./topbar.css";
+import "./userOptions.css"
+import Join from "../join/Join"
+import "./topbar.css"
 import Menu from "../menu/Menu"
 import { ArrowDropDown, ArrowDropUp } from "@material-ui/icons"
 //init
-import { Link, useLocation } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { useContext } from "react"
 //context
 import { profileContext } from "../../context/profile_context/profileContext"
@@ -11,88 +12,76 @@ import { companyContext } from "../../context/company_context/companyContext"
 import { authContext } from "../../context/auth_context/authContext"
 import { logOut } from "../../api_Calls/authCalls"
 import { PF } from "../../config/axiosInstance"
+import UserIcon from "./UserIcon"
 function Topbar({ openNav, setOpenNav, openDropDown, setOpenDropDown }) {
   const { user, dispatch } = useContext(authContext)
-
   const { profile } = useContext(profileContext)
   const { company } = useContext(companyContext)
-  const { pathname } = useLocation()
   const candidate = user?.profileType === "employee"
   return (
     <div className="row m-0 topbar col-12">
-      <div className="col col-2  d-flex top-right">
+      <div className="col col-6  d-flex top-right">
         {/* <img src={logo} alt="logo" className="logo-img rounded-circle " /> */}
         <Link to="/" className=" link">
           <h2 className="logo mx-1 link">Aamal</h2>
         </Link>
       </div>
-      <div className="middle-links col-9 col-md-9 ">
-        {pathname.includes("profile") || pathname.includes("company") ? (
-          ""
-        ) : (
-          <>
-            {user && (
-              <div>
-                {openDropDown ? (
-                  <ArrowDropDown
-                    onClick={() => setOpenDropDown(false)}
-                    className="drop-icon"
-                  />
-                ) : (
-                  <ArrowDropUp
-                    onClick={() => setOpenDropDown(true)}
-                    className="drop-icon"
-                  />
-                )}
-                {openDropDown && (
-                  <>
-                    <ui className="user-drop-menu">
-                      {user?.isAdmin ? (
-                        <li>
-                          <Link to="/" className=" link">
-                            Admins
+      <div className="middle-links col-4 ">
+        <>
+          {user && (
+            <>
+              {openDropDown ? (
+                <ArrowDropDown
+                  onClick={() => setOpenDropDown(false)}
+                  className="drop-icon"
+                />
+              ) : (
+                <ArrowDropUp
+                  onClick={() => setOpenDropDown(true)}
+                  className="drop-icon"
+                />
+              )}
+              {openDropDown && (
+                <>
+                  <ui className="user-drop-menu">
+                    {user?.isAdmin ? (
+                      <li>
+                        <Link to="/" className=" link">
+                          Admins
+                        </Link>
+                      </li>
+                    ) : (
+                      <>
+                        <UserIcon
+                          user={user}
+                          profile={profile}
+                          company={company}
+                          candidate={candidate}
+                          PF={PF}
+                        />
+                        <li
+                          className="logout-delete-parent"
+                          onClick={() => logOut(dispatch)}
+                        >
+                          <Link to="/" className="link logout">
+                            Logout
+                          </Link>
+                          <Link to="/" className="link delete">
+                            Delete Account
                           </Link>
                         </li>
-                      ) : (
-                        <>
-                          <li>{user?.userName}</li>
-
-                          <li>
-                            <Link
-                              to="/"
-                              className="link logout"
-                              onClick={() => logOut(dispatch)}
-                            >
-                              Logout
-                            </Link>
-                          </li>
-                        </>
-                      )}
-                    </ui>
-                  </>
-                )}
-                <Link
-                  to={`/${
-                    candidate
-                      ? "profile/" + profile?._id
-                      : "company/" + company?._id
-                  }`}
-                  className="px-3 link"
-                >
-                  <img
-                    src={`${PF}${user?.photo}`}
-                    className="profile-icon"
-                    alt="profile"
-                  />
-                </Link>
-              </div>
-            )}
-          </>
-        )}
+                      </>
+                    )}
+                  </ui>
+                </>
+              )}
+            </>
+          )}
+        </>
         <Join openNav={openNav} />
       </div>
       <Menu openNav={openNav} />
-      <div className="col-1 d-md-none d-lg-block d-lg-none d-xl-block d-xl-none d-xxl-block ">
+      <div className="col-2 d-md-none d-lg-block d-lg-none d-xl-block d-xl-none d-xxl-block ">
         <div className=" nav-btn  position-relative d-flex justify-content-end">
           <div
             onClick={() => setOpenNav(!openNav)}
@@ -116,4 +105,4 @@ function Topbar({ openNav, setOpenNav, openDropDown, setOpenDropDown }) {
   )
 }
 
-export default Topbar;
+export default Topbar

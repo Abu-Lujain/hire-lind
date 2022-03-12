@@ -99,8 +99,7 @@ body {
   background: white;
 }
 .move-nav-icon {
-  transform: translateX(-180px);
-}
+    transform: translateX(-161px);}
 /* /////////////// */
 
 .line-one-open,
