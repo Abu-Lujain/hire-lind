@@ -106,12 +106,12 @@ top: 15vh;
 }
 
 .job-container {
-padding: 10px;
-    background-color: #f9fbf7;
+    padding: 10px;
+    background-color: #edf2e8;
     margin: 5px;
     border-radius: 10px;
     padding-top: 3px;
-    box-shadow: var(--main-box-shadow);
+    box-shadow: 3px 3px 27px -21px #0027ff;
 }
 .job-container p {
 height: 100px;
