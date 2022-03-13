@@ -36,6 +36,7 @@ const CadidateProfile = () => {
         console.log(error.response)
       }
     }
+    fetchProfile()
   }, [])
   const body = { bio, title }
   const handleUpdate = (e) => {

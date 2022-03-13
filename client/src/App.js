@@ -36,26 +36,19 @@ const App = () => {
   useEffect(() => {
     loadUserCall(dispatch)
     if (user?.profileType === "employee") {
+      createProfile(profileDispatch)
       fetchProfile(profileDispatch)
-      if (!profile) {
-        createProfile(profileDispatch)
-      }
-      console.log("I am an employee")
     }
     if (user?.profileType === "company") {
+      createCompany({}, CompanyDispatch)
       loadCompany(CompanyDispatch)
-      if (!company) {
-        createCompany({}, CompanyDispatch)
-      }
       console.log("I am an company")
     }
   }, [dispatch, CompanyDispatch, profileDispatch])
   if (user?.confirmed) {
     localStorage.removeItem("registered")
   }
-  if (user?.confirmed) {
-    localStorage.removeItem("registered")
-  }
+
   return (
     <div
       className="App row"

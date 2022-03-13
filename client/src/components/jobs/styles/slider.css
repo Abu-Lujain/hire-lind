@@ -1,4 +1,27 @@
 
+ .slider-spinner{
+      width: 90%;
+    height: 90%;
+    border-radius: 5px;
+    margin: auto;
+    background: #edf2e8;
+}
+.slider {
+    height: 53vh;
+    overflow: hidden;
+    border-radius: 20px;
+    border-top: 1px #3f51b5 solid;
+    border-bottom: 1px #3f51b5 solid;
+    display: flex;
+    position: relative;
+    background-color: rgb(249 251 247);
+}
+.slide {
+  transition: all ease-in-out 1s;
+}
+.slider {
+  overflow: hidden;
+}
  .high-paying-jobs-parent .arrow {
     cursor: pointer;
     transition: all ease-in-out 0.5s;

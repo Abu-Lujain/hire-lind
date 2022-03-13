@@ -26,7 +26,10 @@ function Topbar({ user, openNav, setOpenNav, openDropDown, setOpenDropDown }) {
           <h2 className="logo mx-1 link">Aamal</h2>
         </Link>
       </div>
-      <div className="middle-links col-7">
+      <div className="col-2 col-md-4">
+        <h1></h1>
+      </div>
+      <div className="middle-links col-5 col-md-3">
         <>
           {user && (
             <>

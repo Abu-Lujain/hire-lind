@@ -36,7 +36,7 @@ function Search() {
   const handleDeleteSeachWord = (id) => {}
   // console.log(titles)
   return (
-    <div className="search-area mt-md-2  col-md-4 col-12">
+    <div className="search-area mt-3  col-md-4 col-12">
       {user && (
         <>
           {user?.profileType === "company" ? (

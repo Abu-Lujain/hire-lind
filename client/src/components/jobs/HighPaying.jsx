@@ -21,9 +21,7 @@ const TopProfiles = ({ profile }) => {
   let widthRef = useRef()
   useEffect(() => {
     setSliderWidth(widthRef?.current?.offsetWidth)
-    console.log(currentSlide * sliderWidth)
     if (sliding) {
-      console.log(sliding)
       const slide = setInterval(() => {
         if (currentSlide === 0) {
           setCurrentSlide(currentSlide + 1)
@@ -81,7 +79,8 @@ const TopProfiles = ({ profile }) => {
 
   return (
     <div className="high-paying-jobs-parent col-md-7 col-12 m-auto   mt-2 ">
-      <div className="arrows ">
+      <>
+        {/* <div className="arrows ">
         <ArrowBackIosOutlined
           onClick={() => {
             handleSlide("right")
@@ -104,7 +103,8 @@ const TopProfiles = ({ profile }) => {
           }}
           className="  arrow "
         />
-      </div>
+      </div> */}
+      </>
       <h4 className="text-center high-paying-jobs-title">High Paying Jobs</h4>
       <div className="slider ">
         {loadingJobs && (
@@ -128,25 +128,25 @@ const TopProfiles = ({ profile }) => {
               >
                 <div className="row col-12">
                   <header>
-                    <div className="hight-pay-job-img-container">
+                    <div className="company-info">
                       <img
                         src={profile}
                         alt="profile-img "
                         className="hight-pay-job-img"
                       />
-                    </div>
-                    <h2 className="high-pay-job-title">
-                      {" "}
+                      <span className="">
+                        {job?.companyName} some other word
+                      </span>
+                    </div>{" "}
+                    <div className="high-pay-job-title">
                       <span className="text-primary">{job?.shift} - </span>
-                      {job?.title}
-                    </h2>
+                      <span className="high-pay-job-title h2">
+                        {job?.title}
+                      </span>
+                      <span className="text-success ">{`- $${job?.salary}`}</span>
+                    </div>
                   </header>
-                  <div className="high-pay-job-body col-8">
-                    <div className="company-name col-9">{job?.companyName}</div>
-                  </div>
-                  <h5>
-                    <span className="text-success">{`${job?.salary}$`}</span>
-                  </h5>
+                  <div className=" col-12"></div>
                   <p className="High-paying-job-description">
                     {job?.description?.split(" ").slice(0, 30).join(" ")}{" "}
                     <span className="text-primary">...</span>

@@ -37,10 +37,9 @@ function PostHeader({
       )}
 
       <div className="post-auther col-12 row">
-        {console.log(PF + post?.photo)}
         <img
           className="col-4 author-photo"
-          src={PF + post?.photo}
+          src={post.photo && PF + post?.photo}
           alt="author"
         />
         <h6 className="col-8">{post?.userName}</h6>

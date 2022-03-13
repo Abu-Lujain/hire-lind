@@ -16,6 +16,11 @@ background-color: #ffffff;
     margin: 5px;
     
 }
+.logout-delete-parent{
+      display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 .user-drop-menu .name{
         border-bottom: 1px #bbc2eb solid;
     width: 100%;

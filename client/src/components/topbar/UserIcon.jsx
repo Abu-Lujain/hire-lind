@@ -2,6 +2,8 @@ import React from "react"
 import { Link } from "react-router-dom"
 
 function UserIcon({ candidate, PF, user, profile, company }) {
+  console.log(profile)
+
   return (
     <div className="user-info">
       <li>
@@ -11,7 +13,7 @@ function UserIcon({ candidate, PF, user, profile, company }) {
           }`}
           className="px-3 link"
         >
-          <img src={PF + user?.photo} className="profile-icon" alt="profile" />
+          <img src={PF + user.photo} className="profile-icon" alt="profile" />
         </Link>
       </li>
       <li className="name">{user?.userName}</li>
