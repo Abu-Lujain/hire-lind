@@ -26,7 +26,6 @@ const CadidateProfile = () => {
   const { pathname } = useLocation()
   console.log(pathname)
   const id = pathname.split("/").pop()
-  // update profile
   useEffect(() => {
     createProfile(dispatch)
     async function fetchProfile() {

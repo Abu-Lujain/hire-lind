@@ -4,8 +4,8 @@ import { MoreVertRounded, CloseSharp } from "@material-ui/icons"
 function PostHeader({
   post,
   user,
-  setOpenOption,
-  openOption,
+  setOpenDropDown,
+  openDropDown,
   deletePostHandler,
   PF,
 }) {
@@ -16,10 +16,10 @@ function PostHeader({
           <div className="latest-posts-options ">
             <MoreVertRounded
               className="icon"
-              onClick={() => setOpenOption(post._id)}
+              onClick={() => setOpenDropDown(post._id)}
             />{" "}
           </div>
-          {openOption === post._id && (
+          {openDropDown === post._id && (
             <div className="options-menu ">
               <Link className="link text-dark" to={`edit/${post._id}`}>
                 <li className="edit ">Edit</li>{" "}
@@ -29,7 +29,7 @@ function PostHeader({
               </li>
               <CloseSharp
                 className="close-option-menu"
-                onClick={() => setOpenOption(null)}
+                onClick={() => setOpenDropDown(null)}
               />
             </div>
           )}{" "}

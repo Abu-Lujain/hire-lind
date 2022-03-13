@@ -5,7 +5,7 @@ import HighPaying from "../../components/jobs/HighPaying"
 import profile from "../../assets/profile.jpeg"
 import Search from "../../components/search/Search"
 import ShowAll from "../../components/posts/ShowAll"
-const HomeScreen = ({ user }) => {
+const HomeScreen = ({ user, openDropDown, setOpenDropDown }) => {
   return (
     <div className=" home row ">
       {/* <SideBar /> */}
@@ -17,9 +17,16 @@ const HomeScreen = ({ user }) => {
         </div>
       </div>
       <Search />
-      <LatestJobs />
+      <LatestJobs
+        openDropDown={openDropDown}
+        setOpenDropDown={setOpenDropDown}
+      />
       {/* <Candidates /> */}
-      <ShowAll user={user} />
+      <ShowAll
+        user={user}
+        openDropDown={openDropDown}
+        setOpenDropDown={setOpenDropDown}
+      />
     </div>
   )
 }

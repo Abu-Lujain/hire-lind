@@ -3,7 +3,7 @@
     min-height: 100vh;
     margin: 0;
     background: #f9fbf7;
-    margin-top: 35px;
+    margin-top: 45px;
 }
 
 .single-job .experience-needed ,
@@ -23,10 +23,11 @@
 .single-job .details-parent, 
 .single-job .more-details, 
 .single-job header{
-    background: var(--main-child-bg-color);
+background: var(--main-child-bg-color);
     border-radius: 5px;
     margin: 10px;
     display: flex;
+    width: 100%;
     justify-content: space-between;
 }
  .experience-needed{
@@ -53,15 +54,16 @@ list-style-type: none
 }
  
 .single-job .details{
-
-    background: #f9fbf7;
+background: #939ac3;
+color: white;
     padding: 5px;
     display: flex;
-    justify-content: center;
-    color: green;
     align-items: center;
     font-family: ui-sans-serif;
     font-weight: 600;
+    margin: 0;
+    justify-content: flex-start;
+    border-radius: 5px;
 }
 .single-job .details div{
      box-shadow: var(--main-box-shadow);

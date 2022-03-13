@@ -1,30 +1,40 @@
 .user-drop-menu{
-     background-color: #ffffff;
+background-color: #ffffff;
     padding: 5px;
     border-radius: 5px;
     display: flex;
-    align-items: center;
+    align-items: stretch;
     justify-content: space-around;
     flex-direction: column;
     position: absolute;
     right: 35px;
-    top: 20px;
+    top: 30px;
     width: max-content;
-    box-shadow: 3px 3px 91px -18px #0027ff;
+    box-shadow: 0 37px 91px -18px #000000;
 }
 .user-drop-menu li{
-    cursor: pointer;
     margin: 5px;
     
 }
-
+.user-drop-menu .name{
+        border-bottom: 1px #bbc2eb solid;
+    width: 100%;
+    text-align: center;
+    /* background: #f9fbf7; */
+    /* border-radius: 5px; */
+    color: black
+}
 .drop-icon{
-    cursor: pointer;
-      color: #ffffff;
-    font-size: 29px;
-     background: #ffffff63;
+    /* color: #3f51b5; */
+    font-size: 2rem !important;
+
+ }
+ .drop-icon-parent{
+    background: #ffffff;
     border-radius: 5px;
-        margin: 0 5px;
+    padding: 0 2px;
+    color: #0c31ff;
+    cursor: pointer;
  }
  .user-drop-menu .logout,
  .user-drop-menu .delete {

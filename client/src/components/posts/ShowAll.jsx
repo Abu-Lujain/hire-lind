@@ -11,10 +11,9 @@ import Comments from "./Comments"
 import Pagination from "../jobs/Pagination"
 import { axiosInstance, PF } from "../../config/axiosInstance"
 import Loaders from "../common/Loaders"
-function ShowAll({ user }) {
+function ShowAll({ user, openDropDown, setOpenDropDown }) {
   const [loadingPosts, setLoadingPosts] = useState(false)
 
-  const [openOption, setOpenOption] = useState(null)
   const [posts, setPosts] = useState([])
   const [delMsg, setMsg] = useState("")
   const [comments, setComments] = useState([])
@@ -91,8 +90,8 @@ function ShowAll({ user }) {
                 <PostHeader
                   post={post}
                   user={user}
-                  setOpenOption={setOpenOption}
-                  openOption={openOption}
+                  setOpenDropDown={setOpenDropDown}
+                  openDropDown={openDropDown}
                   deletePostHandler={deletePostHandler}
                   PF={PF}
                 />

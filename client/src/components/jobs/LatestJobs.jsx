@@ -14,10 +14,9 @@ import { authContext } from "../../context/auth_context/authContext"
 import { companyContext } from "../../context/company_context/companyContext"
 import { axiosInstance, PF } from "../../config/axiosInstance"
 import Loaders from "../common/Loaders"
-function LatestJobs() {
+function LatestJobs({ openDropDown, setOpenDropDown }) {
   const [currentPage, setCurrentPage] = useState(1)
   const [itemsPerPage] = useState(6)
-  const [openOption, setOpenOption] = useState(null)
   const { user } = useContext(authContext)
   const { company } = useContext(companyContext)
   const [delMsg, setDelMsg] = useState("")
@@ -73,11 +72,11 @@ function LatestJobs() {
                 <div className="link job-title">{job.title} </div>{" "}
                 <Authorized
                   job={job}
-                  deleteJobHandler={deleteJobHandler}
                   user={user}
-                  openOption={openOption}
                   company={company}
-                  setOpenOption={setOpenOption}
+                  openDropDown={openDropDown}
+                  setOpenDropDown={setOpenDropDown}
+                  deleteJobHandler={deleteJobHandler}
                 />
                 {/* <span className="job-marker">Vacant</span> */}
                 <div className="logo-container col-2">

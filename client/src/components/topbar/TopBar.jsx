@@ -31,17 +31,23 @@ function Topbar({ user, openNav, setOpenNav, openDropDown, setOpenDropDown }) {
           {user && (
             <>
               {openDropDown ? (
-                <ArrowDropDown
+                <li
+                  className="drop-icon-parent"
                   onClick={() => setOpenDropDown(false)}
-                  className="drop-icon"
-                />
+                >
+                  Menu
+                  <ArrowDropDown className="drop-icon" />
+                </li>
               ) : (
-                <ArrowDropUp
-                  onClick={() => setOpenDropDown(true)}
-                  className="drop-icon"
-                />
+                <li
+                  className="drop-icon-parent"
+                  onClick={() => setOpenDropDown(user?.userName)}
+                >
+                  Menu
+                  <ArrowDropUp className="drop-icon" />
+                </li>
               )}
-              {openDropDown && (
+              {openDropDown === user?.userName && (
                 <>
                   <ui className="user-drop-menu">
                     {user?.isAdmin ? (

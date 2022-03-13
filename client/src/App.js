@@ -94,7 +94,11 @@ const App = () => {
           </Route>
           <Route exact path="/">
             {" "}
-            <HomeScreen user={user} />
+            <HomeScreen
+              user={user}
+              openDropDown={openDropDown}
+              setOpenDropDown={setOpenDropDown}
+            />
           </Route>
           <Route path="/register">
             <Register

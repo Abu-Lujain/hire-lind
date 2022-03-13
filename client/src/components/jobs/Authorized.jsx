@@ -6,8 +6,8 @@ function Authorized({
   job,
   user,
   company,
-  openOption,
-  setOpenOption,
+  openDropDown,
+  setOpenDropDown,
   deleteJobHandler,
 }) {
   return (
@@ -17,10 +17,10 @@ function Authorized({
           <div className="latest-jobs-options">
             <MoreVertRounded
               className="icon"
-              onClick={() => setOpenOption(job._id)}
+              onClick={() => setOpenDropDown(job._id)}
             />{" "}
           </div>
-          {openOption === job._id && (
+          {openDropDown === job._id && (
             <div className="options-menu ">
               <Link className="link text-dark" to={`edit/${job._id}`}>
                 <li className="edit ">Edit</li>{" "}
@@ -30,7 +30,7 @@ function Authorized({
               </li>
               <CloseSharp
                 className="close-option-menu"
-                onClick={() => setOpenOption(null)}
+                onClick={() => setOpenDropDown(null)}
               />
             </div>
           )}{" "}

@@ -11,14 +11,10 @@ function UserIcon({ candidate, PF, user, profile, company }) {
           }`}
           className="px-3 link"
         >
-          <img
-            src={`${PF}${user?.photo}`}
-            className="profile-icon"
-            alt="profile"
-          />
+          <img src={PF + user?.photo} className="profile-icon" alt="profile" />
         </Link>
       </li>
-      <li>{user?.userName}</li>
+      <li className="name">{user?.userName}</li>
     </div>
   )
 }

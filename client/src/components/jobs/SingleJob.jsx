@@ -26,19 +26,19 @@ function SingleJob() {
       isMounted.current = false
     }
   }, [])
-  console.log(pathname)
+  console.log(singleJob)
 
   return (
-    <div className=" row single-job">
+    <div className=" row single-job col-12">
       {singleJob && (
         <>
           <header className=" col-12 row">
-            <div className="details col-md-4 col-11 mx-auto">
+            <div className="details col-md-4 col-12">
               <h1>Job Details - </h1>{" "}
-              <h6 className="ms-1"> {singleJob?.industry}</h6>
+              <h6 className=""> {singleJob?.industry}</h6>
               {/* <button className="m-2 btn btn-primary apply-btn">Appy</button> */}
             </div>
-            <div className="title col-md-7 col-11 m-auto">
+            <div className="title col-md-7 col-12 m-auto">
               <h3>
                 <span className="text-primay">
                   {/* <span className="work-place">Remote</span> -{singleJob?.shift}{" "} */}
@@ -63,16 +63,18 @@ function SingleJob() {
               <h6 className="text-primary">Education</h6>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit
             </div>{" "}
-            <div className="working-days col-md-2 col-4">
+            <div className="working-days col-md-2 col-5">
               <h6 className=" text-primary">Working Days</h6>
-              <li>Sunday</li>
-              <li>Monday</li>
-              <li>Tuseday</li>
-              <li> Thursday</li>
+              {singleJob?.workingDays?.map((day) => (
+                <li>{day}</li>
+              ))}
             </div>
-            <div className=" col-7 col-md-3 perks">
+            <div className=" col-6 col-md-3 perks">
               <h6 className="text-primary ">entitlements and perks</h6>
-              {singleJob && singleJob?.perks?.map((p) => <li key={p}> {p}</li>)}
+              {singleJob &&
+                singleJob?.perks?.map((p) => {
+                  return <li key={p}> {p}</li>
+                })}
             </div>
           </div>
           <div className="more-details  col-11 row">
