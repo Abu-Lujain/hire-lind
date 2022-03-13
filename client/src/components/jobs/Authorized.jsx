@@ -1,4 +1,4 @@
-import "./styles/index.css"
+import "./styles/slider.css"
 import CloseSharp from "@material-ui/icons/CloseSharp"
 import MoreVertRounded from "@material-ui/icons/MoreVertRounded"
 import { Link } from "react-router-dom"

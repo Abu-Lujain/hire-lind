@@ -5,10 +5,12 @@ import { types } from "../context/profile_context/types"
 export const createProfile = async (dispatch) => {
   dispatch({ type: types.CREATE_PROFILE_START })
   try {
-    const response = await axiosInstance.post("/developersProfiles")
-    response.data &&
-      dispatch({ type: types.CREATE_PROFILE_SUCCESS, payload: response.data })
+    const res = await axiosInstance.post("/developersProfiles")
+    console.log("create: ", res.data)
+    res.data &&
+      dispatch({ type: types.CREATE_PROFILE_SUCCESS, payload: res.data })
   } catch (error) {
+    console.log(error.response)
     dispatch({
       type: types.CREATE_PROFILE_FAILURE,
       payload: error?.response?.data.errors,
@@ -19,10 +21,11 @@ export const createProfile = async (dispatch) => {
 export const fetchProfile = async (dispatch) => {
   dispatch({ type: types.LOAD_PROFILE_START })
   try {
-    const response = await axiosInstance.get("/developersProfiles/me")
-    // console.log(response.data);
-    response.data &&
-      dispatch({ type: types.LOAD_PROFILE_SUCCESS, payload: response.data })
+    const res = await axiosInstance.get("/developersProfiles/me")
+    console.log("fetch: ", res.data)
+
+    res.data &&
+      dispatch({ type: types.LOAD_PROFILE_SUCCESS, payload: res.data })
   } catch (error) {
     dispatch({
       type: types.LOAD_PROFILE_FAILURE,
@@ -39,14 +42,10 @@ export const updateProfile = async (body, dispatch) => {
     },
   }
   try {
-    const response = await axiosInstance.post(
-      "/developersProfiles",
-      body,
-      config
-    )
-    console.log(response.data)
-    response.data &&
-      dispatch({ type: types.UPDATE_PROFILE_SUCCESS, payload: response.data })
+    const res = await axiosInstance.post("/developersProfiles", body, config)
+    console.log(res.data)
+    res.data &&
+      dispatch({ type: types.UPDATE_PROFILE_SUCCESS, payload: res.data })
   } catch (error) {
     dispatch({
       type: types.UPDATE_PROFILE_FAILURE,
@@ -62,13 +61,13 @@ export const addExperince = async (body, dispatch) => {
     "Context-Type": "application/json",
   }
   try {
-    const response = await axiosInstance.put(
+    const res = await axiosInstance.put(
       "/developersProfiles/experience",
       body,
       config
     )
-    response.data &&
-      dispatch({ type: types.ADD_EXPERIENCE_SUCCESS, payload: response.data })
+    res.data &&
+      dispatch({ type: types.ADD_EXPERIENCE_SUCCESS, payload: res.data })
   } catch (error) {
     const res = await axiosInstance.get("/developersProfiles/me")
     dispatch({
@@ -85,13 +84,13 @@ export const addExperince = async (body, dispatch) => {
 export const deleteExperience = async (id, dispatch) => {
   dispatch({ type: types.DELETE_EXPERIENCE_START })
   try {
-    const response = await axiosInstance.delete(
+    const res = await axiosInstance.delete(
       "/developersProfiles/experience/" + id
     )
-    response.data &&
+    res.data &&
       dispatch({
         type: types.DELETE_EXPERIENCE_SUCCESS,
-        payload: response.data,
+        payload: res.data,
       })
   } catch (error) {
     console.log(error?.response?.data.errors)
@@ -108,14 +107,14 @@ export const addEducation = async (body, dispatch) => {
     "Context-Type": "application/json",
   }
   try {
-    const response = await axiosInstance.put(
+    const res = await axiosInstance.put(
       "/developersProfiles/education",
       body,
       config
     )
-    console.log(response.data)
-    response.data &&
-      dispatch({ type: types.ADD_EDUCATION_SUCCESS, payload: response.data })
+    console.log(res.data)
+    res.data &&
+      dispatch({ type: types.ADD_EDUCATION_SUCCESS, payload: res.data })
   } catch (error) {
     console.log("data: ", error?.response?.data.errors)
     dispatch({
@@ -129,13 +128,13 @@ export const addEducation = async (body, dispatch) => {
 export const deleteEducation = async (id, dispatch) => {
   dispatch({ type: types.DELETE_EDUCATION_START })
   try {
-    const response = await axiosInstance.delete(
+    const res = await axiosInstance.delete(
       "/developersProfiles/education/" + id
     )
-    response.data &&
+    res.data &&
       dispatch({
         type: types.DELETE_EDUCATION_SUCCESS,
-        payload: response.data,
+        payload: res.data,
       })
   } catch (error) {
     dispatch({
@@ -156,14 +155,14 @@ export const uploadProfilePhoto = async (e, profile, dispatch) => {
         "Content-Type": "multipart/form-data",
       },
     }
-    const response = await axiosInstance.post("/uploads", formData, config)
-    if (response.data) {
+    const res = await axiosInstance.post("/uploads", formData, config)
+    if (res.data) {
       const config = {
         headers: {
           "Content-Type": "application/json",
         },
       }
-      profile.photo = response.data
+      profile.photo = res.data
       await axiosInstance.post("/developersProfiles", profile, config)
       dispatch({ type: types.UPLOAD_PHOTO_SUCCESS, payload: profile })
       console.log(profile.photo)

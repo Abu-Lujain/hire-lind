@@ -81,7 +81,6 @@ function LatestJobs() {
                 />
                 {/* <span className="job-marker">Vacant</span> */}
                 <div className="logo-container col-2">
-                  {console.log(PF + job?.companyLogo)}
                   <img
                     src={PF + job?.companyLogo}
                     alt="logo"

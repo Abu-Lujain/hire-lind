@@ -25,7 +25,6 @@ function Search() {
   const searchJobs = jobs?.filter((job) =>
     job.title.toLowerCase().includes(searchWord?.toLowerCase())
   )
-  console.log(jobs.slice(1, 5))
   const handleSetSearchWord = (e) => {
     setSearchWord(e.target.innerText)
   }
@@ -63,13 +62,13 @@ function Search() {
       <div className=" mt-2">
         {!searchWord ? (
           <div className="latest-searches">
-            {jobs?.slice(6, 12).map((job) => (
+            {jobs?.slice(1, 12).map((job) => (
               <span onClick={handleSetSearchWord} key={job._id}>
                 {job.title.split(" ")[0] + " " + job.title.split(" ")[1]}{" "}
                 <Close
                   // onClick={deleteSearch}
                   className="hide-icon"
-                  onclick={handleDeleteSeachWord}
+                  onClick={handleDeleteSeachWord}
                 />
               </span>
             ))}

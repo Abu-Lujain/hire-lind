@@ -45,9 +45,9 @@ function Education() {
         {profile?.education?.length > 0 && adding}
       </div>
       {addEdu && (
-        <form className="education-form" onSubmit={handleAddEducation}>
+        <form className="education-form row" onSubmit={handleAddEducation}>
           <div>
-            <label>school</label>
+            <label className="col-1">school</label>
             <input
               onChange={(e) => setSchool(e.target.value)}
               className="input"
@@ -56,35 +56,35 @@ function Education() {
             />
           </div>
           <div>
-            <label>Degree</label>
+            <label className="col-1">Degree</label>
             <input
               onChange={(e) => setDegree(e.target.value)}
-              className="input"
+              className="input col-10"
               type="text"
               name="degree"
             />
           </div>
           <div>
-            <label>Location</label>
+            <label className="col-1">Location</label>
             <input
               onChange={(e) => setLoc(e.target.value)}
-              className="input"
+              className="input col-10"
               type="text"
               name="degree"
             />
           </div>
 
           <div>
-            <label>From</label>
+            <label className="col-1">From</label>
             <input
               onChange={(e) => setFrom(e.target.value)}
-              className="input"
+              className="input col-10"
               type="date"
               name="loc"
             />
           </div>
           <div>
-            <label>To</label>
+            <label className="col-1">To</label>
             <input
               onChange={(e) => setTo(e.target.value)}
               className="date"
@@ -94,7 +94,7 @@ function Education() {
           </div>
 
           <div>
-            <label>Description</label>
+            <label className="col-1">Description</label>
             <input
               onChange={(e) => setDescription(e.target.value)}
               className="date"

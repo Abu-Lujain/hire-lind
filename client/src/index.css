@@ -129,34 +129,7 @@ body {
 .text-second-danger {
   color: rgb(255, 23, 112);
 }
-.left-arrow,
-.right-arrow {
-  cursor: pointer;
-  transition: all ease-in-out 0.5s;
-  border-radius: 50%;
-  padding: 1px;
-  z-index: 2;
-}
 
-.right-arrow:hover {
-  background-color: rgb(233, 231, 231);
-}
-.left-arrow:hover {
-  background-color: rgb(233, 231, 231);
-}
-.left-arrow {
-  background-color: rgb(64, 64, 65);
-  color: rgb(255, 255, 255);
-  top: 40%;
-  left: 2px;
-}
-
-.right-arrow {
-  background-color: rgb(64, 64, 65);
-  color: rgb(255, 255, 255);
-  top: 40%;
-  right: 2px;
-}
 .App {
   background: var(--main-bg-color);
   margin: 0;

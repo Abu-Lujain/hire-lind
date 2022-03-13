@@ -1,11 +1,11 @@
-.jobs-parent {
-  padding: 10px;
-  background-color: #edf2e8;
-  border-radius: 10px;
-  height: 70vh;
+.high-paying-jobs-parent {
+padding: 10px;
+    background-color: #3f51b5;
+    border-radius: 10px;
+    height: 70vh;
 }
 .high-paying-jobs-title {
-  color: #03a9f4;
+  color: #ffffff;
   letter-spacing: 5px;
   font-weight: 700;
   font-family: monospace;
@@ -39,11 +39,13 @@
   overflow: hidden;
 }
 .hight-pay-job-img {
-  /* height: 200px;
-  width: 200px; */
-  border-radius: 20px;
+object-fit: contain;
+    width: 75px;
+    height: 75px;
+    border-radius: 10px;
+    border: 3px #3f51b5 solid;
 }
-.jobs-parent .company-name {
+.high-paying-jobs-parent .company-name {
   margin: 10px;
   text-align: center;
 }

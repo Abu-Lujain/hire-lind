@@ -2,7 +2,6 @@ import "./company.css";
  import CompanyHeader from "../../components/company_components/CompanyHeader"
  import CompanyMiddle from "../../components/company_components/CompanyMiddle"
 import { useLocation } from "react-router-dom"
-import { useFetch } from "../../hooks/useFetch"
 import { axiosInstance } from "../../config/axiosInstance"
 import { useState, useEffect } from "react"
 

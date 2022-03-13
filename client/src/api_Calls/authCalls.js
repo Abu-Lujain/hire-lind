@@ -1,5 +1,6 @@
 import { axiosInstance } from "../config/axiosInstance"
 import { types } from "../context/auth_context/types"
+import { createProfile } from "./profileCalls"
 import setAuthToken from "./setAuthToken"
 // Register new user
 
@@ -13,9 +14,8 @@ export const loginCall = async (credentials, dispatch) => {
   dispatch({ type: types.LOGIN_START })
   try {
     const res = await axiosInstance.post("/auth", credentials, config)
+    res.data && window.location.replace("/")
     dispatch({ type: types.LOGIN_SUCCESS, payload: res.data })
-  res.data.token && window.location.replace("/")
-
   } catch (error) {
     console.log(error.response)
     dispatch({
@@ -26,14 +26,12 @@ export const loginCall = async (credentials, dispatch) => {
 }
 // loading user
 export const loadUserCall = async (dispatch) => {
- 
   if (localStorage.token) {
     setAuthToken(localStorage.token)
   }
   try {
     const res = await axiosInstance.get("/auth")
     dispatch({ type: types.LOAD_USER_SUCCESS, payload: res.data })
-  
   } catch (error) {
     console.log(error?.response)
     dispatch({

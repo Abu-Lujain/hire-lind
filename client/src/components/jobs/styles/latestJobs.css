@@ -64,9 +64,10 @@ top: 15vh;
   font-family: serif;
 }
 .job-container .job-title {
-    background: #3f51b5;
     font-weight: 600;
-    color: #ffffff;
+    color: #3f51b5;
+    padding: 5px;
+    margin-bottom: 5px;
     border-radius: 5px;
     padding-right: 15px;
 }

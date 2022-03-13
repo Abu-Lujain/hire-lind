@@ -2,7 +2,11 @@ import "./devProfile.css";
 
 import React, { useState, useContext } from "react";
 import { EditSharp, InsertPhotoRounded } from "@material-ui/icons";
-import { updateProfile, uploadProfilePhoto } from "../../api_Calls/profileCalls"
+import {
+  createProfile,
+  updateProfile,
+  uploadProfilePhoto,
+} from "../../api_Calls/profileCalls"
 import { profileContext } from "../../context/profile_context/profileContext"
 import { authContext } from "../../context/auth_context/authContext"
 import { Spinner } from "react-bootstrap"
@@ -10,6 +14,8 @@ import { useEffect, useRef } from "react"
 import Experience from "../../components/candidate_components/experience/Experience"
 import Education from "../../components/candidate_components/education/Education"
 import SocialMedia from "../../components/candidate_components/social_media/SocialMedia"
+import { axiosInstance, PF } from "../../config/axiosInstance"
+import { useLocation } from "react-router-dom"
 const CadidateProfile = () => {
   const [editProfile, setEditProfile] = useState(false)
   const [bio, setBio] = useState("")
@@ -17,7 +23,21 @@ const CadidateProfile = () => {
   const { user } = useContext(authContext)
   const { dispatch, profile, isFetching } = useContext(profileContext)
   const isMounted = useRef(true)
+  const { pathname } = useLocation()
+  console.log(pathname)
+  const id = pathname.split("/").pop()
   // update profile
+  useEffect(() => {
+    createProfile(dispatch)
+    async function fetchProfile() {
+      try {
+        const res = await axiosInstance.get(`/developersProfiles/${id}`)
+        console.log(res.data)
+      } catch (error) {
+        console.log(error.response)
+      }
+    }
+  }, [])
   const body = { bio, title }
   const handleUpdate = (e) => {
     e.preventDefault()
@@ -38,7 +58,7 @@ const CadidateProfile = () => {
     uploadProfilePhoto(e, profile, dispatch)
   }
   console.log(profile?.photo)
-  const PF = "https://hirelandsite.herokuapp.com"
+
   return (
     <>
       {!isMounted.current && isFetching ? (
@@ -61,7 +81,7 @@ const CadidateProfile = () => {
             <div className="img-container">
               <img
                 className="img-fluid profile-img"
-                src={user?.photo && `${PF}${user.photo}`}
+                src={user?.photo && !profile?.photo && `${PF}${user.photo}`}
                 alt=""
               />
 

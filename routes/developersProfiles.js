@@ -43,7 +43,9 @@ router.post("/", authMiddleware, async (req, res) => {
   try {
     let profile = await Profile.findOne({ user: req.user.id })
     const user = await Profile.findById(req.user.id)
-    profile.userName = user.userName
+      if(user){
+      profile.userName = user.userName
+    }
     if (profile) {
       profile = await Profile.findOneAndUpdate(
         { user: req.user.id },
@@ -58,6 +60,7 @@ router.post("/", authMiddleware, async (req, res) => {
       res.status(201).json(profile)
     }
   } catch (error) {
+    console.log(error.message)
     res.status(500).json({ error: "Server Error" })
   }
 })

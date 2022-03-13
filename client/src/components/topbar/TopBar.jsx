@@ -5,7 +5,7 @@ import Menu from "../menu/Menu"
 import { ArrowDropDown, ArrowDropUp } from "@material-ui/icons"
 //init
 import { Link } from "react-router-dom"
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 //context
 import { profileContext } from "../../context/profile_context/profileContext"
 import { companyContext } from "../../context/company_context/companyContext"
@@ -13,8 +13,8 @@ import { authContext } from "../../context/auth_context/authContext"
 import { logOut } from "../../api_Calls/authCalls"
 import { PF } from "../../config/axiosInstance"
 import UserIcon from "./UserIcon"
-function Topbar({ openNav, setOpenNav, openDropDown, setOpenDropDown }) {
-  const { user, dispatch } = useContext(authContext)
+function Topbar({ user, openNav, setOpenNav, openDropDown, setOpenDropDown }) {
+  const { dispatch } = useContext(authContext)
   const { profile } = useContext(profileContext)
   const { company } = useContext(companyContext)
   const candidate = user?.profileType === "employee"

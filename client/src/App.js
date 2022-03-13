@@ -35,15 +35,24 @@ const App = () => {
   const { dispatch: profileDispatch, profile } = useContext(profileContext)
   useEffect(() => {
     loadUserCall(dispatch)
-  }, [])
-  useEffect(() => {
-    createCompany({}, CompanyDispatch)
-    loadCompany(CompanyDispatch)
-  }, [])
-  useEffect(() => {
-    fetchProfile(profileDispatch)
-    !profile && createProfile(profileDispatch)
-  }, [profileDispatch])
+    if (user?.profileType === "employee") {
+      fetchProfile(profileDispatch)
+      if (!profile) {
+        createProfile(profileDispatch)
+      }
+      console.log("I am an employee")
+    }
+    if (user?.profileType === "company") {
+      loadCompany(CompanyDispatch)
+      if (!company) {
+        createCompany({}, CompanyDispatch)
+      }
+      console.log("I am an company")
+    }
+  }, [dispatch, CompanyDispatch, profileDispatch])
+  if (user?.confirmed) {
+    localStorage.removeItem("registered")
+  }
   if (user?.confirmed) {
     localStorage.removeItem("registered")
   }
@@ -65,6 +74,7 @@ const App = () => {
           setOpenDropDown={setOpenDropDown}
           openNav={openNav}
           setOpenNav={setOpenNav}
+          user={user}
         />
         <Switch>
           <Route path="/login">

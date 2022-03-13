@@ -28,7 +28,6 @@ const TopProfiles = ({ profile }) => {
   }, [isMounted, sliderWidth])
 
   const handleSlide = (direction) => {
-    // console.log(currentSlide > 0 && currentSlide < profiles.length - 1);
     if (direction === "right") {
       if (currentSlide === 0) {
         setCurrentSlide(currentSlide + 1)
@@ -41,20 +40,19 @@ const TopProfiles = ({ profile }) => {
         setCurrentSlide(0)
       }
     } else {
-      if (currentSlide > 0 && currentSlide < profiles.length - 1) {
+      if (currentSlide > 0 && currentSlide <= profiles.length - 1) {
         setCurrentSlide(currentSlide - 1)
       }
-      if (currentSlide === profiles.length - 1) {
-        setCurrentSlide(0)
+      if (currentSlide === 0) {
+        setCurrentSlide(profiles.length - 1)
       }
-      // if (currentSlide === 0) {
-      //   setCurrentSlide(profiles.length - 1);
-      // }
     }
+    setSlideWithHand(true)
+    // setTimeout(() => {
+    //   setSlideWithHand(false)
+    // }, 10000)
   }
-  setTimeout(() => {
-    setSlideWithHand(false)
-  }, 10000)
+
   if (!slideWithHand) {
     const slide = setInterval((d) => {
       if (currentSlide === 0) {
@@ -97,7 +95,6 @@ const TopProfiles = ({ profile }) => {
       <span
         onClick={() => {
           handleSlide("right")
-          setSlideWithHand(true)
         }}
         className=" position-absolute right-arrow shadow-sm"
       >
@@ -106,7 +103,6 @@ const TopProfiles = ({ profile }) => {
       <span
         onClick={() => {
           handleSlide("left")
-          setSlideWithHand(true)
         }}
         className=" position-absolute left-arrow "
       >
@@ -125,24 +121,28 @@ const TopProfiles = ({ profile }) => {
               key={job._id}
             >
               <div className="row col-12">
-                <div className="hight-pay-job-img-container col-4">
+                <div className="hight-pay-job-img-container col-2">
                   <img
                     src={profile}
                     alt="profile-img "
-                    className="hight-pay-job-img col-md-4   col-12"
+                    className="hight-pay-job-img"
                   />
-                  <div className="company-name">{job?.companyName}</div>
                 </div>
+                <h5 className="high-pay-job-title col-9">
+                  {" "}
+                  <span className="text-primary">{job?.shift} - </span>
+                  {job?.title}
+                </h5>
                 <div className="high-pay-job-body col-8">
-                  <h2 className="high-pay-job-title">{job?.title}</h2>
-                  <h3>{job?.shift}</h3>
-                  <h5>
-                    <span className="text-success">{`${job?.salary}$`}</span>
-                  </h5>
-                  <p className="High-paying-job-description">
-                    {job?.description?.split(" ").slice(0, 200).join(" ")}
-                  </p>
+                  <div className="company-name col-9">{job?.companyName}</div>
                 </div>
+                <h5>
+                  <span className="text-success">{`${job?.salary}$`}</span>
+                </h5>
+                <p className="High-paying-job-description">
+                  {job?.description?.split(" ").slice(0, 30).join(" ")}{" "}
+                  <span className="text-primary">...</span>
+                </p>
               </div>
               <button className="btn btn-outline-dark float-end">
                 View Details

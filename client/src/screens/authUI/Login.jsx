@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { authContext } from "../../context/auth_context/authContext";
-import { loginCall } from "../../api_Calls/authCalls"
+import { loginCall, loadUserCall } from "../../api_Calls/authCalls"
 import { useHistory } from "react-router-dom"
 import { Spinner } from "react-bootstrap"
 import Google from "./Google"
@@ -9,7 +9,7 @@ const Login = ({ notConfirmed }) => {
   const { dispatch, user, loading, token } = useContext(authContext)
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const history = useHistory()
+
   const handleSubmit = (e) => {
     e.preventDefault()
     loginCall({ email, password }, dispatch)
