@@ -25,6 +25,9 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    googleId: {
+      type: String,
+    },
     photo: {
       type: String,
     },

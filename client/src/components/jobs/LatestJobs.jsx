@@ -54,21 +54,21 @@ function LatestJobs({ openDropDown, setOpenDropDown }) {
   }
   // filter job
 
-  const filterJobHandler = (event) => {
-    setCurrentJobs(
-      jobs?.filter(
-        (job) =>
-          job.industry.toLowerCase() ===
-          event.currentTarget.getAttribute("data-id").toLowerCase()
-      )
-    )
-    currentJobs.forEach((j) => {
-      console.log(j.industry)
-    })
-    event.currentTarget.classList.remove("active")
-    event.currentTarget.classList.add("active")
-    console.log(event.currentTarget.classList)
-  }
+  // const filterJobHandler = (event) => {
+  //   setCurrentJobs(
+  //     jobs?.filter(
+  //       (job) =>
+  //         job.industry.toLowerCase() ===
+  //         event.currentTarget.getAttribute("data-id").toLowerCase()
+  //     )
+  //   )
+  //   currentJobs.forEach((j) => {
+  //     console.log(j.industry)
+  //   })
+  //   event.currentTarget.classList.remove("active")
+  //   event.currentTarget.classList.add("active")
+  //   console.log(event.currentTarget.classList)
+  // }
   // setting for pagination
   const indexOfLastJob = currentPage * itemsPerPage
   const indexOfFirstJob = indexOfLastJob - itemsPerPage

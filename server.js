@@ -1,20 +1,20 @@
+const dotenv = require("dotenv").config()
 const path = require("path")
 const express = require("express")
 const db = require("./config/db")
 const app = express()
 const cors = require("cors")
-const exp = require("constants")
+require("./config/passport_setup")
 db()
 // init middlewares
 // console.log(path.join(__dirname, "/uploads"));
 app.use(express.json())
 app.use(
-  cors()
-  //   {
-  //   origin: "http://localhost:3000",
-  //   methods: "GET, POST, PUT, DELETE, PATCH",
-  //   credentials: true,
-  // }
+  cors({
+    origin: "http://localhost:3000",
+    methods: "GET, POST, PUT, DELETE, PATCH",
+    credentials: true,
+  })
 )
 // setting static folder
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")))
@@ -27,6 +27,7 @@ if (process.env.NODE_ENV === "production") {
   })
 }
 // middlewares routes
+app.use("/api/oauth", require("./routes/oauth"))
 app.use("/api/uploads", require("./routes/uploads"))
 app.use("/api/users", require("./routes/users"))
 app.use("/api/auth", require("./routes/auth"))
