@@ -16,7 +16,7 @@ body {
 }
 :root {
   --main-box-shadow: 3px 3px 20px -11px #0027ff;
-  --main-bg-color: #edf2e8;
+  --main-bg-color: #f1f7eb;
   --main-header-color: #596648;
   --main-white-transparent: #ffffffd9;
   --secondary-bg-color: #eff1eb;
@@ -135,36 +135,7 @@ body {
   margin: 0;
 }
 /* Home////////////////// */
-.home {
-  background: var(--main-bg-color);
-  padding: 10px;
-  margin: 0;
-  margin-top: 44px;
-}
-.welcome-container {
-  margin-top: 15px;
-  background: var(--main-white-transparent);
-  border-radius: 20px;
-  padding: 10px;
-}
-.welcome-text-parent {
-  border-radius: 20px;
-  background: #cad7ba7a;
-  color: var(--main-header-color);
-}
-.jobs-btn,
-.candidates-btn {
-  font-weight: bold;
-  border-radius: 10px;
-  /* background-color: #fff; */
-}
-.jobs-btn {
-  border-radius: 10px;
-  /* background-color: #fff; */
-}
-.candidates-btn {
-  /* background: darkwhite; */
-}
+
 
 /* finish home page */
 /* menu */

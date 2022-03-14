@@ -24,7 +24,7 @@ function LatestJobs({ openDropDown, setOpenDropDown }) {
   const [deletedJob, setDeletedJob] = useState("")
   const [jobs, setJobs] = useState([])
   const [showNote, setShowNote] = useState(null)
-
+  const [currentJobs, setCurrentJobs] = useState([])
   useEffect(() => {
     async function fetchjobs() {
       setLoadingJobs(true)
@@ -52,13 +52,52 @@ function LatestJobs({ openDropDown, setOpenDropDown }) {
       console.log(error)
     }
   }
+  // filter job
+
+  const filterJobHandler = (event) => {
+    setCurrentJobs(
+      jobs?.filter(
+        (job) =>
+          job.industry.toLowerCase() ===
+          event.currentTarget.getAttribute("data-id").toLowerCase()
+      )
+    )
+    currentJobs.forEach((j) => {
+      console.log(j.industry)
+    })
+    event.currentTarget.classList.remove("active")
+    event.currentTarget.classList.add("active")
+    console.log(event.currentTarget.classList)
+  }
   // setting for pagination
   const indexOfLastJob = currentPage * itemsPerPage
   const indexOfFirstJob = indexOfLastJob - itemsPerPage
-  const currentJobs = jobs.slice(indexOfFirstJob, indexOfLastJob)
+  useEffect(() => {
+    setCurrentJobs(jobs.slice(indexOfFirstJob, indexOfLastJob))
+  }, [jobs])
   return (
     <div className="mt-2 row m-auto ">
       <h4 className="job-list-title col-12">Latest jobs</h4>
+      <nav className="col-12 categories">
+        <ul>
+          <li onClick={filterJobHandler} data-id="All" className="active">
+            {" "}
+            All
+          </li>
+          <li onClick={filterJobHandler} data-id="Education" className="">
+            {" "}
+            Education
+          </li>
+          <li onClick={filterJobHandler} data-id="Programming" className="">
+            {" "}
+            Programming
+          </li>
+          <li onClick={filterJobHandler} data-id="Business" className="">
+            {" "}
+            Business
+          </li>
+        </ul>
+      </nav>
       <div className="latest-jobs  col-12 ">
         {delMsg && <div className="msg">{delMsg}</div>}
         <>{loadingJobs && <Loaders />}</>

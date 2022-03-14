@@ -1,12 +1,6 @@
 import "./styles/hightPayingJobs.css";
 import { useState, useRef, useEffect } from "react";
-import ArrowForwardIosOutlined from "@material-ui/icons/ArrowForwardIosOutlined";
-import ArrowBackIosOutlined from "@material-ui/icons/ArrowBackIosOutlined";
-import {
-  PlayArrowRounded,
-  PauseCircleFilled,
-  TramRounded,
-} from "@material-ui/icons"
+
 import { profiles } from "../../api_Calls/profiles"
 import { axiosInstance } from "../../config/axiosInstance"
 import { Spinner } from "react-bootstrap"
@@ -20,50 +14,6 @@ const TopProfiles = ({ profile }) => {
   const [highPayingJobs, setHighPayingJobs] = useState(0)
   let widthRef = useRef()
   useEffect(() => {
-    setSliderWidth(widthRef?.current?.offsetWidth)
-    if (sliding) {
-      const slide = setInterval(() => {
-        if (currentSlide === 0) {
-          setCurrentSlide(currentSlide + 1)
-        }
-        if (currentSlide < profiles.length - 1) {
-          setCurrentSlide(currentSlide + 1)
-        }
-        if (currentSlide === profiles.length - 1) {
-          setCurrentSlide(0)
-        }
-        clearInterval(slide)
-      }, 5000)
-    }
-  }, [currentSlide])
-  const handleSlide = (direction) => {
-    // setSliding(false)
-    // console.log(sliding)
-    // if (direction === "right") {
-    //   if (currentSlide === 0) {
-    //     setCurrentSlide(currentSlide + 1)
-    //   }
-    //   if (currentSlide < profiles.length - 1) {
-    //     setCurrentSlide(currentSlide + 1)
-    //   }
-    //   if (currentSlide === profiles.length - 1) {
-    //     // console.log("equal");
-    //     setCurrentSlide(0)
-    //   }
-    // } else {
-    //   if (currentSlide > 0 && currentSlide <= profiles.length - 1) {
-    //     setCurrentSlide(currentSlide - 1)
-    //   }
-    //   if (currentSlide === 0) {
-    //     setCurrentSlide(profiles.length - 1)
-    //   }
-    // }
-    // setTimeout(() => {
-    //   setSliding(false)
-    // }, 5000)
-  }
-
-  useEffect(() => {
     async function fetchHighPayJobs() {
       setLoadingJobs(true)
       try {
@@ -76,35 +26,26 @@ const TopProfiles = ({ profile }) => {
     }
     fetchHighPayJobs()
   }, [])
+  useEffect(() => {
+    setSliderWidth(widthRef?.current?.offsetWidth)
+    if (sliding) {
+      const slide = setInterval(() => {
+        if (currentSlide === 0) {
+          setCurrentSlide(currentSlide + 1)
+        }
+        if (currentSlide < 3) {
+          setCurrentSlide(currentSlide + 1)
+        }
+        if (currentSlide === 3) {
+          setCurrentSlide(0)
+        }
+        clearInterval(slide)
+      }, 5000)
+    }
+  }, [currentSlide])
 
   return (
     <div className="high-paying-jobs-parent col-md-7 col-12 m-auto   mt-2 ">
-      <>
-        {/* <div className="arrows ">
-        <ArrowBackIosOutlined
-          onClick={() => {
-            handleSlide("right")
-          }}
-          className="arrow shadow-sm"
-        />
-
-        <PauseCircleFilled
-          onClick={() => {
-            handleSlide("left")
-          }}
-          className="  arrow "
-        />
-
-        <PlayArrowRounded />
-
-        <ArrowForwardIosOutlined
-          onClick={() => {
-            handleSlide("left")
-          }}
-          className="  arrow "
-        />
-      </div> */}
-      </>
       <h4 className="text-center high-paying-jobs-title">High Paying Jobs</h4>
       <div className="slider ">
         {loadingJobs && (
@@ -115,7 +56,7 @@ const TopProfiles = ({ profile }) => {
           />
         )}
         {highPayingJobs &&
-          highPayingJobs?.slice(0, 4)?.map((job) => {
+          highPayingJobs?.slice(0, 3)?.map((job) => {
             return (
               // slide
               <div

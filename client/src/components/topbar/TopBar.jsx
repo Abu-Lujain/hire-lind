@@ -18,6 +18,7 @@ function Topbar({ user, openNav, setOpenNav, openDropDown, setOpenDropDown }) {
   const { profile } = useContext(profileContext)
   const { company } = useContext(companyContext)
   const candidate = user?.profileType === "employee"
+  console.log(company)
   return (
     <div className="row m-0 topbar col-12">
       <div className="col col-3  d-flex top-right">
@@ -38,7 +39,7 @@ function Topbar({ user, openNav, setOpenNav, openDropDown, setOpenDropDown }) {
                   className="drop-icon-parent"
                   onClick={() => setOpenDropDown(false)}
                 >
-                  Menu
+                  Me
                   <ArrowDropDown className="drop-icon" />
                 </li>
               ) : (

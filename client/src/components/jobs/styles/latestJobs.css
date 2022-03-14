@@ -107,11 +107,10 @@ top: 15vh;
 
 .job-container {
     padding: 10px;
-    background-color: #edf2e8;
+    background-color: #f9fbf7;
     margin: 5px;
     border-radius: 10px;
     padding-top: 3px;
-    box-shadow: 3px 3px 27px -21px #0027ff;
 }
 
 
@@ -232,6 +231,42 @@ height: 100px;
 .active:hover{
    background: #0d6efd;
     color: white;
+
+}
+.categories{
+   display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.categories ul{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    background: #3f51b5;
+    width: -moz-fit-content;
+    width: fit-content;
+    padding: 3px;
+    color: white;
+    border-radius: 5px;
+}
+.categories ul li{
+    margin: 2px 5px;
+    padding: 0 10px;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all ease-in-out 0.3s
+  }
+  .categories ul li:hover{
+  background: #ffffff;
+  color: #3f51b5;
+  margin: 2px 5px;
+
+}
+.categories ul .active{
+    background: #ffffff;
+  color: #3f51b5;
+  cursor: none;
 }
 @media only screen and (max-width: 600px) {
   .latest-jobs {
