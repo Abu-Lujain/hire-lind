@@ -98,14 +98,14 @@ function LatestJobs({ openDropDown, setOpenDropDown }) {
           </li>
         </ul>
       </nav>
-      <div className="latest-jobs  col-12 m-auto">
+      <div className="latest-jobs row  col-12 m-auto">
         {delMsg && <div className="msg">{delMsg}</div>}
         <>{loadingJobs && <Loaders />}</>
         {jobs &&
           currentJobs.map((job) => {
             return (
               <div
-                className="job-container row col-md-4 col-sm-12 col-12 position-relative m-auto"
+                className="job-container row col-12  col-md-4 col-sm-12  position-relative m-auto"
                 key={job._id}
               >
                 <div className="link job-title">{job.title} </div>{" "}
