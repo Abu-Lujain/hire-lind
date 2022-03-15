@@ -1,9 +1,9 @@
+// "mongodb://localhost/something",
 require("dotenv").config()
 const mongoose = require("mongoose")
 const connentDB = async () => {
   try {
     await mongoose.connect(
-      // "mongodb://localhost/something",
       process.env.DB_Connetion_URI,
 
       {
