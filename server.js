@@ -4,7 +4,7 @@ const express = require("express")
 const db = require("./config/db")
 const app = express()
 const cors = require("cors")
-require("./config/passport_setup")
+// require("./config/passport_setup")
 db()
 // init middlewares
 // console.log(path.join(__dirname, "/uploads"));
@@ -27,7 +27,7 @@ if (process.env.NODE_ENV === "production") {
   })
 }
 // middlewares routes
-app.use("/api/oauth", require("./routes/oauth"))
+// app.use("/api/oauth", require("./routes/oauth"))
 app.use("/api/uploads", require("./routes/uploads"))
 app.use("/api/users", require("./routes/users"))
 app.use("/api/auth", require("./routes/auth"))

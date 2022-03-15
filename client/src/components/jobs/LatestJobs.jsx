@@ -105,7 +105,7 @@ function LatestJobs({ openDropDown, setOpenDropDown }) {
           currentJobs.map((job) => {
             return (
               <div
-                className="job-container row  col-12 position-relative m-auto"
+                className="job-container row col-md-4 col-sm-12 col-12 position-relative m-auto"
                 key={job._id}
               >
                 <div className="link job-title">{job.title} </div>{" "}
