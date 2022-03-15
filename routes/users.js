@@ -95,16 +95,16 @@ router.post(
          { expiresIn: 36000 },
          (err, token) => {
            if (err) throw err
-           console.log(user.email)
-           const url = `http://localhost:8000/api/users/confirmation/${token}`
-           transporter.sendMail({
-             from: "from <carrerland000@gmail.com>",
-             to: user.email,
-             subject: "Email Confirmation",
-             html: ` <h4 style="color:red background-black">Thanks for Choosing HireLand!</h4> <br/> <h3>Please click here
-                      to Confirm your Email:
-                      ${url} <a href=${url}></a> </h3>`,
-           })
+           //  console.log(user.email)
+           //  const url = `http://localhost:8000/api/users/confirmation/${token}`
+           //  transporter.sendMail({
+           //    from: "from <carrerland000@gmail.com>",
+           //    to: user.email,
+           //    subject: "Email Confirmation",
+           //    html: ` <h4 style="color:red background-black">Thanks for Choosing HireLand!</h4> <br/> <h3>Please click here
+           //             to Confirm your Email:
+           //             ${url} <a href=${url}></a> </h3>`,
+           //  })
            res.status(200).json(token)
          }
        )

@@ -8,9 +8,7 @@ function UserIcon({ candidate, PF, user, profile, company }) {
     <div className="user-info">
       <li>
         <Link
-          to={`/${
-            candidate ? "profile/" + profile?._id : "company/" + company?._id
-          }`}
+          to={`/${candidate ? "profile/" : "company/"}${user?._id}`}
           className="px-3 link"
         >
           <img src={PF + user.photo} className="profile-icon" alt="profile" />

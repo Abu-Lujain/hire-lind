@@ -6,11 +6,10 @@ export const createProfile = async (dispatch) => {
   dispatch({ type: types.CREATE_PROFILE_START })
   try {
     const res = await axiosInstance.post("/developersProfiles")
-    console.log("create: ", res.data)
+
     res.data &&
       dispatch({ type: types.CREATE_PROFILE_SUCCESS, payload: res.data })
   } catch (error) {
-    console.log(error.response)
     dispatch({
       type: types.CREATE_PROFILE_FAILURE,
       payload: error?.response?.data.errors,
@@ -22,7 +21,6 @@ export const fetchProfile = async (dispatch) => {
   dispatch({ type: types.LOAD_PROFILE_START })
   try {
     const res = await axiosInstance.get("/developersProfiles/me")
-    console.log("fetch: ", res.data)
 
     res.data &&
       dispatch({ type: types.LOAD_PROFILE_SUCCESS, payload: res.data })
@@ -43,7 +41,7 @@ export const updateProfile = async (body, dispatch) => {
   }
   try {
     const res = await axiosInstance.post("/developersProfiles", body, config)
-    console.log(res.data)
+
     res.data &&
       dispatch({ type: types.UPDATE_PROFILE_SUCCESS, payload: res.data })
   } catch (error) {
@@ -74,7 +72,7 @@ export const addExperince = async (body, dispatch) => {
       type: types.ADD_EXPERIENCE_FAILURE,
       payload: {
         errors: error?.response?.data.errors,
-        profile: res.data,
+        profile: res.data, //the old profile
       },
     })
   }
@@ -93,7 +91,6 @@ export const deleteExperience = async (id, dispatch) => {
         payload: res.data,
       })
   } catch (error) {
-    console.log(error?.response?.data.errors)
     dispatch({
       type: types.DELETE_EXPERIENCE_FAILURE,
       payload: error?.response?.data.errors,
@@ -116,7 +113,6 @@ export const addEducation = async (body, dispatch) => {
     res.data &&
       dispatch({ type: types.ADD_EDUCATION_SUCCESS, payload: res.data })
   } catch (error) {
-    console.log("data: ", error?.response?.data.errors)
     dispatch({
       type: types.ADD_EDUCATION_FAILURE,
       payload: error?.response?.data.errors,
@@ -165,13 +161,11 @@ export const uploadProfilePhoto = async (e, profile, dispatch) => {
       profile.photo = res.data
       await axiosInstance.post("/developersProfiles", profile, config)
       dispatch({ type: types.UPLOAD_PHOTO_SUCCESS, payload: profile })
-      console.log(profile.photo)
     }
   } catch (error) {
     dispatch({
       type: types.UPLOAD_PHOTO_FAILURE,
       payload: error?.response?.data,
     })
-    console.log(error)
   }
 }

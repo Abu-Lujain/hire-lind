@@ -26,7 +26,6 @@ function CompanyContacts({ setShowOverlay }) {
     setFetcher,
     fetcher,
   } = useFetch(`/companiesProfiles/${id}`)
-  console.log(company, loading)
   const addContactsHandler = (e) => {
     e.preventDefault()
     const body = {

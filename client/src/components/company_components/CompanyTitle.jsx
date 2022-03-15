@@ -7,7 +7,15 @@ import CompanyName from "./CompanyName"
 import { authContext } from "../../context/auth_context/authContext"
 import NoValuesMsg from "./NoValuesMsg"
 import Phones from "./Phones"
-function CompanyTitle({ setShowOverlay, fetcher, setFetcher, company }) {
+function CompanyTitle({
+  setShowOverlay,
+  company,
+  loading,
+  fetcher,
+  setFetcher,
+  setLoading,
+  showOverlay,
+}) {
   const [showForm, setShowForm] = useState(false)
   const [values, setValues] = useState("")
   const { dispatch, company: currentCompany } = useContext(companyContext)
@@ -15,7 +23,6 @@ function CompanyTitle({ setShowOverlay, fetcher, setFetcher, company }) {
   const body = {
     values,
   }
-  console.log(company)
   const handleAddValues = (e) => {
     e.preventDefault()
     AddToProfile(body, dispatch)
@@ -35,7 +42,7 @@ function CompanyTitle({ setShowOverlay, fetcher, setFetcher, company }) {
   return (
     <>
       {showForm && (
-        <form className="add-values-form" onSubmit={handleAddValues}>
+        <form className="add-values-form " onSubmit={handleAddValues}>
           <h6 className="text-success">Company's Values</h6>
 
           <CloseRounded
@@ -59,7 +66,12 @@ function CompanyTitle({ setShowOverlay, fetcher, setFetcher, company }) {
         </form>
       )}
       <div className=" company-logo col-12 col-md-4 row">
-        <CompanyName company={company} setShowOverlay={setShowOverlay} />
+        <CompanyName
+          fetcher={fetcher}
+          setFetcher={setFetcher}
+          company={company}
+          setShowOverlay={setShowOverlay}
+        />
         {/* value form */}
 
         <div className="moto col-12 row">
@@ -88,7 +100,7 @@ function CompanyTitle({ setShowOverlay, fetcher, setFetcher, company }) {
           ) : (
             <>
               {company?.values && (
-                <p className="moto-body col-12">{company && company?.values}</p>
+                <p className="moto-body col-12">{company?.values}</p>
               )}
             </>
           )}
@@ -96,9 +108,10 @@ function CompanyTitle({ setShowOverlay, fetcher, setFetcher, company }) {
             <>
               <h5 className="text-danger text-center my-5">
                 {" "}
-                {company?.name} Did add their values yet.
+                <span className="text-primary"> {company?.name}</span> Did add
+                their values yet.
               </h5>
-              please contact them in <Phones />
+              please contact them: <Phones />
             </>
           )}
         </div>

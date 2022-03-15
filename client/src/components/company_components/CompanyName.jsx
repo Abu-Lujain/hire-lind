@@ -12,6 +12,7 @@ function CompanyName({ setShowOverlay, fetcher, company, setFetcher }) {
   const { dispatch } = useContext(companyContext)
   const body = { name }
   const handleAddValues = (e) => {
+    console.log(body)
     e.preventDefault()
     AddToProfile(body, dispatch)
     setFetcher(!fetcher)
@@ -36,10 +37,14 @@ function CompanyName({ setShowOverlay, fetcher, company, setFetcher }) {
             className="close-values-form"
             onClick={closeValuesFormHandler}
           />
-          <input name="name" onChange={(e) => setCompanyName(e.target.value)} />
+          <input
+            name="name"
+            placeholder="write name for your bussiness"
+            onChange={(e) => setCompanyName(e.target.value)}
+          />
           <input
             type="submit"
-            value="Add Values"
+            placeholder="Update Name"
             className="btn btn-success btn-sm add-value-submit"
           />
         </form>

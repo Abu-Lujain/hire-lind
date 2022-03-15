@@ -43,18 +43,19 @@ router.post("/", authMiddleware, async (req, res) => {
   try {
     let profile = await Profile.findOne({ user: req.user.id })
     const user = await Profile.findById(req.user.id)
-      if(user){
-      profile.userName = user.userName
-    }
-    if (profile) {
-      profile = await Profile.findOneAndUpdate(
-        { user: req.user.id },
-        { $set: profileData },
-        { new: true }
-      )
-      return res.status(200).json(profile)
-    }
-    if (!profile) {
+    if (user.profileType === "employee") {
+      if (user) {
+        profile.userName = user.userName
+      }
+      if (profile) {
+        profile = await Profile.findOneAndUpdate(
+          { user: req.user.id },
+          { $set: profileData },
+          { new: true }
+        )
+        return res.status(200).json(profile)
+      }
+
       profile = new Profile(profileData)
       await profile.save()
       res.status(201).json(profile)

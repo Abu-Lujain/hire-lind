@@ -57,23 +57,26 @@ router.post("/", authMiddleware, async (req, res) => {
   if (foundedYear) companyData.foundedYear = foundedYear
   try {
     const user = await User.findById(req.user.id)
-    companyData.logo = user.photo
-    companyData.name = user.userName
-    console.log(companyData)
-    let company = await Company.findOne({ user: req.user.id })
-    if (company) {
-      company = await Company.findOneAndUpdate(
-        { user: req.user.id },
-        { $set: companyData },
-        { new: true }
-      )
+    if (user.profileType === "company") {
+      companyData.logo = user.photo
+      companyData.name = user.userName
+
+      let company = await Company.findOne({ user: req.user.id })
+      if (company) {
+        company = await Company.findOneAndUpdate(
+          { user: req.user.id },
+          { $set: req.body },
+          { new: true }
+        )
+
+        await company.save()
+        return res.status(200).json(company)
+      }
+      company = new Company(companyData)
+
       await company.save()
-      return res.status(200).json(company)
+      res.json(company)
     }
-    company = new Company(companyData)
-    console.log(Company)
-    await company.save()
-    res.json(company)
   } catch (error) {
     console.log(error.message)
     res.status(500).send("Server Error")
@@ -86,14 +89,13 @@ router.post("/", authMiddleware, async (req, res) => {
 @method : GET
 @access : public
 */ router.get("/:id", async (req, res) => {
-  var companyUser = mongoose.Types.ObjectId(req.params.id)
+  const companyUser = mongoose.Types.ObjectId(req.params.id)
   try {
     const company = await Company.findOne({ user: companyUser })
     if (!company) return res.status(404).json("No company profile")
     res.json(company)
   } catch (error) {
-    console.error(error.message)
-    res.status(500).send(error)
+    res.status(500).send("Server Error")
   }
 })
 

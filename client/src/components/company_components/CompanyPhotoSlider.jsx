@@ -9,7 +9,6 @@ import {
   PlayArrow,
   StopRounded,
 } from "@material-ui/icons"
-import CompanyContacts from "./CompanyContacts"
 function CompanyPhotoSlider({ company, setShowOverlay, showOverlay }) {
   const [showPlay, setShowPlay] = useState(false)
   const [showStop, setShowStop] = useState(false)
@@ -33,40 +32,28 @@ function CompanyPhotoSlider({ company, setShowOverlay, showOverlay }) {
     setPause(false)
   }
   const playSideHanlder = () => {
-    setShowStop(true)
     setShowPlay(false)
     setPause(false)
-  }
-  const moveSlide = (direction) => {
-    setShowStop(false)
-    setPause(true)
-    direction === "right" && setCurrentSlide(currentSlide - 1)
-    currentSlide === profile.length - 1 && setCurrentSlide(0)
-
-    // direction ==="left" && setCurrentSlide()
+    setShowStop(true)
   }
   useEffect(() => {
     if (isMounted.current) setSliderWidth(slideRef.current.clientWidth)
-    return () => {
-      setSliderWidth(false)
-    }
-  }, [sliderWidth])
-  const sliding = setInterval(() => {
-    if (!pause) {
+    const sliding = setInterval(() => {
       if (currentSlide === 0) setCurrentSlide(currentSlide + 1)
       if (currentSlide === profiles.length - 1)
         setCurrentSlide(currentSlide - 1)
       if (currentSlide === profiles.length - 1)
         setCurrentSlide(currentSlide - 1)
       clearInterval(sliding)
-    }
-  }, 5000)
+    }, 5000)
+  }, [currentSlide])
   return (
     <>
       <div
         className="photo-slider col-12  col-md-7 row"
         onMouseEnter={showPauseHandler}
         onMouseLeave={hidePauseHandler}
+        onClick={PauseSlideHandler}
       >
         {/* <div className="overlay"></div> */}
         <div className="slides-container flex-row col-12 col-md-10">
@@ -86,9 +73,6 @@ function CompanyPhotoSlider({ company, setShowOverlay, showOverlay }) {
           })}
         </div>
         <div className="controls " style={{ width: sliderWidth }}>
-          <div>
-            <ArrowBackIosRounded className="totheLeft" />
-          </div>
           <div className="pause-parent">
             {" "}
             <PlayArrow
@@ -100,19 +84,7 @@ function CompanyPhotoSlider({ company, setShowOverlay, showOverlay }) {
               onClick={PauseSlideHandler}
             />
           </div>
-
-          <div>
-            <ArrowForwardIosOutlined
-              className="toTheRight"
-              onClick={() => moveSlide("right")}
-            />
-          </div>
         </div>
-        <CompanyContacts
-          company={company}
-          showOverlay={showOverlay}
-          setShowOverlay={setShowOverlay}
-        />
       </div>
     </>
   )

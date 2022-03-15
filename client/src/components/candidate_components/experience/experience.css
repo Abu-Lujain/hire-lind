@@ -150,14 +150,14 @@
 }
 
 .close-option-menu {
-  background: white;
-  border-radius: 20px;
-  /* box-shadow: var(--main-box-shadow); */
-  font-size: 30px;
-  color: red;
-  border: 1px red;
-  position: absolute;
-  top: -18px;
-  right: -19px;
-  cursor: pointer;
+    background: white;
+    /* border-radius: 20px; */
+    /* box-shadow: var(--main-box-shadow); */
+    font-size: 30px;
+    color: red;
+    border: 1px red;
+    position: absolute;
+    top: -17px;
+    right: -29px;
+    cursor: pointer;
 }

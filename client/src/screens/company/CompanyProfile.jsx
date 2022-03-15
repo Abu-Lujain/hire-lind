@@ -4,6 +4,7 @@ import "./company.css";
 import { useLocation } from "react-router-dom"
 import { axiosInstance } from "../../config/axiosInstance"
 import { useState, useEffect } from "react"
+import CompanyBottom from "../../components/company_components/CompanyBottom"
 
 function CompanyProfile({ showOverlay, setShowOverlay }) {
   const [loading, setLoading] = useState(false)
@@ -12,14 +13,12 @@ function CompanyProfile({ showOverlay, setShowOverlay }) {
 
   const { pathname } = useLocation()
   const id = pathname.split("/")[2]
-  console.log(id)
   useEffect(() => {
     async function fetchData() {
       setLoading(true)
       try {
         const res = await axiosInstance.get("/companiesProfiles/" + id)
         res.data && setLoading(false)
-        console.log(res.data)
         setCompany(res.data)
       } catch (error) {
         console.log(error.response)
@@ -37,10 +36,19 @@ function CompanyProfile({ showOverlay, setShowOverlay }) {
           company={company}
           showOverlay={showOverlay}
           setShowOverlay={setShowOverlay}
+          loading={loading}
+          setLoading={setLoading}
         />
-        <CompanyMiddle company={company} />
-        {/* <OtherOffers company={company} />
-       <AboutCompany company={company} /> */}
+        <CompanyMiddle
+          fetcher={fetcher}
+          setFetcher={setFetcher}
+          company={company}
+          showOverlay={showOverlay}
+          setShowOverlay={setShowOverlay}
+          loading={loading}
+          setLoading={setLoading}
+        />
+        <CompanyBottom />
       </div>
     </div>
   )

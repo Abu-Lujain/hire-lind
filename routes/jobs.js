@@ -2,6 +2,8 @@ const express = require("express");
 const { check, validationResult } = require("express-validator");
 const router = express.Router();
 const Job = require("../model/Job")
+const mongoose = require("mongoose")
+
 const authMiddleware = require("../middlewares/authMiddleware")
 
 // @operation : create job
@@ -134,7 +136,10 @@ router.put(
 // @operation : get all jobs of a particular company
 // @route : /api/jobs @method : get @access : public
 router.get("/company/:id", async (req, res) => {
-  const jobs = await Job.find({ company: req.params.id })
+  const jobCompany = mongoose.Types.ObjectId(req.params.id)
+
+  const jobs = await Job.find({ company: jobCompany })
+
   res.json(jobs)
 })
 // @operation : search for jobs

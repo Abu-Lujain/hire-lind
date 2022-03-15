@@ -3,17 +3,15 @@ const passport = require("passport")
 const router = express.Router()
 
 router.get(
-  "/login/google",
+  "/google",
   passport.authenticate("google", { scope: ["profile", "email"] })
 )
 
 router.get(
   "/google/redirect",
-  passport.authenticate("google", { failureRedirect: "/login" }),
+  passport.authenticate("google"),
   function (req, res) {
-    // Successful authentication, redirect home.
-    req.user
-    res.redirect("/")
+    console.log(req) // this is not firing
   }
 )
 module.exports = router

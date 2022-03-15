@@ -70,6 +70,11 @@ const Register = ({ notConfirmed, setNotConfirmed }) => {
       console.log(error.response)
     }
   }
+  const googleHandler = async () => {
+    try {
+      window.open("http://localhost:8000/api/oauth/google", "_self")
+    } catch (error) {}
+  }
   return (
     <div className="register row mt-3">
       {loading && token ? (
@@ -225,6 +230,9 @@ const Register = ({ notConfirmed, setNotConfirmed }) => {
                   <div></div>
                   have an Account? Login
                 </Link>
+                <div onClick={googleHandler} className="btn btn-sm btn-info">
+                  Google
+                </div>
                 {/* <Google
                   userName={userName}
                   email={email}

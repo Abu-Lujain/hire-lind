@@ -54,21 +54,21 @@ function LatestJobs({ openDropDown, setOpenDropDown }) {
   }
   // filter job
 
-  // const filterJobHandler = (event) => {
-  //   setCurrentJobs(
-  //     jobs?.filter(
-  //       (job) =>
-  //         job.industry.toLowerCase() ===
-  //         event.currentTarget.getAttribute("data-id").toLowerCase()
-  //     )
-  //   )
-  //   currentJobs.forEach((j) => {
-  //     console.log(j.industry)
-  //   })
-  //   event.currentTarget.classList.remove("active")
-  //   event.currentTarget.classList.add("active")
-  //   console.log(event.currentTarget.classList)
-  // }
+  const filterJobHandler = (event) => {
+    setCurrentJobs(
+      jobs?.filter(
+        (job) =>
+          job.industry.toLowerCase() ===
+          event.currentTarget.getAttribute("data-id").toLowerCase()
+      )
+    )
+    currentJobs.forEach((j) => {
+      console.log(j.industry)
+    })
+    event.currentTarget.classList.remove("active")
+    event.currentTarget.classList.add("active")
+    console.log(event.currentTarget.classList)
+  }
   // setting for pagination
   const indexOfLastJob = currentPage * itemsPerPage
   const indexOfFirstJob = indexOfLastJob - itemsPerPage
@@ -76,7 +76,7 @@ function LatestJobs({ openDropDown, setOpenDropDown }) {
     setCurrentJobs(jobs.slice(indexOfFirstJob, indexOfLastJob))
   }, [jobs])
   return (
-    <div className="mt-2 row m-auto ">
+    <div className="mt-2 row col-12 m-auto">
       <h4 className="job-list-title col-12">Latest jobs</h4>
       <nav className="col-12 categories">
         <ul>
@@ -98,14 +98,14 @@ function LatestJobs({ openDropDown, setOpenDropDown }) {
           </li>
         </ul>
       </nav>
-      <div className="latest-jobs  col-12 ">
+      <div className="latest-jobs  col-12 m-auto">
         {delMsg && <div className="msg">{delMsg}</div>}
         <>{loadingJobs && <Loaders />}</>
         {jobs &&
           currentJobs.map((job) => {
             return (
               <div
-                className="job-container row  col-12 position-relative"
+                className="job-container row  col-12 position-relative m-auto"
                 key={job._id}
               >
                 <div className="link job-title">{job.title} </div>{" "}

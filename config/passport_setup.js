@@ -2,6 +2,7 @@ const GoogleStrategy = require("passport-google-oauth20").Strategy
 const passport = require("passport")
 const User = require("../model/User")
 const jwt = require("jsonwebtoken")
+const res = require("express/lib/response")
 passport.use(
   new GoogleStrategy(
     {
@@ -9,13 +10,15 @@ passport.use(
       clientSecret: process.env.CLIENT_SECRET,
       callbackURL: "http://localhost:8000/api/oauth/google/redirect",
       scope: ["profile", "email"], //this is what was missed!!
+
+      //   passReqToCallback: true,
     },
-    async function (accessToken, refreshToken, profile, cb) {
+    async function (profile, done) {
+      console.log(done)
       let user
       try {
         user = await User.findOne({ googleId: profile.id })
         if (user) {
-          console.log("user is: ", user)
           const payload = {
             user: {
               id: user.id,
@@ -49,8 +52,8 @@ passport.use(
             { expiresIn: 36000 },
             (err, token) => {
               if (err) throw err
-              console.log(token)
-              res.status(200).json(token)
+
+              //   res.status(200).json(token)
             }
           )
         }

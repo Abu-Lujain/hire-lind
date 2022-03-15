@@ -5,9 +5,6 @@
     gap: 10px;
     position: relative;
 }
-@media only screen and (max-width: 800px){
-  .latest-jobs{   grid-template-columns: 49% 49%;}
-}
 .errors {
   /* background: transparent; */
   display: flex;
@@ -106,36 +103,41 @@ top: 15vh;
 }
 
 .job-container {
-    padding: 10px;
-    background-color: #f9fbf7;
+padding: 10px;
+    background-color: #f1f7eb;
     margin: 5px;
     border-radius: 10px;
     padding-top: 3px;
-}
-
-
-.job-container p {
-height: 100px;
+    box-shadow: 0 0 30px -24px #000000;
+  }
+  
+  
+  .job-container p {
+    height: 100px;
+    background-color: #f1f7eb;
     width: 100%;
     padding: 3px;
     overflow: hidden;
     margin: 5px;
     border-radius: 5px;
-    background: #edf2e8;
 }
 .latest-jobs-options{
       right: 23px;
     width: 4px;
     top: 2px; position: absolute;
 }
+.latest-jobs-options .icon{
+      background-color: #c5cbeb;
+}
 .latest-jobs-options .icon:hover{
-      background-color: green;
+      background-color: #3f51b5;
+      color: white;
 }
 .latest-jobs-options .icon{
-    cursor: pointer;
-  transition: all 0.5s;
-  color: #ffffff;
-  border-radius: 5px;
+cursor: pointer;
+    transition: all 0.5s;
+    color: #3f51b5;
+    border-radius: 5px;
  
 }
 .job-container p::first-letter {
@@ -176,14 +178,14 @@ height: 100px;
 }
 
 .footer {
-  background: #edf2e8;
-  padding: 5px;
-  border-radius: 5px;
-  margin: auto;
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
-  align-items: center;
+    background: #dee5e5;
+    padding: 5px;
+    border-radius: 5px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
 }
 .pagin{
       align-items: center;
@@ -268,8 +270,4 @@ height: 100px;
   color: #3f51b5;
   cursor: none;
 }
-@media only screen and (max-width: 600px) {
-  .latest-jobs {
-    grid-template-columns: 99%;
-  }
-}
+ 

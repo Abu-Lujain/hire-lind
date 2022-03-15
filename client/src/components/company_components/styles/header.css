@@ -1,22 +1,28 @@
+.company-top {
+    margin: auto;
+    border-radius: 10px;
+    padding: 10px;
+}
+
 .company-top .logo {
   border-radius: 25%;
   border: 2px #006d77 solid;
   width: 74px;
-
   padding: 0;
 }
 
 .company-logo {
-  margin: 5px;
-  border-radius: 10px;
-  padding: 5px;
-  display: flex;
-  transition: ease-in-out 0.5s;
-  background-color: #ffffff;
-  height: -moz-fit-content;
-  height: fit-content;
-  justify-content: center;
-  align-items: center;
+    margin: auto;
+    border-radius: 4px;
+    padding: 4px;
+    display: flex;
+    transition: ease-in-out 0.5s;
+    background-color: #ffffff;
+    height: -moz-fit-content;
+    height: 400px;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
 }
 .company-logo:hover {
   box-shadow: var(--main-box-shadow);

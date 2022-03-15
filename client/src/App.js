@@ -20,7 +20,7 @@ import { profileContext } from "./context/profile_context/profileContext"
 import Create from "./components/posts/Create"
 import JobApplication from "./screens/job_application/JobApplication"
 import CompanyProfile from "./screens/company/CompanyProfile"
-import { Dropdown } from "react-bootstrap"
+import { useHistory } from "react-router-dom"
 // setting auth token
 if (localStorage.token) setAuthToken(localStorage.token)
 const App = () => {
@@ -33,18 +33,19 @@ const App = () => {
   const { dispatch: CompanyDispatch, company } = useContext(companyContext)
   const { dispatch, user } = useContext(authContext)
   const { dispatch: profileDispatch, profile } = useContext(profileContext)
+  const history = useHistory()
   useEffect(() => {
     loadUserCall(dispatch)
-    if (user?.profileType === "employee") {
-      createProfile(profileDispatch)
-      fetchProfile(profileDispatch)
-    }
-    if (user?.profileType === "company") {
-      createCompany({}, CompanyDispatch)
-      loadCompany(CompanyDispatch)
-      console.log("I am an company")
-    }
-  }, [dispatch, CompanyDispatch, profileDispatch])
+  }, [dispatch])
+  useEffect(() => {
+    createProfile(profileDispatch)
+    fetchProfile(profileDispatch)
+  }, [profileDispatch])
+
+  useEffect(() => {
+    loadCompany(CompanyDispatch)
+    createCompany({}, CompanyDispatch)
+  }, [CompanyDispatch])
   if (user?.confirmed) {
     localStorage.removeItem("registered")
   }
